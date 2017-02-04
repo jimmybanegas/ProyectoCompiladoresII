@@ -11,7 +11,8 @@ public class Token
 	{
 		Lexeme = value;
 	}
-	private TokenType TokenType = getTokenType().values()[0];
+	public TokenType TokenType = getTokenType().values()[0];
+
 	public final TokenType getTokenType()
 	{
 		return TokenType;

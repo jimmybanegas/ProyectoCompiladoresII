@@ -31,7 +31,7 @@ public class SourceCode
 		symbol.setColumn(_column);
 		symbol.setCurrentSymbol(_sourceCode.charAt(_currentIndex++));
 
-		if ((new Character(symbol.getCurrentSymbol())).equals('\n'))
+		if ((new Character(symbol.getCurrentSymbol())).equals('\t'))
 		{
 			_column = 0;
 			_row += 1;

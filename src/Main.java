@@ -25,6 +25,21 @@ public class Main {
         Lexer lex = new Lexer(new SourceCode(sb.toString()));
 
         System.out.println(lex.getCurrentSymbol().getCurrentSymbol());
+
+
+        Token currentToken = lex.GetNextToken();
+
+        while (currentToken.TokenType != TokenType.EndOfFile)
+        {
+            System.out.println(currentToken.toString());
+
+           // file.WriteCode(currentToken.ToString());
+            currentToken = lex.GetNextToken();
+
+            // file.WriteCode(currentToken.Lexeme);
+        }
+
+
     }
 
     private static List<String> readFile()
