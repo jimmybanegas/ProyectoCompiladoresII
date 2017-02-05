@@ -126,10 +126,32 @@ public class Parser
     }
 
 
-    private void productions_list() {
+    private void productions_list() throws Exception {
 
         while (getUtilities().CompareTokenType(TokenType.Identifier)){
             getUtilities().NextToken();
+
+            if (getUtilities().CompareTokenType(TokenType.Colon)){
+                getUtilities().NextToken();
+
+                if (!getUtilities().CompareTokenType(TokenType.Identifier)){
+                        throw  new Exception("A label was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+                }
+                getUtilities().NextToken();
+            }
+
+            if(getUtilities().CompareTokenType(TokenType.JavaCode)){
+                getUtilities().NextToken();
+            }
+
+            if (getUtilities().CompareTokenType(TokenType.OP_PRECEDENCE)){
+                getUtilities().NextToken();
+
+                if (!getUtilities().CompareTokenType(TokenType.Identifier)){
+                    throw  new Exception("A label was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+                }
+                getUtilities().NextToken();
+            }
         }
 
         if (getUtilities().CompareTokenType(TokenType.OP_PIPE))
@@ -138,8 +160,7 @@ public class Parser
         }
     }
 
-    private void optional_production()
-    {
+    private void optional_production() throws Exception {
         if (getUtilities().CompareTokenType(TokenType.OP_PIPE))
         {
             getUtilities().NextToken();
