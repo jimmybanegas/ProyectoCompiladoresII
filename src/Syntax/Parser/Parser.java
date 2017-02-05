@@ -23,11 +23,10 @@ public class Parser
 		return _utilities;
 	}
 
-	public final void Parse()
-	{
+	public final void Parse() throws Exception {
 		//try
 		//{
-			Ccode();
+			CupCode();
 
 			if (CurrentToken.getTokenType() != TokenType.EndOfFile)
 			{
@@ -38,32 +37,20 @@ public class Parser
 		//{
 		//   Console.WriteLine( "\n" +e.Message);
 		//}
-
 	}
 
-	private void Ccode()
-	{
+    private void CupCode() throws Exception {
 		ListOfSentences();
 	}
 
-	public final void ListOfSentences()
-	{
+	public final void ListOfSentences() throws Exception {
 		if (getUtilities().CompareTokenType(TokenType.EndOfFile))
 		{
 			return;
 		}
-
-		if (getUtilities().CompareTokenType(TokenType.CloseCurlyBracket))
-		{
-			return;
-		}
-
 		//Lista_Sentencias->Sentence Lista_Sentencias
-		// if (Enum.IsDefined(typeof(TokenType), CurrentToken.TokenType))
 		if (!getUtilities().CompareTokenType(TokenType.EndOfFile))
 		{
-			System.out.println();
-
 			Sentence();
 			ListOfSentences();
 		}
@@ -73,599 +60,259 @@ public class Parser
 
 		}
 	}
-
-	public final void ListOfSpecialSentences()
-	{
-		//Lista_Sentencias->Sentence Lista_Sentencias
-		while (!getUtilities().CompareTokenType(TokenType.CloseCurlyBracket) && !getUtilities().CompareTokenType(TokenType.RwBreak) && !getUtilities().CompareTokenType(TokenType.RwCase))
-		{
-			SpecialSentence();
-			ListOfSpecialSentences();
-		}
-
-	}
-
-	public final void SpecialSentence()
-	{
-		if (getUtilities().CompareTokenType(TokenType.CloseCCode))
-		{
+	public final void Sentence() throws Exception {
+		System.out.println("\n");
+	    if (getUtilities().CompareTokenType(TokenType.RW_PACKAGE)){
 			getUtilities().NextToken();
-		}
+            package_spec();
+        }
+        else if (getUtilities().CompareTokenType(TokenType.RW_IMPORT)){
+            getUtilities().NextToken();
+            import_spec();
+        }
+        else if(getUtilities().CompareTokenType(TokenType.RW_PARSER)
+                || getUtilities().CompareTokenType(TokenType.RW_ACTION)
+                || getUtilities().CompareTokenType(TokenType.RW_INIT)
+                || getUtilities().CompareTokenType(TokenType.RW_SCAN)){
+            getUtilities().NextToken();
+            code_parts();
+        }
+        else if(getUtilities().CompareTokenType(TokenType.RW_TERMINAL)
+                || getUtilities().CompareTokenType(TokenType.RW_NONTERMINAL)
+                || getUtilities().CompareTokenType(TokenType.RW_NON)){
+            getUtilities().NextToken();
 
-		if (getUtilities().CompareTokenType(TokenType.EndOfFile))
-		{
-			return;
-		}
-
-
-		else if (getUtilities().CompareTokenType(TokenType.Identifier)  || getUtilities().CompareTokenType(TokenType.OpenParenthesis))
-		{
-
-
-		}
-		else
-		{
-			try
-			{
-
-			}
-			catch (RuntimeException e)
-			{
-
-				throw new RuntimeException("Not a valid sentence at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-
-		}
-	}
-
-
-
-	public final void Sentence()
-	{
-
-		if (getUtilities().CompareTokenType(TokenType.CloseCCode))
-		{
-			getUtilities().NextToken();
-		}
-
-
-		else if (getUtilities().CompareTokenType(TokenType.Identifier) || getUtilities().CompareTokenType(TokenType.OpenParenthesis))
-		{
-			if (getUtilities().CompareTokenType(TokenType.OpenParenthesis))
-			{
-				getUtilities().NextToken();
-
-				if (!getUtilities().CompareTokenType(TokenType.Identifier))
-				{
-					throw new RuntimeException("Identifier expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-				}
-
-				getUtilities().NextToken();
-
-				if (!getUtilities().CompareTokenType(TokenType.CloseParenthesis))
-				{
-					throw new RuntimeException("Closing parenthesis required at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-				}
-			}
-
-		}
-		else
-		{
-			try
-			{
-
-			}
-			catch (RuntimeException e)
-			{
-
-				throw new RuntimeException("Not a valid sentence at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-
-		}
-
-	}
-
-	private void Enumeration()
-	{
-		getUtilities().NextToken();
-
-		if (!getUtilities().CompareTokenType(TokenType.Identifier))
-		{
-			throw new RuntimeException("Identifier was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-
-		getUtilities().NextToken();
-
-		if (!getUtilities().CompareTokenType(TokenType.OpenCurlyBracket))
-		{
-			throw new RuntimeException("Openning bracket was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-
-		getUtilities().NextToken();
-
-		if (!getUtilities().CompareTokenType(TokenType.CloseCurlyBracket))
-		{
-			EnumeratorList();
-		}
-
-		if (!getUtilities().CompareTokenType(TokenType.CloseCurlyBracket))
-		{
-			throw new RuntimeException("Closing bracket was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-		getUtilities().NextToken();
-
-		if (!getUtilities().CompareTokenType(TokenType.EndOfSentence))
-		{
-			throw new RuntimeException("End of sentence was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-
-		getUtilities().NextToken();
-	}
-
-	private void EnumeratorList()
-	{
-		EnumItem();
-
-		if (getUtilities().CompareTokenType(TokenType.Comma))
-		{
-			OptionalEnumItem();
-		}
-
-	}
-
-	private void OptionalEnumItem()
-	{
-		getUtilities().NextToken();
-		EnumeratorList();
-	}
-
-	private void EnumItem()
-	{
-		if (!getUtilities().CompareTokenType(TokenType.Identifier))
-		{
-			throw new RuntimeException("Identifier was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-
-		getUtilities().NextToken();
-
-		OptionalIndexPosition();
-	}
-
-	private void OptionalIndexPosition()
-	{
-		if (getUtilities().CompareTokenType(TokenType.OP_ASSIGNMENT))
-		{
-
-		}
-		else
-		{
-
-		}
-	}
-
-
-
-	public final void DataType()
-	{
-	   if (true)
-	   {
-		   getUtilities().NextToken();
-	   }
-	   else
-	   {
-			throw new RuntimeException("A Data Type was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-	   }
-	}
-
-	private void Struct()
-	{
-		getUtilities().NextToken();
-
-		if (!getUtilities().CompareTokenType(TokenType.Identifier))
-		{
-			throw new RuntimeException("Identifier was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-
-		getUtilities().NextToken();
-
-		StructDeclarationOrInitialization();
-
-		if (!getUtilities().CompareTokenType(TokenType.EndOfSentence))
-		{
-			throw new RuntimeException("End of sentence was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-
-		getUtilities().NextToken();
-	}
-
-	private void InitElementsOfStruct()
-	{
-		if (!getUtilities().CompareTokenType(TokenType.OpenCurlyBracket))
-		{
-			throw new RuntimeException("Openning bracket was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-
-		getUtilities().NextToken();
-		ListOfExpressions();
-		if (getUtilities().CompareTokenType(TokenType.CloseCurlyBracket))
-		{
-			getUtilities().NextToken();
-		}
-	}
-
-	private void DeclarationOfStruct(boolean isMultideclaration)
-	{
-		if (!getUtilities().CompareTokenType(TokenType.CloseCurlyBracket))
-		{
-			if (!isMultideclaration)
-			{
-				GeneralDeclaration();
-			}
-			else
-			{
-				if (getUtilities().CompareTokenType(TokenType.OpMultiplication))
-				{
-					IsPointer();
-				}
-
-				if (!getUtilities().CompareTokenType(TokenType.Identifier))
-				{
-					throw new RuntimeException("Identifier was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-				}
-				getUtilities().NextToken();
-			}
-
-			if (getUtilities().CompareTokenType(TokenType.OpenSquareBracket))
-			{
-				getUtilities().NextToken();
-
-
-				if (!getUtilities().CompareTokenType(TokenType.CloseSquareBracket))
-				{
-					throw new RuntimeException("Closing bracket was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-				}
-				getUtilities().NextToken();
-			}
-
-			if (getUtilities().CompareTokenType(TokenType.Comma))
-			{
-				getUtilities().NextToken();
-				DeclarationOfStruct(true);
-			}
-			else if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
-			{
-				getUtilities().NextToken();
-				DeclarationOfStruct(false);
-			}
-			else
-			{
-				throw new RuntimeException("End of sentence symbol ; expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-		}
-	}
-
-	public final void ChooseIdType()
-	{
-		if (getUtilities().CompareTokenType(TokenType.OpBitAnd))
-		{
-			getUtilities().NextToken();
-
-			if (getUtilities().CompareTokenType(TokenType.Identifier))
-			{
-				getUtilities().NextToken();
-			}
-			else
-			{
-				throw new RuntimeException("An Identifier was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-		}
-		else if (getUtilities().CompareTokenType(TokenType.OpMultiplication))
-		{
-			getUtilities().NextToken();
-
-			if (getUtilities().CompareTokenType(TokenType.OpMultiplication))
-			{
-				IsPointer();
-				getUtilities().NextToken();
-			}
-
-			if (getUtilities().CompareTokenType(TokenType.Identifier))
-			{
-				getUtilities().NextToken();
-			}
-			else
-			{
-				throw new RuntimeException("An Identifier was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-		}
+            symbol_list();
+        }
+        else if (getUtilities().CompareTokenType(TokenType.RW_PRECEDENCE)){
+            getUtilities().NextToken();
+            precedence_list();
+        }
+        else if(getUtilities().CompareTokenType(TokenType.RW_START)){
+            getUtilities().NextToken();
+            start_spec();
+        }
 		else if (getUtilities().CompareTokenType(TokenType.Identifier))
 		{
-			getUtilities().NextToken();
-
-			if (getUtilities().CompareTokenType(TokenType.OpenSquareBracket))
-			{
-
-			}
-
-			if (getUtilities().CompareTokenType(TokenType.OpMultiplication))
-			{
-				//Structs as parameters for function
-				IsPointer();
-			   // Utilities.NextToken();
-
-				//if (Utilities.CompareTokenType(TokenType.Identifier))
-				//{
-				//    Utilities.NextToken();
-				//}
-			}
-			if (getUtilities().CompareTokenType(TokenType.Identifier))
-			{
-				//Structs as parameters for function
-				getUtilities().NextToken();
-			}
+            //getUtilities().NextToken();
+		    production_list();
 		}
 		else
 		{
-			throw new RuntimeException("An Identifier was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+		    throw new Exception("Not a valid sentence at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
 		}
 	}
 
-	private void Declaration()
+	//PRODUCTIONS DECLARATIONS
+    private void production_list() throws Exception {
+
+	   getUtilities().NextToken();
+
+	   if (getUtilities().CompareTokenType(TokenType.OP_ASSIGNMENT)){
+           getUtilities().NextToken();
+	       productions_list();
+
+           if (getUtilities().CompareTokenType(TokenType.EndOfSentence)){
+               getUtilities().NextToken();
+           }
+           else{
+               throw  new Exception("End of sentence expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+           }
+       }
+       else
+       {
+           throw new Exception("Assignment operator ::= expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+       }
+    }
+
+
+    private void productions_list() {
+
+        while (getUtilities().CompareTokenType(TokenType.Identifier)){
+            getUtilities().NextToken();
+        }
+
+        if (getUtilities().CompareTokenType(TokenType.OP_PIPE))
+        {
+            optional_production();
+        }
+    }
+
+    private void optional_production()
+    {
+        if (getUtilities().CompareTokenType(TokenType.OP_PIPE))
+        {
+            getUtilities().NextToken();
+            productions_list();
+        }
+        else
+        {
+
+        }
+    }
+
+    //START WITH DECLARATION
+    private void start_spec() throws Exception {
+        getUtilities().NextToken();
+
+        if (getUtilities().CompareTokenType(TokenType.Identifier)){
+            getUtilities().NextToken();
+
+            if (getUtilities().CompareTokenType(TokenType.EndOfSentence)){
+                getUtilities().NextToken();
+            }
+            else{
+                throw  new Exception("End of sentence expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+            }
+        }
+    }
+
+    //PRECEDENCE DECLARATION
+    private void precedence_list() throws Exception {
+
+	    if (getUtilities().CompareTokenType(TokenType.RW_LEFT)
+                || getUtilities().CompareTokenType(TokenType.RW_RIGHT) || getUtilities().CompareTokenType(TokenType.RW_NONASSOC)){
+	        getUtilities().NextToken();
+
+	        symbols_list();
+
+            if (getUtilities().CompareTokenType(TokenType.EndOfSentence)){
+                getUtilities().NextToken();
+            }
+            else{
+                throw  new Exception("End of sentence expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+            }
+        }
+        else{
+            throw  new Exception("An associativity is expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+        }
+    }
+
+    // SECTION OF SYMBOLS DECLARATION
+    private void symbol_list() throws Exception {
+
+        if (getUtilities().CompareTokenType(TokenType.RW_TERMINAL)){
+            getUtilities().NextToken();
+        }
+
+        if(getUtilities().CompareTokenType(TokenType.Identifier)){
+            getUtilities().NextToken();
+        }
+
+        symbols_list();
+
+        if (getUtilities().CompareTokenType(TokenType.EndOfSentence)){
+            getUtilities().NextToken();
+        }
+        else{
+            throw  new Exception("End of sentence expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+        }
+    }
+
+    private void symbols_list() {
+
+        if (getUtilities().CompareTokenType(TokenType.Identifier)){
+            getUtilities().NextToken();
+        }
+
+        if (getUtilities().CompareTokenType(TokenType.Comma))
+        {
+            optional_symbol();
+        }
+    }
+
+    private void optional_symbol()
+    {
+        if (getUtilities().CompareTokenType(TokenType.Comma))
+        {
+            getUtilities().NextToken();
+            symbols_list();
+        }
+        else
+        {
+
+        }
+    }
+
+    //SECTION OF CODE PARTS
+    private void code_parts() throws Exception {
+
+        getUtilities().NextToken();
+        code_part();
+
+        if (getUtilities().CompareTokenType(TokenType.EndOfSentence)){
+            getUtilities().NextToken();
+        }
+        else{
+            throw  new Exception("End of sentence expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+        }
+    }
+
+    private void code_part() throws Exception {
+        if (getUtilities().CompareTokenType(TokenType.JavaCode)){
+            getUtilities().NextToken();
+        }
+        else
+        {
+            throw new Exception("Java Code token expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+        }
+    }
+
+
+    //SECTION OF IMPORTS
+    private void import_spec() throws Exception {
+
+	    import_id();
+
+        if (getUtilities().CompareTokenType(TokenType.EndOfSentence)){
+            getUtilities().NextToken();
+        }
+        else{
+            throw  new Exception("End of sentence expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+        }
+    }
+
+    private void import_id() {
+        if (getUtilities().CompareTokenType(TokenType.Identifier)){
+            getUtilities().NextToken();
+
+            import_id_prime();
+        }
+    }
+
+    private void import_id_prime() {
+
+        if (getUtilities().CompareTokenType(TokenType.Identifier)){
+            getUtilities().NextToken();
+        }
+
+        if (getUtilities().CompareTokenType(TokenType.Dot))
+        {
+            optional_import_id();
+        }
+
+        if (getUtilities().CompareTokenType(TokenType.OP_INCLUDEALL)){
+            getUtilities().NextToken();
+        }
+    }
+
+
+	private void optional_import_id()
 	{
-		GeneralDeclaration();
-		TypeOfDeclaration();
-	}
-
-	public final void TypeOfDeclaration()
-	{
-		if (getUtilities().CompareTokenType(TokenType.OpSimpleAssignment))
-		{
-			ValueForId();
-
-			if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
-			{
-				getUtilities().NextToken();
-			}
-			else if (getUtilities().CompareTokenType(TokenType.Comma))
-			{
-
-
-				if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
-				{
-					getUtilities().NextToken();
-				}
-				else
-				{
-					throw new RuntimeException("An End of sentence ; symbol was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-				}
-			}
-			else
-			{
-				throw new RuntimeException("An End of sentence ; symbol was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-		}
-		else if (getUtilities().CompareTokenType(TokenType.Comma))
-		{
-
-
-			if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
-			{
-				getUtilities().NextToken();
-			}
-			else
-			{
-				throw new RuntimeException("An End of sentence ; symbol was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-		}
-		else if (getUtilities().CompareTokenType(TokenType.OpenSquareBracket))
-		{
-			boolean isInMultideclaration = false;
-
-			//Arrays.ArrayMultiDeclaration(isInMultideclaration);
-
-			if (getUtilities().CompareTokenType(TokenType.Comma))
-			{
-
-
-			if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
-			{
-				getUtilities().NextToken();
-			}
-			else
-			{
-				throw new RuntimeException("An End of sentence ; symbol was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-			}
-		}
-		else if (getUtilities().CompareTokenType(TokenType.OpenParenthesis))
-		{
-
-		}
-		else if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
+		if (getUtilities().CompareTokenType(TokenType.Dot))
 		{
 			getUtilities().NextToken();
+			import_id_prime();
 		}
 		else
 		{
-			throw new RuntimeException("An End of sentence ; symbol was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-		//else
-		//{
-
-		//}
-	}
-
-	public final void ListOfExpressions()
-	{
-
-
-		if (getUtilities().CompareTokenType(TokenType.Comma))
-		{
-			OptionalExpression();
-		}
-	}
-
-	public final void OptionalExpression()
-	{
-		if (getUtilities().CompareTokenType(TokenType.Comma))
-		{
-			getUtilities().NextToken();
-			ListOfExpressions();
-		}
-		else
-		{
 
 		}
 	}
 
-	private void ValueForId()
-	{
-		if (getUtilities().CompareTokenType(TokenType.OpSimpleAssignment))
-		{
-			getUtilities().NextToken();
+    private void package_spec() {
+        System.out.println("package spec");
+        getUtilities().NextToken();
+    }
 
-
-		}
-		else
-		{
-
-		}
-	}
-
-	public final void ListOfId()
-	{
-		getUtilities().NextToken();
-
-		if (getUtilities().CompareTokenType(TokenType.Identifier) || getUtilities().CompareTokenType(TokenType.OpMultiplication))
-		{
-			if (getUtilities().CompareTokenType(TokenType.OpMultiplication))
-			{
-				IsPointer();
-			}
-
-			getUtilities().NextToken();
-
-			if (getUtilities().CompareTokenType(TokenType.OpenSquareBracket))
-			{
-				boolean isInMultiDeclaration = true;
-			}
-
-			OtherIdOrValue();
-		}
-		else
-		{
-			throw new RuntimeException("An Identifier was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-	}
-
-	private void OtherIdOrValue()
-	{
-		ValueForId();
-
-	}
-
-	private void GeneralDeclaration()
-	{
-		DataType();
-
-		if (getUtilities().CompareTokenType(TokenType.OpMultiplication))
-		{
-			IsPointer();
-		}
-
-		if (getUtilities().CompareTokenType(TokenType.Identifier))
-		{
-			getUtilities().NextToken();
-		}
-	}
-
-	public final void IsPointer()
-	{
-		getUtilities().NextToken();
-
-		if (getUtilities().CompareTokenType(TokenType.OpMultiplication))
-		{
-			IsPointer();
-		}
-		else
-		{
-
-		}
-	}
-
-	private void SpecialDeclaration()
-	{
-		GeneralDeclaration();
-		TypeOfDeclarationForFunction();
-	}
-
-	private void TypeOfDeclarationForFunction()
-	{
-		if (getUtilities().CompareTokenType(TokenType.OpSimpleAssignment))
-		{
-			ValueForId();
-			if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
-			{
-				getUtilities().NextToken();
-			}
-			else if (getUtilities().CompareTokenType(TokenType.Comma))
-			{
-
-
-				if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
-				{
-					getUtilities().NextToken();
-				}
-				else
-				{
-					throw new RuntimeException("An End of sentence ; symbol was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-				}
-			}
-			else
-			{
-				throw new RuntimeException("An End of sentence ; symbol was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-		}
-		else if (getUtilities().CompareTokenType(TokenType.Comma))
-		{
-
-
-			if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
-			{
-				getUtilities().NextToken();
-			}
-			else
-			{
-				throw new RuntimeException("An End of sentence ; symbol was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-		}
-		else if (getUtilities().CompareTokenType(TokenType.OpenSquareBracket))
-		{
-			boolean isInMultideclaration = true;
-
-
-
-			if (getUtilities().CompareTokenType(TokenType.Comma))
-			{
-			 //   Functions.MultiDeclaration();
-
-			if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
-			{
-				getUtilities().NextToken();
-			}
-			else
-			{
-				throw new RuntimeException("An End of sentence ; symbol was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-			}
-			}
-		}
-		else if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
-		{
-			getUtilities().NextToken();
-		}
-		else
-		{
-			throw new RuntimeException("An End of sentence ; symbol was expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
-		}
-	}
 }

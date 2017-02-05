@@ -4,17 +4,10 @@ public enum TokenType
 {
 	EndOfFile,
 	Identifier,
-	OperatorEquals,
-	LiteralNumber,
 	EndOfSentence,
-	LiteralString,
-	LiteralChar,
-	LineComment,
-	BlockComment,
 	JavaCode,
 
 	//Keywords
-
 	RW_IMPORT,
 	RW_TERMINAL,
 	RW_PRECEDENCE,
@@ -33,19 +26,20 @@ public enum TokenType
 	RW_NONASSOC,
 
 	//Separators
-	OpenParenthesis,
-	CloseParenthesis,
-	OpenSquareBracket,
-	CloseSquareBracket,
 	OpenCurlyBracket,
 	CloseCurlyBracket,
 	Comma,
 	Dot,
 	Colon,
 
-
-	OpenCCode,
-	CloseCCode, OP_ASSIGNMENT, OP_OPENCODE, OP_CLOSECODE, OP_PIPE, OP_INCLUDEALL, OP_DIVISION, OP_MULTIPLICATION, OP_PRECEDENCE;
+	OP_ASSIGNMENT,
+	OP_OPENCODE,
+	OP_CLOSECODE,
+	OP_PIPE,
+	OP_INCLUDEALL,
+	OP_DIVISION,
+	OP_MULTIPLICATION,
+	OP_PRECEDENCE;
 
 	public static final int SIZE = java.lang.Integer.SIZE;
 

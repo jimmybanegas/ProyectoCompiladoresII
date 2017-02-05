@@ -14,6 +14,7 @@ public class Lexer
 	{
 		return CurrentSymbol;
 	}
+
 	public final void setCurrentSymbol(Symbol value)
 	{
 		CurrentSymbol = value;

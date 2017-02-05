@@ -1,5 +1,6 @@
 import Lexer.*;
 import Lexer.SourceCode;
+import Syntax.Parser.Parser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,22 +25,21 @@ public class Main {
 
         Lexer lex = new Lexer(new SourceCode(sb.toString()));
 
-        System.out.println(lex.getCurrentSymbol().getCurrentSymbol());
+        //Token currentToken = lex.GetNextToken();
 
-
-        Token currentToken = lex.GetNextToken();
-
-        while (currentToken.TokenType != TokenType.EndOfFile)
+   /*     while (currentToken.TokenType != TokenType.EndOfFile)
         {
             System.out.println(currentToken.toString());
-
-           // file.WriteCode(currentToken.ToString());
             currentToken = lex.GetNextToken();
+        }*/
 
-            // file.WriteCode(currentToken.Lexeme);
+        Parser parser = new Parser(lex);
+
+        try {
+            parser.Parse();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
     }
 
     private static List<String> readFile()

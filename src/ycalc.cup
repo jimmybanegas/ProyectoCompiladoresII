@@ -1,6 +1,10 @@
 
 import java_cup.runtime.*;
 
+import java.awt.color.*;
+
+import java.lang.Math.PI;
+
 parser code {:
 
     public void report_error(String message, Object info) {
@@ -28,55 +32,35 @@ parser code {:
     }
 :};
 
+/* Preliminaries to set up and use the scanner.  */
+init with {: scanner.init();              :};
+scan with {: return scanner.next_token(); :};
 
+/* Terminals (tokens returned by the scanner). */
+terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, MOD;
+terminal           UMINUS, LPAREN, RPAREN;
+terminal Integer   NUMBER;
 
-terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN;
-terminal Integer   NUMBER, ID;
-terminal           SATAN;
+/* Non-terminals */
+non terminal            expr_list, expr_part;
+non terminal Integer    expr;
 
-non terminal Object     expr_list, expr_part;
-non terminal Integer    expr, factor, term;
+/* Precedences */
+precedence left PLUS, MINUS;
+precedence right TIMES, DIVIDE, MOD;
+precedence nonassoc UMINUS;
 
+start with trece;
 
+/* The grammar */
+expr_list ::= expr_list expr_part |
+              expr_part;
 
-
-
-   expr_list ::= expr_list expr_part
-                 |expr_part;
-
-
-   expr_part ::= expr:e SEMI {: System.out.println(e); :}
-                 ;
-
-
-   expr      ::= expr:e PLUS factor:f
-                 {: RESULT = e + f; :}
-                 |
-                 expr:e MINUS factor:f
-                 {: RESULT = e - f; :}
-                 |
-                 factor:f
-                 {: RESULT = f; :}
-                 ;
-
-
-   factor    ::= factor:f TIMES term:t
-                 {: RESULT = f * t; :}
-                 |
-                 factor:f DIVIDE term:t
-                 {: RESULT = f / t; :}
-                 |
-                 term:t
-                 {: RESULT = t; :}
-                 ;
-
-
-   term      ::= LPAREN expr:e RPAREN
-                 {: RESULT = e; :}
-                 |
-                 NUMBER:n
-                 {: RESULT = n; :}
-                 |
-                 ID:i
-                 {: RESULT = 0; :}
-                 ;
+expr_part ::= expr SEMI;
+expr      ::= expr PLUS expr
+            | expr MINUS expr
+            | expr TIMES expr
+            | expr DIVIDE expr
+            | expr MOD expr
+	        | NUMBER
+	    ;
