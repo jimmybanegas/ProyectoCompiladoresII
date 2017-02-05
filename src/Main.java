@@ -1,5 +1,6 @@
 import Lexer.*;
 import Lexer.SourceCode;
+import Syntax.Parser.Tree.StatementNode;
 import Syntax.Syntax.Parser.Parser;
 
 import java.io.BufferedReader;
@@ -36,7 +37,12 @@ public class Main {
         Parser parser = new Parser(lex);
 
         try {
-            parser.Parse();
+           List<StatementNode> root =  parser.Parse();
+
+            for (StatementNode statement:root){
+                System.out.println(statement);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

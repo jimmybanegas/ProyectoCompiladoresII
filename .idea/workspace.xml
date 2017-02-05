@@ -2,15 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1325bcd4-79e3-4332-a901-8d775620dc75" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Syntax/Parser/Tree/StatementNode.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Syntax/Parser/Parser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Syntax/Parser/Utilities.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Syntax/Parser/Parser.java" afterPath="$PROJECT_DIR$/src/Syntax/Syntax/Parser/Parser.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Syntax/Parser/Utilities.java" afterPath="$PROJECT_DIR$/src/Syntax/Syntax/Parser/Utilities.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Syntax/Parser/Tree/CodePartNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Syntax/Parser/Tree/IdentifierNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Syntax/Parser/Tree/ImportNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Syntax/Parser/Tree/PackageNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Syntax/Parser/Tree/PrecedenceNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Syntax/Parser/Tree/Production.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Syntax/Parser/Tree/ProductionNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Syntax/Parser/Tree/StartNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Syntax/Parser/Tree/SymbolDeclarationNode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Lexer/Lexer.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Lexer/Lexer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Lexer/ReserverdWords.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Lexer/ReserverdWords.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Lexer/Symbol.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Lexer/Symbol.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Lexer/Token.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Lexer/Token.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Lexer/TokenType.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Lexer/TokenType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Main.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Syntax/Syntax/Parser/Parser.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Syntax/Syntax/Parser/Parser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/ycalc.cup" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/ycalc.cup" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Lexer/ReserverdWords.java" afterPath="$PROJECT_DIR$/src/Lexer/ReserverdWords.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Lexer/Symbol.java" afterPath="$PROJECT_DIR$/src/Lexer/Symbol.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Lexer/Token.java" afterPath="$PROJECT_DIR$/src/Lexer/Token.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Lexer/TokenType.java" afterPath="$PROJECT_DIR$/src/Lexer/TokenType.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Syntax/Syntax/Parser/Parser.java" afterPath="$PROJECT_DIR$/src/Syntax/Syntax/Parser/Parser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ycalc.cup" afterPath="$PROJECT_DIR$/src/ycalc.cup" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -30,39 +46,21 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state relative-caret-position="287">
+              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#readFile#0;class#Main#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Lexer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Lexer/Lexer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="6" column="8" lean-forward="true" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-              <folding>
-                <element signature="e#112#113#0" expanded="true" />
-                <element signature="e#136#137#0" expanded="true" />
-                <element signature="e#211#212#0" expanded="true" />
-                <element signature="e#238#239#0" expanded="true" />
-                <element signature="e#292#293#0" expanded="true" />
-                <element signature="e#320#321#0" expanded="true" />
-                <element signature="e#410#411#0" expanded="true" />
-                <element signature="e#437#438#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ycalc.cup" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ycalc.cup" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ycalc.cup">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+            <state relative-caret-position="451">
+              <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -71,35 +69,46 @@
       <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Syntax/Syntax/Parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+            <state relative-caret-position="112">
+              <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#438#439#0" expanded="true" />
+                <element signature="e#462#463#0" expanded="true" />
+                <element signature="method#start_spec#0;class#Parser#0" expanded="false" />
+                <element signature="method#precedence_list#0;class#Parser#0" expanded="false" />
+                <element signature="method#symbol_list#0;class#Parser#0" expanded="false" />
+                <element signature="method#symbols_list#0;class#Parser#0" expanded="false" />
+                <element signature="method#optional_symbol#0;class#Parser#0" expanded="false" />
                 <element signature="method#code_parts#0;class#Parser#0" expanded="false" />
                 <element signature="method#code_part#0;class#Parser#0" expanded="false" />
                 <element signature="method#import_spec#0;class#Parser#0" expanded="false" />
                 <element signature="method#import_id#0;class#Parser#0" expanded="false" />
                 <element signature="method#optional_import_id#0;class#Parser#0" expanded="false" />
+                <element signature="method#package_spec#0;class#Parser#0" expanded="false" />
+                <element signature="method#package_id#0;class#Parser#0" expanded="false" />
+                <element signature="method#optional_package_id#0;class#Parser#0" expanded="false" />
+                <element signature="method#getPosition#0;class#Parser#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReserverdWords.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Lexer/ReserverdWords.java">
+      <file leaf-file-name="ProductionNode.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/ProductionNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="83" column="51" lean-forward="false" selection-start-line="83" selection-start-column="51" selection-end-line="83" selection-end-column="51" />
+            <state relative-caret-position="225">
+              <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StatementNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/StatementNode.java">
+      <file leaf-file-name="Production.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/Production.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+            <state relative-caret-position="150">
+              <caret line="6" column="33" lean-forward="false" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -147,16 +156,28 @@
         <option value="$PROJECT_DIR$/src/com/company/Main.java" />
         <option value="$PROJECT_DIR$/src/HandlerFiles.java" />
         <option value="$PROJECT_DIR$/src/test.txt" />
-        <option value="$PROJECT_DIR$/src/Lexer/Token.java" />
         <option value="$PROJECT_DIR$/src/Lexer/SourceCode.java" />
-        <option value="$PROJECT_DIR$/src/Lexer/Lexer.java" />
-        <option value="$PROJECT_DIR$/src/Lexer/TokenType.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/Syntax/Parser/Utilities.java" />
         <option value="$PROJECT_DIR$/src/Syntax/Parser/Parser.java" />
         <option value="$PROJECT_DIR$/src/Syntax/Syntax/Parser/Utilities.java" />
         <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/StatementNode.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/IdentifierNode.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/PackageNode.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/ImportNode.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/CodePartType.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/CodePartNode.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/PrecedenceNode.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/SymbolDeclarationNode.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/StartNode.java" />
+        <option value="$PROJECT_DIR$/src/Lexer/Token.java" />
+        <option value="$PROJECT_DIR$/src/Lexer/Lexer.java" />
         <option value="$PROJECT_DIR$/src/Lexer/ReserverdWords.java" />
+        <option value="$PROJECT_DIR$/src/Lexer/Symbol.java" />
+        <option value="$PROJECT_DIR$/src/Lexer/TokenType.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/Terminal.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/ProductionNode.java" />
+        <option value="$PROJECT_DIR$/src/Syntax/Parser/Tree/Production.java" />
         <option value="$PROJECT_DIR$/src/ycalc.cup" />
         <option value="$PROJECT_DIR$/src/Syntax/Syntax/Parser/Parser.java" />
       </list>
@@ -174,7 +195,9 @@
     <option name="width" value="2070" />
     <option name="height" value="1174" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -291,6 +314,11 @@
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Syntax.Parser.Tree" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration default="false" name="Main" type="Application" factoryName="Application" singleton="true" temporary="true">
@@ -687,15 +715,15 @@
       <option name="presentableId" value="Default" />
       <updated>1486224913255</updated>
       <workItem from="1486224918574" duration="5272000" />
-      <workItem from="1486230418014" duration="34819000" />
+      <workItem from="1486230418014" duration="44746000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40091000" />
+    <option name="totallyTimeSpent" value="50018000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="2070" height="1174" extended-state="6" />
+    <frame x="-11" y="-11" width="2070" height="1174" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -737,7 +765,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="43" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Syntax/Syntax/Parser/Parser.java</url>
+          <line>150</line>
+          <properties />
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="55" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -752,6 +788,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#readFile#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -761,14 +798,15 @@
         <state relative-caret-position="525">
           <caret line="36" column="10" lean-forward="false" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
           <folding>
-            <element signature="e#112#113#0" expanded="true" />
-            <element signature="e#136#137#0" expanded="true" />
-            <element signature="e#211#212#0" expanded="true" />
-            <element signature="e#238#239#0" expanded="true" />
-            <element signature="e#292#293#0" expanded="true" />
-            <element signature="e#320#321#0" expanded="true" />
-            <element signature="e#410#411#0" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
+            <element signature="e#107#108#0" expanded="true" />
+            <element signature="e#131#132#0" expanded="true" />
+            <element signature="method#GetNextToken#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetOperator#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetSeparator#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetIdentifier#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetBlockComment#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetJavaCodeBlock#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetLineComment#0;class#Lexer#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -790,14 +828,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/WebCompilerForC/Token.java" />
-    <entry file="file://$PROJECT_DIR$/src/Lexer/LexicalException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="3" lean-forward="true" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Program.java" />
     <entry file="file://$PROJECT_DIR$/src/test.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -849,102 +879,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Lexer/Token.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="e#95#96#0" expanded="true" />
-            <element signature="e#115#116#0" expanded="true" />
-            <element signature="e#283#284#0" expanded="true" />
-            <element signature="e#306#307#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Lexer/TokenType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Lexer/SourceCode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="734">
           <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Lexer/Symbol.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="e#84#85#0" expanded="false" />
-            <element signature="e#101#102#0" expanded="false" />
-            <element signature="e#141#142#0" expanded="false" />
-            <element signature="e#159#160#0" expanded="false" />
-            <element signature="e#213#214#0" expanded="false" />
-            <element signature="e#233#234#0" expanded="false" />
-            <element signature="e#276#277#0" expanded="false" />
-            <element signature="e#297#298#0" expanded="false" />
-            <element signature="e#394#395#0" expanded="false" />
-            <element signature="e#445#446#0" expanded="false" />
-            <element signature="e#473#474#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Lexer/Lexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="6" column="8" lean-forward="true" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-          <folding>
-            <element signature="e#112#113#0" expanded="true" />
-            <element signature="e#136#137#0" expanded="true" />
-            <element signature="e#211#212#0" expanded="true" />
-            <element signature="e#238#239#0" expanded="true" />
-            <element signature="e#292#293#0" expanded="true" />
-            <element signature="e#320#321#0" expanded="true" />
-            <element signature="e#410#411#0" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Lexer/ReserverdWords.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="83" column="51" lean-forward="false" selection-start-line="83" selection-start-column="51" selection-end-line="83" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Syntax/Syntax/Parser/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#code_parts#0;class#Parser#0" expanded="false" />
-            <element signature="method#code_part#0;class#Parser#0" expanded="false" />
-            <element signature="method#import_spec#0;class#Parser#0" expanded="false" />
-            <element signature="method#import_id#0;class#Parser#0" expanded="false" />
-            <element signature="method#optional_import_id#0;class#Parser#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -956,18 +895,210 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_92/jre/lib/ext/nashorn.jar!/jdk/nashorn/internal/runtime/regexp/joni/ast/StateNode.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/IdentifierNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/ImportNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/CodePartType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/StatementNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+        <state relative-caret-position="175">
+          <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/PackageNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/CodePartNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/SymbolDeclarationNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/StartNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="7" column="30" lean-forward="false" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/PrecedenceNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Lexer/LexicalException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="4" column="11" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Lexer/ReserverdWords.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Lexer/Symbol.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="e#325#326#0" expanded="true" />
+            <element signature="e#352#353#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Lexer/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="13" column="37" lean-forward="true" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Lexer/TokenType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Lexer/Lexer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+          <folding>
+            <element signature="e#107#108#0" expanded="true" />
+            <element signature="e#131#132#0" expanded="true" />
+            <element signature="method#GetNextToken#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetOperator#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetSeparator#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetIdentifier#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetBlockComment#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetJavaCodeBlock#0;class#Lexer#0" expanded="false" />
+            <element signature="method#GetLineComment#0;class#Lexer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#readFile#0;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Syntax/Parser/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#438#439#0" expanded="true" />
+            <element signature="e#462#463#0" expanded="true" />
+            <element signature="method#start_spec#0;class#Parser#0" expanded="false" />
+            <element signature="method#precedence_list#0;class#Parser#0" expanded="false" />
+            <element signature="method#symbol_list#0;class#Parser#0" expanded="false" />
+            <element signature="method#symbols_list#0;class#Parser#0" expanded="false" />
+            <element signature="method#optional_symbol#0;class#Parser#0" expanded="false" />
+            <element signature="method#code_parts#0;class#Parser#0" expanded="false" />
+            <element signature="method#code_part#0;class#Parser#0" expanded="false" />
+            <element signature="method#import_spec#0;class#Parser#0" expanded="false" />
+            <element signature="method#import_id#0;class#Parser#0" expanded="false" />
+            <element signature="method#optional_import_id#0;class#Parser#0" expanded="false" />
+            <element signature="method#package_spec#0;class#Parser#0" expanded="false" />
+            <element signature="method#package_id#0;class#Parser#0" expanded="false" />
+            <element signature="method#optional_package_id#0;class#Parser#0" expanded="false" />
+            <element signature="method#getPosition#0;class#Parser#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ycalc.cup">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+        <state relative-caret-position="451">
+          <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/Production.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="33" lean-forward="false" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Syntax/Parser/Tree/ProductionNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
           <folding />
         </state>
       </provider>

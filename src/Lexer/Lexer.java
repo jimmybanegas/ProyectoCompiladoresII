@@ -4,27 +4,27 @@ public class Lexer
 {
 	private SourceCode SourceCode;
 
-	public final SourceCode getSourceCode()
+	private SourceCode getSourceCode()
 	{
 		return SourceCode;
 	}
 	private Symbol CurrentSymbol;
 
-	public final Symbol getCurrentSymbol()
+	private Symbol getCurrentSymbol()
 	{
 		return CurrentSymbol;
 	}
 
-	public final void setCurrentSymbol(Symbol value)
+	private void setCurrentSymbol(Symbol value)
 	{
 		CurrentSymbol = value;
 	}
 	private ReserverdWords ReservedWords;
-	public final ReserverdWords getReservedWords()
+	private ReserverdWords getReservedWords()
 	{
 		return ReservedWords;
 	}
-	public final void setReservedWords(ReserverdWords value)
+	private void setReservedWords(ReserverdWords value)
 	{
 		ReservedWords = value;
 	}

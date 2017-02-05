@@ -7,7 +7,7 @@ public class Token
 	{
 		return Lexeme;
 	}
-	public final void setLexeme(String value)
+	final void setLexeme(String value)
 	{
 		Lexeme = value;
 	}
@@ -17,7 +17,7 @@ public class Token
 	{
 		return TokenType;
 	}
-	public final void setTokenType(TokenType value)
+	final void setTokenType(TokenType value)
 	{
 		TokenType = value;
 	}

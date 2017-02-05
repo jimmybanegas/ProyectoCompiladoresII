@@ -2,17 +2,16 @@ package Lexer;
 
 import java.util.*;
 
-public class ReserverdWords
+class ReserverdWords
 {
-	public HashMap<String, TokenType> _keywords;
-	public HashMap<String, TokenType> _operators;
-	public HashMap<String, TokenType> _separators;
-	public HashMap<String, Integer> _hexLetters;
+	HashMap<String, TokenType> _keywords;
+	HashMap<String, TokenType> _operators;
+	HashMap<String, TokenType> _separators;
 
 	//This one, the especial is used for the operators which are composed by two operators
-	public ArrayList<String> _specialSymbols;
+    ArrayList<String> _specialSymbols;
 
-	public ReserverdWords()
+	ReserverdWords()
 	{
 		_keywords = new HashMap<String, TokenType>();
 		_operators = new HashMap<String, TokenType>();
