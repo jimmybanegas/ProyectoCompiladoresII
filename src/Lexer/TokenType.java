@@ -39,7 +39,7 @@ public enum TokenType
 	OP_INCLUDEALL,
 	OP_DIVISION,
 	OP_MULTIPLICATION,
-	OP_PRECEDENCE;
+	OP_PRECEDENCE, RW_OBJECT, RW_STRING, RW_INTEGER, RW_FLOAT, RW_DOUBLE;
 
 	public static final int SIZE = java.lang.Integer.SIZE;
 

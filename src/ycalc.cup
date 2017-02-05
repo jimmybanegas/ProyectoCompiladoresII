@@ -1,6 +1,8 @@
 // CUP specification for a simple expression evaluator (w/ actions)
 
-import java_cup.runtime.*;
+package java_cup.runtime.dos.tres;
+
+import java_cup.runtime.Math.Otro;
 
 /* Preliminaries to set up and use the scanner.  */
 init with {: scanner.init();              :};

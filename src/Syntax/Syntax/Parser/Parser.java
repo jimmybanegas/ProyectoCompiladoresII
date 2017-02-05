@@ -1,6 +1,8 @@
-package Syntax.Parser;
+package Syntax.Syntax.Parser;
 
-import Lexer.*;
+import Lexer.Lexer;
+import Lexer.Token;
+import Lexer.TokenType;
 
 public class Parser
 {
@@ -24,19 +26,12 @@ public class Parser
 	}
 
 	public final void Parse() throws Exception {
-		//try
-		//{
-			CupCode();
+		    CupCode();
 
 			if (CurrentToken.getTokenType() != TokenType.EndOfFile)
 			{
 				throw new RuntimeException("End of file expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
 			}
-		//}
-		//catch (Exception e)
-		//{
-		//   Console.WriteLine( "\n" +e.Message);
-		//}
 	}
 
     private void CupCode() throws Exception {
@@ -216,7 +211,12 @@ public class Parser
             getUtilities().NextToken();
         }
 
-        if(getUtilities().CompareTokenType(TokenType.Identifier)){
+        //For datatypes before declaration Intenger... string etc
+        if(getUtilities().CompareTokenType(TokenType.RW_OBJECT)
+                || getUtilities().CompareTokenType(TokenType.RW_STRING)
+                || getUtilities().CompareTokenType(TokenType.RW_INTEGER)
+                || getUtilities().CompareTokenType(TokenType.RW_FLOAT)
+                || getUtilities().CompareTokenType(TokenType.RW_DOUBLE)){
             getUtilities().NextToken();
         }
 
@@ -230,20 +230,19 @@ public class Parser
         }
     }
 
-    private void symbols_list() {
+    private void symbols_list() throws Exception {
 
         if (getUtilities().CompareTokenType(TokenType.Identifier)){
             getUtilities().NextToken();
-        }
 
-        if (getUtilities().CompareTokenType(TokenType.Comma))
-        {
             optional_symbol();
+        }
+        else{
+            throw  new Exception("Identifier expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
         }
     }
 
-    private void optional_symbol()
-    {
+    private void optional_symbol() throws Exception {
         if (getUtilities().CompareTokenType(TokenType.Comma))
         {
             getUtilities().NextToken();
@@ -293,37 +292,27 @@ public class Parser
         }
     }
 
-    private void import_id() {
-        if (getUtilities().CompareTokenType(TokenType.Identifier)){
+    private void import_id() throws Exception {
+
+        if (getUtilities().CompareTokenType(TokenType.OP_INCLUDEALL) ){
+            getUtilities().NextToken();
+            return;
+        }
+	    if (getUtilities().CompareTokenType(TokenType.Identifier) ){
             getUtilities().NextToken();
 
-            import_id_prime();
-        }
-    }
-
-    private void import_id_prime() {
-
-        if (getUtilities().CompareTokenType(TokenType.Identifier)){
-            getUtilities().NextToken();
-        }
-
-        if (getUtilities().CompareTokenType(TokenType.Dot))
-        {
             optional_import_id();
         }
-
-        if (getUtilities().CompareTokenType(TokenType.OP_INCLUDEALL)){
-            getUtilities().NextToken();
+        else{
+            throw  new Exception("Identifier expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
         }
     }
 
-
-	private void optional_import_id()
-	{
+	private void optional_import_id() throws Exception {
 		if (getUtilities().CompareTokenType(TokenType.Dot))
 		{
 			getUtilities().NextToken();
-			import_id_prime();
+			import_id();
 		}
 		else
 		{
@@ -331,9 +320,40 @@ public class Parser
 		}
 	}
 
-    private void package_spec() {
-        System.out.println("package spec");
-        getUtilities().NextToken();
+
+	//PACKAGE IMPORT SECTION
+    private void package_spec() throws Exception {
+        package_id();
+
+        if (getUtilities().CompareTokenType(TokenType.EndOfSentence)){
+            getUtilities().NextToken();
+        }
+        else{
+            throw  new Exception("End of sentence expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+        }
+    }
+
+    private void package_id() throws Exception {
+        if (getUtilities().CompareTokenType(TokenType.Identifier)){
+            getUtilities().NextToken();
+
+            optional_package_id();
+        }
+        else{
+            throw  new Exception("Identifier expected at row: " + CurrentToken.getRow() + " , column: " + CurrentToken.getColumn());
+        }
+    }
+
+    private void optional_package_id() throws Exception {
+        if (getUtilities().CompareTokenType(TokenType.Dot))
+        {
+            getUtilities().NextToken();
+            package_id();
+        }
+        else
+        {
+
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package Syntax.Parser;
+package Syntax.Syntax.Parser;
 
 import Lexer.*;
 

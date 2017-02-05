@@ -1,6 +1,6 @@
 import Lexer.*;
 import Lexer.SourceCode;
-import Syntax.Parser.Parser;
+import Syntax.Syntax.Parser.Parser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
