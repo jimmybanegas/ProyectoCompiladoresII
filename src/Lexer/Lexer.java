@@ -1,5 +1,7 @@
 package Lexer;
 
+import Exceptions.LexicalException;
+
 public class Lexer
 {
 	private SourceCode SourceCode;

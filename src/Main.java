@@ -1,7 +1,8 @@
 import Lexer.*;
 import Lexer.SourceCode;
-import Syntax.Parser.Tree.StatementNode;
-import Syntax.Syntax.Parser.Parser;
+import Syntax.Semantic.SymbolsTable;
+import Syntax.Tree.StatementNode;
+import Syntax.Parser.Parser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -42,6 +43,12 @@ public class Main {
             for (StatementNode statement:root){
                 System.out.println(statement);
             }
+
+            for (StatementNode statement:root){
+                statement.ValidateSemantic();
+            }
+
+            SymbolsTable general = SymbolsTable.getInstance();
 
         } catch (Exception e) {
             e.printStackTrace();
