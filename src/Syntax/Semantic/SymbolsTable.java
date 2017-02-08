@@ -9,8 +9,8 @@ import java.util.HashMap;
  */
 public class SymbolsTable {
     private static SymbolsTable _instance;
-    private HashMap<String, TokenType> _terminals;
-    private HashMap<String, TokenType> _nonTerminals;
+    private HashMap<String, String> _terminals;
+    private HashMap<String, String> _nonTerminals;
 
 
     private SymbolsTable(){
@@ -23,7 +23,7 @@ public class SymbolsTable {
         return (_instance != null) ? _instance : (_instance = new SymbolsTable());
     }
 
-    public final void DeclareSymbol(String name, TokenType type, TokenType returnType)
+    public final void DeclareSymbol(String name, TokenType type, String returnType)
     {
         if (type == TokenType.RW_TERMINAL){
             _terminals.put(name,returnType);
@@ -32,7 +32,7 @@ public class SymbolsTable {
         }
     }
 
-    public final TokenType GetSymbol(String name)
+    public final String GetSymbol(String name)
     {
         if (_terminals.get(name) != null){
             return _terminals.get(name);

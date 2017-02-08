@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class SymbolDeclarationNode extends StatementNode {
     public TokenType TypeOfSymbol;
-    public TokenType ClassName;
+    public String ClassName;
 
     public List<String> symbolNames;
 

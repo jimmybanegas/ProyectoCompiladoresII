@@ -3,6 +3,7 @@ import Lexer.SourceCode;
 import Syntax.Semantic.SymbolsTable;
 import Syntax.Tree.StatementNode;
 import Syntax.Parser.Parser;
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -40,15 +41,26 @@ public class Main {
         try {
            List<StatementNode> root =  parser.Parse();
 
+            System.out.println("\n");
             for (StatementNode statement:root){
-                System.out.println(statement);
+                //System.out.println(statement);
+
+                Gson gson = new Gson();
+                String json = gson.toJson(statement);
+                System.out.println(json);
+                System.out.println(",");
+                System.out.println("\n");
             }
 
             for (StatementNode statement:root){
                 statement.ValidateSemantic();
             }
 
+            Gson gson = new Gson();
             SymbolsTable general = SymbolsTable.getInstance();
+            String json = gson.toJson(general);
+
+            System.out.println(json);
 
         } catch (Exception e) {
             e.printStackTrace();

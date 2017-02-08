@@ -76,10 +76,5 @@ class ReserverdWords
 		_keywords.put("left", TokenType.RW_LEFT);
 		_keywords.put("right", TokenType.RW_RIGHT);
 		_keywords.put("nonassoc", TokenType.RW_NONASSOC);
-		_keywords.put("Object", TokenType.RW_OBJECT);
-		_keywords.put("String", TokenType.RW_STRING);
-		_keywords.put("Integer", TokenType.RW_INTEGER);
-        _keywords.put("Float", TokenType.RW_FLOAT);
-        _keywords.put("Double", TokenType.RW_DOUBLE);
 	}
 }

@@ -5,7 +5,6 @@ import Lexer.Lexer;
 import Lexer.Token;
 import Lexer.TokenType;
 import Syntax.Tree.*;
-import jdk.nashorn.internal.ir.LexicalContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -213,7 +212,6 @@ public class Parser
         }
     }
 
-
     //START WITH DECLARATION
     private StartNode start_spec() throws Exception {
         Token position = getPosition();
@@ -274,26 +272,31 @@ public class Parser
     // SECTION OF SYMBOLS DECLARATION
     private SymbolDeclarationNode symbol_list(TokenType type) throws Exception {
 
-	    TokenType classname = null;
+        String classnameOrSymbol = null;
         Token position = getPosition();
         if (getUtilities().CompareTokenType(TokenType.RW_TERMINAL)){
             getUtilities().NextToken();
             type = TokenType.RW_NONTERMINAL;
         }
 
-        //For datatypes before declaration Intenger... string etc
-        if(getUtilities().CompareTokenType(TokenType.RW_OBJECT)
-                || getUtilities().CompareTokenType(TokenType.RW_STRING)
-                || getUtilities().CompareTokenType(TokenType.RW_INTEGER)
-                || getUtilities().CompareTokenType(TokenType.RW_FLOAT)
-                || getUtilities().CompareTokenType(TokenType.RW_DOUBLE)){
+        ArrayList<String> list = null;
+        if (getUtilities().CompareTokenType(TokenType.Identifier)){
 
-            classname = CurrentToken.getTokenType();
+            classnameOrSymbol = CurrentToken.getLexeme();
+
             getUtilities().NextToken();
-        }
 
-        ArrayList<String> list = new ArrayList<>();
-        symbols_list(list);
+            if (getUtilities().CompareTokenType(TokenType.Identifier)){
+                list = new ArrayList<>();
+                symbols_list(list);
+            }
+            else {
+                list = new ArrayList<>();
+                list.add(classnameOrSymbol);
+                classnameOrSymbol = "Object";
+                optional_symbol(list);
+            }
+        }
 
         if (getUtilities().CompareTokenType(TokenType.EndOfSentence)){
             getUtilities().NextToken();
@@ -305,7 +308,7 @@ public class Parser
         SymbolDeclarationNode symbolDeclarationNode = new SymbolDeclarationNode();
 
         symbolDeclarationNode.TypeOfSymbol = type;
-        symbolDeclarationNode.ClassName = classname;
+        symbolDeclarationNode.ClassName = classnameOrSymbol;
         symbolDeclarationNode.symbolNames = list;
         symbolDeclarationNode.Position = position;
 
@@ -317,6 +320,9 @@ public class Parser
         if (getUtilities().CompareTokenType(TokenType.Identifier)){
             list.add(CurrentToken.getLexeme());
             getUtilities().NextToken();
+
+            if (getUtilities().CompareTokenType(TokenType.EndOfSentence))
+                return;
 
             optional_symbol(list);
         }
@@ -374,7 +380,6 @@ public class Parser
         return code;
     }
 
-
     //SECTION OF IMPORTS
     private ImportNode import_spec() throws Exception {
         Token position = getPosition();
@@ -425,7 +430,6 @@ public class Parser
 
 		}
 	}
-
 
 	//PACKAGE IMPORT SECTION
     private PackageNode package_spec() throws Exception {
