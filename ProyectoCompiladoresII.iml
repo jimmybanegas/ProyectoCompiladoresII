@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.google.code.gson:gson:2.0" level="project" />
+    <orderEntry type="library" name="java-cup-11b-runtime" level="project" />
   </component>
 </module>

@@ -1,57 +1,82 @@
-// CUP specification for a simple expression evaluator (w/ actions)
-
 import java_cup.runtime.*;
 
-/* Preliminaries to set up and use the scanner.  */
-init with {: scanner.init();              :};
-scan with {: return scanner.next_token(); :};
 
-/* Terminals (tokens returned by the scanner). */
-terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, MOD;
-terminal           UMINUS, LPAREN, RPAREN;
-terminal Integer   NUMBER;
+parser code {:
 
-/* Non-terminals */
-non terminal            expr_list, expr_part;
-non terminal Integer    expr;
+    public void report_error(String message, Object info) {
 
-/* Precedences */
-precedence left PLUS, MINUS;
-precedence left TIMES, DIVIDE, MOD;
-precedence left UMINUS;
+        StringBuilder m = new StringBuilder("Error");
 
-/* The grammar */
-expr_list ::= expr_list expr_part
-	      |
-              expr_part;
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
 
-expr_part ::= expr:e
-	      {: System.out.println("= " + e); :}
-              SEMI
-	      ;
+            if (s.left >= 0) {
+                m.append(" in line "+(s.left+1));
+                if (s.right >= 0)
+                    m.append(", column "+(s.right+1));
+            }
+        }
 
-expr      ::= expr:e1 PLUS expr:e2
-	      {: RESULT = new Integer(e1.intValue() + e2.intValue()); :}
-	      |
-              expr:e1 MINUS expr:e2
-              {: RESULT = new Integer(e1.intValue() - e2.intValue()); :}
-	      |
-              expr:e1 TIMES expr:e2
-	      {: RESULT = new Integer(e1.intValue() * e2.intValue()); :}
-	      |
-              expr:e1 DIVIDE expr:e2
-	      {: RESULT = new Integer(e1.intValue() / e2.intValue()); :}
-	      |
-              expr:e1 MOD expr:e2
-	      {: RESULT = new Integer(e1.intValue() % e2.intValue()); :}
-	      |
-              NUMBER:n
-	      {: RESULT = n; :}
-	      |
-              MINUS expr:e
-	      {: RESULT = new Integer(0 - e.intValue()); :}
-	      %prec UMINUS
-	      |
-              LPAREN expr:e RPAREN
-	      {: RESULT = e; :}
-	      ;
+        m.append(" : "+message);
+
+        System.err.println(m);
+    }
+
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+:};
+
+
+
+terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN;
+terminal Integer   NUMBER, ID;
+terminal           SATAN;
+
+non terminal Object     expr_list, expr_part;
+non terminal Integer    expr, factor, term;
+
+
+
+
+
+   expr_list ::= expr_list expr_part
+                 |expr_part;
+
+
+   expr_part ::= expr:e SEMI {: System.out.println(e); :}
+                 ;
+
+
+   expr      ::= expr:e PLUS factor:f
+                 {: RESULT = e + f; :}
+                 |
+                 expr:e MINUS factor:f
+                 {: RESULT = e - f; :}
+                 |
+                 factor:f
+                 {: RESULT = f; :}
+                 ;
+
+
+   factor    ::= factor:f TIMES term:t
+                 {: RESULT = f * t; :}
+                 |
+                 factor:f DIVIDE term:t
+                 {: RESULT = f / t; :}
+                 |
+                 term:t
+                 {: RESULT = t; :}
+                 ;
+
+
+   term      ::= LPAREN expr:e RPAREN
+                 {: RESULT = e; :}
+                 |
+                 NUMBER:n
+                 {: RESULT = n; :}
+                 |
+                 ID:i
+                 {: RESULT = 0; :}
+                 ;
