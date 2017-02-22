@@ -1,18 +1,33 @@
 package Automaton;
 
-import java.util.ArrayList;
-
 /**
  * Created by Jimmy Ramos on 18-Feb-17.
  */
 public class Transition {
-    public State Origin;
-    public State Destiny;
-    public String Symbol;
+    //private State link;
+    private String value;
 
-    public Transition(State origin, State destiny, String symbol){
-         this.Origin = origin;
-         this.Destiny = destiny;
-         this.Symbol = symbol;
+   /* public State getLink() {
+        return link;
+    }
+
+    public void setLink(State link) {
+        this.link = link;
+    } */
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public Transition() {  }
+
+    public Transition(State link, String value)
+    {
+       // setLink(link);
+        setValue(value);
     }
 }

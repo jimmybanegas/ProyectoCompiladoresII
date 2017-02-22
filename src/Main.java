@@ -1,3 +1,4 @@
+import Automaton.*;
 import Lexer.*;
 import Lexer.SourceCode;
 import Syntax.Semantic.SymbolsTable;
@@ -6,8 +7,12 @@ import Syntax.Parser.Parser;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,39 +33,50 @@ public class Main {
 
         Lexer lex = new Lexer(new SourceCode(sb.toString()));
 
-        //Token currentToken = lex.GetNextToken();
-
-   /*     while (currentToken.TokenType != TokenType.EndOfFile)
-        {
-            System.out.println(currentToken.toString());
-            currentToken = lex.GetNextToken();
-        }*/
-
         Parser parser = new Parser(lex);
 
         try {
            List<StatementNode> root =  parser.Parse();
 
             System.out.println("\n");
-            for (StatementNode statement:root){
-                //System.out.println(statement);
+            Gson gson = new Gson();
 
-                Gson gson = new Gson();
-                String json = gson.toJson(statement);
-                System.out.println(json);
-                System.out.println(",");
-                System.out.println("\n");
-            }
+            System.out.println(gson.toJson(gson.toJson(root)));
 
             for (StatementNode statement:root){
                 statement.ValidateSemantic();
             }
 
-            Gson gson = new Gson();
             SymbolsTable general = SymbolsTable.getInstance();
-            String json = gson.toJson(general);
 
-            System.out.println(json);
+            System.out.println(gson.toJson(general));
+
+            Path filePath = new File("./src/automata.txt").toPath();
+            Charset charset = Charset.defaultCharset();
+            List<String> stringList = Files.readAllLines(filePath, charset);
+            String[] stringArray = stringList.toArray(new String[]{});
+
+            Grammar Grammar = new Grammar(stringArray); //Se crea un objeto de la clase grammar y se inicializa con las producciones de la gramática
+
+            //Gson gson = new Gson();
+
+            if (Grammar.isValid())
+            {
+                LR1Parser lr1 = new LR1Parser(Grammar);
+
+                List<State> states = lr1.getAutomaton().getStatesOfAutomaton();
+
+                 String json = gson.toJson(states);
+                //ObjectMapper mapper = new ObjectMapper();
+
+                //String jsonInString = mapper.writeValueAsString(states);
+
+                //System.out.println(jsonInString);
+
+                System.out.println(states.size());
+
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
