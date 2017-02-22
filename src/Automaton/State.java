@@ -82,5 +82,4 @@ public class State {
         return "State Q"+String.valueOf(getNumberOfState());
     }
 
-
 }

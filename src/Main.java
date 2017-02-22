@@ -151,6 +151,12 @@ public class Main {
                             state.getElementsOfProductions()) {
                         System.out.println(" "+element.toString());
                     }
+
+                    System.out.println("Transitions: ");
+                    for (Transition transition :
+                            state.getTransitions()) {
+                        System.out.println(transition.toString());
+                    }
                     System.out.println();
                 }
             }
