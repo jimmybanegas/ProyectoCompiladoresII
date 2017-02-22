@@ -30,18 +30,58 @@ parser code {:
 
 
 
-terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN;
+terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN,DOT;
 terminal Integer   NUMBER, ID;
-terminal           SATAN;
+terminal           SATAN, a,b,c,d,e;
 
-non terminal Object     expr_list, expr_part;
+non terminal Object     expr_list, expr_part, S, C, A,B ,D,E,F;
 non terminal Integer    expr, factor, term;
 
+//La gramatica de la clase
+ /* S ::= C C;
+
+  C ::= c C
+    |d; */
 
 
+//Ejemplo de http://smlweb.cpsc.ucalgary.ca/lr1.php?grammar=E+-%3E+d+D+%7C+D+%7C+F.%0AF+-%3E+e+C+%7C+C.%0AD+-%3E+d+e+B+b+%7C+e+A+c.%0AC+-%3E+e+d+B+c+%7C+d+A+b.%0AB+-%3E+a.%0AA+-%3E+a.%0A&substs=
+/* E ::= d D
+ |	D
+ |	F;
+
+ F ::=	e C
+ |	C;
+
+ D ::=	d e B b
+ |	e A c;
+
+ C ::=	e d B c
+ |	d A b;
+
+ B ::=	a;
+
+ A ::=	a; */
+
+ //Ejemplo http://smlweb.cpsc.ucalgary.ca/vital-stats.php?grammarfile=example-grammars/ll1-lr1-0.cfg
+
+ S ::=	a A
+ |	b B;
+
+ A ::=	C a
+ |	D b;
+
+ B ::=	C b
+ |	D a;
+
+ C ::=	E;
+
+ D ::=	E;
+
+ E ::=	;
 
 
-   expr_list ::= expr_list expr_part
+//El que está de ejemplo en javacup site
+ /*  expr_list ::= expr_list expr_part
                  |expr_part;
 
 
@@ -79,4 +119,5 @@ non terminal Integer    expr, factor, term;
                  |
                  ID:i
                  {: RESULT = 0; :}
-                 ;
+                 ; */
+

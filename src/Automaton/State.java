@@ -78,5 +78,9 @@ public class State {
         return symbolsOfGrammar;
     }
 
+    public String toString(){
+        return "State Q"+String.valueOf(getNumberOfState());
+    }
+
 
 }

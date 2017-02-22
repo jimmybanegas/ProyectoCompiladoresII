@@ -205,4 +205,15 @@ public class ElementOfProduction {
 
         return grammarSymbol;
     }
+
+    public String toString(){
+        //return getAlfa()+getB()+getBeta()+", "+getTerminal();
+        return production.getLeftSide() + " -> " + insert(production.getRightSide(), getPointPosition()).replace("<"," ").replace(">"," ") + " , " +getTerminal();
+    }
+
+    private static String insert(String bag, int index) {
+        String bagBegin = bag.substring(0,index);
+        String bagEnd = bag.substring(index);
+        return bagBegin + "." + bagEnd;
+    }
 }
