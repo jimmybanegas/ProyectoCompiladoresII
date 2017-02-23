@@ -172,7 +172,6 @@ public class ElementOfProduction {
                 break;
             } else {
                 while (production.getRightSide().charAt(++pointPosition) != ('>')) {
-                    ;
                 }
                 pointPosition++;
                 break;

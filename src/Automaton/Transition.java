@@ -42,7 +42,7 @@ public class Transition {
     }
 
     public String toString(){
-        return "Symbol: "+ getValue() +" - " +"LinkState: "+getLinkState();
+        return "With symbol: "+ getValue() +" - " +"goes to: "+getLinkState();
     }
 
 

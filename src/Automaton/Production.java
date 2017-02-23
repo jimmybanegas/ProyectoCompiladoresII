@@ -109,7 +109,6 @@ public class Production {
             Production newProduction = new Production(getLeftSide(), splitOfRightSide[index]);
             generatedProductions.add(newProduction);
         }
-
         return generatedProductions;
     }
 

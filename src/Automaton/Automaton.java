@@ -6,18 +6,18 @@ import java.util.ArrayList;
  * Created by Jimmy Ramos on 18-Feb-17.
  */
 public class Automaton {
-    private ArrayList<State> StatesOfAutomaton;
+    private ArrayList<State> statesOfAutomaton;
 
     public Automaton(){
-        StatesOfAutomaton = new ArrayList<State>();
+        statesOfAutomaton = new ArrayList<State>();
     }
 
     public final ArrayList<State> getStatesOfAutomaton(){
-        return StatesOfAutomaton;
+        return statesOfAutomaton;
     }
 
     public final void setStatesOfAutomaton(ArrayList<State> states){
-        StatesOfAutomaton = states;
+        statesOfAutomaton = states;
     }
 
     public final void addState(ArrayList<ElementOfProduction> elements)
@@ -27,28 +27,28 @@ public class Automaton {
         getStatesOfAutomaton().add(state);
     }
 
-    public final State thereState(ArrayList<ElementOfProduction> goTo)
+    public final State thereIsState(ArrayList<ElementOfProduction> goTo)
     {
-        int index_of_state;
-        boolean exist;
+        int indexOfState;
+        boolean exists;
 
-        for (index_of_state = 0; index_of_state < getStatesOfAutomaton().size(); index_of_state++)
+        for (indexOfState = 0; indexOfState < getStatesOfAutomaton().size(); indexOfState++)
         {
-            if (getStatesOfAutomaton().get(index_of_state).getElementsOfProductions().size() != goTo.size())
+            if (getStatesOfAutomaton().get(indexOfState).getElementsOfProductions().size() != goTo.size())
             {
-                exist = false;
+                exists = false;
             }
             else
             {
-                exist = true;
+                exists = true;
             }
-            for (int index_of_element = 0; index_of_element < goTo.size() && exist; index_of_element++)
+            for (int indexOfElement = 0; indexOfElement < goTo.size() && exists; indexOfElement++)
             {
-                exist = getStatesOfAutomaton().get(index_of_state).thereIsElement(goTo.get(index_of_element));
+                exists = getStatesOfAutomaton().get(indexOfState).thereIsElement(goTo.get(indexOfElement));
             }
-            if (exist)
+            if (exists)
             {
-                return getStatesOfAutomaton().get(index_of_state);
+                return getStatesOfAutomaton().get(indexOfState);
             }
         }
 
@@ -60,16 +60,15 @@ public class Automaton {
         stateOrigin.insertTransition(stateDestination, symbolOfGrammar);
     }
 
-    public final State getState(int to_state)
+    public final State getState(int toState)
     {
         for (State state : getStatesOfAutomaton())
         {
-            if ((new Integer(state.getNumberOfState())).equals(to_state))
+            if ((new Integer(state.getNumberOfState())).equals(toState))
             {
                 return state;
             }
         }
-
         return null;
     }
 

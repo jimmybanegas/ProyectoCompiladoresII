@@ -22,10 +22,10 @@ public class LR1Parser {
     public LR1Parser(Grammar grammar){
         this.grammar = grammar;
         setAutomaton(new Automaton());
-        Build_Yourself();
+        buildYourself();
     }
 
-    private void Build_Yourself() {
+    private void buildYourself() {
         boolean addState;
         ArrayList<ElementOfProduction> goTo;
         ArrayList<ElementOfProduction> setOfElements = new ArrayList<ElementOfProduction>();
@@ -45,14 +45,15 @@ public class LR1Parser {
             {
                 for (String symbolOfGrammar : statesOfAutomaton.get(indexOfState).getSymbolsOfGrammar())
                 {
-                    if (!(goTo = ir_A(statesOfAutomaton.get(indexOfState).getElementsOfProductions(), symbolOfGrammar)).isEmpty() && (stateExist = getAutomaton().thereState(goTo)) == null)
+                    if (!(goTo = ir_A(statesOfAutomaton.get(indexOfState).getElementsOfProductions(), symbolOfGrammar)).isEmpty()
+                            && (stateExist = getAutomaton().thereIsState(goTo)) == null)
                     {
                         getAutomaton().addState(goTo);
                         addState = true;
                     }
                     if (stateExist == null)
                     {
-                        stateExist = getAutomaton().thereState(goTo);
+                        stateExist = getAutomaton().thereIsState(goTo);
                         getAutomaton().addTransition(statesOfAutomaton.get(indexOfState), stateExist, symbolOfGrammar);
                     }
                     else
@@ -110,7 +111,7 @@ public class LR1Parser {
                             for (String terminal : first)
                             {
                                 ElementOfProduction newElement = new ElementOfProduction(production, terminal, grammar.getProductions().indexOf(production), 0);
-                                if (!Exist_Element(newElement, j))
+                                if (!elementExists(newElement, j))
                                 {
                                     i.add(newElement);
                                     addElements = true;
@@ -125,7 +126,7 @@ public class LR1Parser {
         return i;
     }
 
-    private boolean Exist_Element(ElementOfProduction newElement, ArrayList<ElementOfProduction> j) {
+    private boolean elementExists(ElementOfProduction newElement, ArrayList<ElementOfProduction> j) {
         for (ElementOfProduction element : j)
         {
             if (element.IsEqual(newElement))
