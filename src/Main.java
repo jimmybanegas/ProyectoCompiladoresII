@@ -1,18 +1,15 @@
 import Automaton.*;
-import Lexer.*;
+import Lexer.Lexer;
 import Lexer.SourceCode;
-import Syntax.Semantic.SymbolsTable;
-import Syntax.Tree.*;
 import Syntax.Parser.Parser;
+import Syntax.Semantic.SymbolsTable;
+import Syntax.Tree.ProductionNode;
+import Syntax.Tree.StatementNode;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

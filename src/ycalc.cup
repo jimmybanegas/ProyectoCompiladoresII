@@ -64,7 +64,7 @@ non terminal Integer    expr, factor, term;
 
  //Ejemplo http://smlweb.cpsc.ucalgary.ca/vital-stats.php?grammarfile=example-grammars/ll1-lr1-0.cfg
 
- S ::=	a A
+/* S ::=	a A
  |	b B;
 
  A ::=	C a
@@ -77,11 +77,11 @@ non terminal Integer    expr, factor, term;
 
  D ::=	E;
 
- E ::=	;
+ E ::=	; */
 
 
 //El que está de ejemplo en javacup site
- /*  expr_list ::= expr_list expr_part
+   expr_list ::= expr_list expr_part
                  |expr_part;
 
 
@@ -119,5 +119,5 @@ non terminal Integer    expr, factor, term;
                  |
                  ID:i
                  {: RESULT = 0; :}
-                 ; */
+                 ;
 
