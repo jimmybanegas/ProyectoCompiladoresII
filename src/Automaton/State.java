@@ -9,6 +9,7 @@ public class State {
     private ArrayList<ElementOfProduction> elementsOfProductions;
     private ArrayList<Transition> transitions;
     private int numberOfState;
+    private ArrayList<Action> actions;
 
     public ArrayList<ElementOfProduction> getElementsOfProductions() {
         return elementsOfProductions;
@@ -36,11 +37,13 @@ public class State {
 
     public State(){
         setElementsOfProductions(new ArrayList<>());
+        setActions(new ArrayList<>());
         setTransitions(new ArrayList<>());
     }
 
     public State(ArrayList<ElementOfProduction> elementsOfProductions){
         setElementsOfProductions(elementsOfProductions);
+        setActions(new ArrayList<>());
         setTransitions(new ArrayList<>());
     }
 
@@ -78,8 +81,54 @@ public class State {
         return symbolsOfGrammar;
     }
 
+    public final int thereIsTransition(String be)
+    {
+        for (Transition transition : getTransitions())
+        {
+            if (transition.getValue().equals(be))
+            {
+                return transition.getLink().getNumberOfState();
+            }
+        }
+        return -1;
+    }
+
+    public final int reductionExists(String terminal, String productionLeftSide)
+    {
+        for (ElementOfProduction element : getElementsOfProductions())
+        {
+            if (element.getB().equals("") && element.getTerminal().equals(terminal)
+                    && !element.getProduction().getLeftSide().equals(productionLeftSide))
+            {
+                return element.getNumberOfProduction();
+            }
+        }
+
+        return -1;
+    }
+
+    public final boolean existAcept(String terminal, String production)
+    {
+        for (ElementOfProduction element : getElementsOfProductions())
+        {
+            if (element.getB().equals("") && element.getTerminal().equals(terminal) && !element.getProduction().equals(production))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public String toString(){
         return "State Q"+String.valueOf(getNumberOfState());
     }
 
+    public ArrayList<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(ArrayList<Action> actions) {
+        this.actions = actions;
+    }
 }

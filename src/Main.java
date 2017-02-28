@@ -5,6 +5,7 @@ import Syntax.Parser.Parser;
 import Syntax.Semantic.SymbolsTable;
 import Syntax.Tree.ProductionNode;
 import Syntax.Tree.StatementNode;
+import Utilities.TableList;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -51,11 +52,7 @@ public class Main {
             System.out.println(gson.toJson(general));
             System.out.println();
 
-            /*Path filePath = new File("./src/automata.txt").toPath();
-            Charset charset = Charset.defaultCharset();
-            List<String> stringList = Files.readAllLines(filePath, charset);
-            String[] stringArray = stringList.toArray(new String[]{});*/
-            String[] stringArray = (new String[]{});
+            String[] stringArray;
             ArrayList<String> stringList = new ArrayList<>();
 
             for (StatementNode node : root) {
@@ -137,10 +134,7 @@ public class Main {
 
                 List<State> states = lr1.getAutomaton().getStatesOfAutomaton();
 
-                String json = gson.toJson(states);
-                //ObjectMapper mapper = new ObjectMapper();
-
-                //String jsonInString = mapper.writeValueAsString(states);
+               // String json = gson.toJson(states);
 
                 for (State state : states) {
                     System.out.println(state.toString());
@@ -156,6 +150,17 @@ public class Main {
                     }
                     System.out.println();
                 }
+
+                lr1.buildLALRParsingTable();
+
+
+                TableList tl = new TableList(3, "ID", "String 1", "String 2").sortBy(0).withUnicode(false);
+                // from a list
+                //  yourListOrWhatever.forEach(element -> tl.addRow(element.getID(), element.getS1(), element.getS2()));
+                // or manually
+                tl.addRow("Hi", "I am", "Bob");
+
+                tl.print();
             }
 
 

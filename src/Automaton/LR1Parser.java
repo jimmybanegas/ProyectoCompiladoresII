@@ -1,5 +1,6 @@
 package Automaton;
 
+
 import java.util.ArrayList;
 
 /**
@@ -134,4 +135,67 @@ public class LR1Parser {
         }
         return false;
     }
+
+    public void buildLALRParsingTable()
+    {
+        int toState;
+        int ruleToR;
+
+        for (State state : this.automaton.getStatesOfAutomaton())
+        {
+            for (String terminal : this.grammar.getTerminals())
+            {
+                Action action = new Action(terminal);
+                if ((toState = state.thereIsTransition(terminal)) != -1)
+                {
+                    action.setAction("Despl.");
+                    action.setToState(toState);
+                }
+                if ((ruleToR = state.reductionExists(terminal, this.grammar.getProductions().get(0).getLeftSide())) != -1)
+                {
+                    if (action.getToState() != -1)
+                    {
+                        System.out.println("EXISTE CONFLICTO REDUCCIÓN DESPLAZAMIENTO:\n\n" + "Estado Num : "
+                                + state.getNumberOfState());
+                    }
+                    else
+                    {
+                        action.setAction("Reduc.");
+                        action.setToState(ruleToR);
+                    }
+                }
+                if (action.getToState() == -1)
+                {
+                  //  lv.SubItems.Add(action.getAction() + action.getToState());
+                    if (state.existAcept(terminal, this.grammar.getProductions().get(0).getProduction()))
+                    {
+                        action.setAction("Aceptar");
+                    }
+                }
+                /*else
+                {
+                    if (state.existAcept(terminal, this.grammar.getProductions().get(0).getProduction()))
+                    {
+                        action.setAction("Aceptar");
+                    }
+                } */
+                state.getActions().add(action);
+            }
+
+            //Esta es la parte para hacer la parte de las No terminales y los números de donde va cada uno
+            for (int i = 1; i < this.grammar.getNonTerminals().size(); i++)
+            {
+                if ((toState = state.thereIsTransition(this.grammar.getNonTerminals().get(i).getNonTerminal())) != -1)
+                {
+                    //lv.SubItems.Add(String.valueOf(toState));
+                }
+                else
+                {
+                   // lv.SubItems.Add("");
+                }
+            }
+        }
+    }
+
+
 }

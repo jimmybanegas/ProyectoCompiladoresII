@@ -53,8 +53,8 @@ public class Grammar {
         this.productions = new ArrayList<Production>();
         nonTerminals = new ArrayList<>();
         terminals = new ArrayList<>();
-        Initializes_Productions(productions);
-        if (Validates_Grammar())
+        initializeProductions(productions);
+        if (validateGrammar())
         {
             eliminateOrSymbol();
             augmentGrammar();
@@ -107,7 +107,7 @@ public class Grammar {
                 {
                     noTerminalIsFirstOfTheRightSide = true;
                     breakForSearchRightSide = true;
-                    boolean acumular_in_equals_to_left_side = false;
+                    boolean acumularInEqualsToLeftSide = false;
                     int contador = 0;
                     for (int index = 0; index < production.getRightSide().length() && breakForSearchRightSide; index++)
                     {
@@ -122,11 +122,11 @@ public class Grammar {
                             if (string_no_terminal.equals(production.getLeftSide()) && noTerminalIsFirstOfTheRightSide)
                             {
                                 firstWhereTerminalIsEqualsToLeftSide.add(string_no_terminal);
-                                acumular_in_equals_to_left_side = true;
+                                acumularInEqualsToLeftSide = true;
                             }
                             else
                             {
-                                if (acumular_in_equals_to_left_side)
+                                if (acumularInEqualsToLeftSide)
                                 {
                                     firstWhereTerminalIsEqualsToLeftSide.add(string_no_terminal);
                                 }
@@ -379,8 +379,8 @@ public class Grammar {
         productions.addAll(listAuxiliaryProductions);
     }
 
-    private boolean Validates_Grammar() {
-        String no_terminal;
+    private boolean validateGrammar() {
+        String nonTerminal;
 
         if (!error.equals(""))
         {
@@ -409,12 +409,12 @@ public class Grammar {
                 else
                 {
                     i++;
-                    no_terminal = "";
+                    nonTerminal = "";
                     while (i < production.getRightSide().length() && production.getRightSide().charAt(i) != ('>'))
                     {
-                        no_terminal += production.getRightSide().charAt(i++);
+                        nonTerminal += production.getRightSide().charAt(i++);
                     }
-                    if (!nonTerminalExists(no_terminal))
+                    if (!nonTerminalExists(nonTerminal))
                     {
                         error = "La producción: " + production.getProduction() + " no está bien definida. Existe un NO TERMINAL en el cuerpo de la producción que no puede ser procesado.";
                         return false;
@@ -428,7 +428,7 @@ public class Grammar {
         return true;
     }
 
-    private void Initializes_Productions(String[] productions) //Método para inicializar la lista de producciones de la gramática.
+    private void initializeProductions(String[] productions) //Método para inicializar la lista de producciones de la gramática.
     {
         for (String production : productions)
         {

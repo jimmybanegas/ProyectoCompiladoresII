@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/Automaton/LR1Parser.java" description="buildYourself();" line="25" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="1325bcd4-79e3-4332-a901-8d775620dc75" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Automaton/Transition.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Automaton/Transition.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Automaton/Action.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Utilities/TableList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Automaton/Grammar.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Automaton/Grammar.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Main.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Automaton/Automaton.java" afterPath="$PROJECT_DIR$/src/Automaton/Automaton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Automaton/ElementOfProduction.java" afterPath="$PROJECT_DIR$/src/Automaton/ElementOfProduction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/ycalc.cup" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/ycalc.cup" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Automaton/Grammar.java" afterPath="$PROJECT_DIR$/src/Automaton/Grammar.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Automaton/LR1Parser.java" afterPath="$PROJECT_DIR$/src/Automaton/LR1Parser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Automaton/Production.java" afterPath="$PROJECT_DIR$/src/Automaton/Production.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Automaton/State.java" afterPath="$PROJECT_DIR$/src/Automaton/State.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Automaton/Transition.java" afterPath="$PROJECT_DIR$/src/Automaton/Transition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ycalc.cup" afterPath="$PROJECT_DIR$/src/ycalc.cup" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,11 +32,34 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ycalc.cup" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ycalc.cup">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="45" column="13" lean-forward="true" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+              <folding>
+                <marker date="1488312330859" expanded="true" signature="43:562" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="622:690" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="1738:1762" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="1843:1860" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="1940:1957" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="2024:2037" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="2119:2136" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="2217:2234" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="2299:2312" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="2393:2406" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="2473:2486" ph="{...}" />
+                <marker date="1488312330859" expanded="true" signature="2549:2562" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="142" column="20" lean-forward="true" selection-start-line="142" selection-start-column="20" selection-end-line="142" selection-end-column="21" />
+            <state relative-caret-position="423">
+              <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#readFile#0;class#Main#0" expanded="false" />
@@ -37,56 +68,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Grammar.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Automaton/Grammar.java">
+      <file leaf-file-name="LR1Parser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Automaton/LR1Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+            <state relative-caret-position="190">
+              <caret line="172" column="21" lean-forward="true" selection-start-line="172" selection-start-column="21" selection-end-line="172" selection-end-column="21" />
               <folding>
-                <element signature="method#Grammar#1;class#Grammar#0" expanded="false" />
-                <element signature="method#eliminateEpsilonSymbol#0;class#Grammar#0" expanded="false" />
-                <element signature="method#calculateFirst#0;class#Grammar#0" expanded="false" />
-                <element signature="method#calculateFirstRecursive#0;class#Grammar#0" expanded="false" />
-                <element signature="method#getThisNonTerminal#0;class#Grammar#0" expanded="false" />
-                <element signature="method#augmentGrammar#0;class#Grammar#0" expanded="false" />
-                <element signature="method#eliminateOrSymbol#0;class#Grammar#0" expanded="false" />
-                <element signature="method#Validates_Grammar#0;class#Grammar#0" expanded="false" />
-                <element signature="method#Initializes_Productions#0;class#Grammar#0" expanded="false" />
-                <element signature="method#nonTerminalExists#0;class#Grammar#0" expanded="false" />
-                <element signature="method#getFirstOfBetaUnionTerminal#0;class#Grammar#0" expanded="false" />
+                <element signature="method#buildYourself#0;class#LR1Parser#0" expanded="false" />
+                <element signature="method#ir_A#0;class#LR1Parser#0" expanded="false" />
+                <element signature="method#cerradura#0;class#LR1Parser#0" expanded="false" />
+                <element signature="method#elementExists#0;class#LR1Parser#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NonTerminal.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Automaton/NonTerminal.java">
+      <file leaf-file-name="State.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Automaton/State.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="51" column="39" lean-forward="true" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ycalc.cup" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ycalc.cup">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="104" column="18" lean-forward="true" selection-start-line="104" selection-start-column="18" selection-end-line="104" selection-end-column="18" />
+            <state relative-caret-position="304">
+              <caret line="45" column="38" lean-forward="false" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
               <folding>
-                <marker date="1487862557112" expanded="true" signature="43:562" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="622:690" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="1672:1696" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="1777:1794" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="1874:1891" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="1958:1971" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="2053:2070" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="2151:2168" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="2233:2246" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="2327:2340" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="2407:2420" ph="{...}" />
-                <marker date="1487862557112" expanded="true" signature="2483:2496" ph="{...}" />
+                <element signature="e#3623#3624#0" expanded="true" />
+                <element signature="e#3653#3654#0" expanded="true" />
+                <element signature="e#3710#3711#0" expanded="true" />
+                <element signature="e#3748#3749#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -95,19 +101,14 @@
       <file leaf-file-name="Transition.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Automaton/Transition.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="3" lean-forward="false" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-              <folding />
+            <state relative-caret-position="160">
+              <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+              <folding>
+                <element signature="e#202#203#0" expanded="true" />
+                <element signature="e#229#230#0" expanded="true" />
+                <element signature="e#268#269#0" expanded="true" />
+                <element signature="e#300#301#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -136,6 +137,7 @@
       <find>System.ou</find>
       <find>States</find>
       <find>Advance_Point_Position</find>
+      <find>treeViewLR1</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -149,9 +151,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/company/ConsoleTest/HandlerFiles.java" />
-        <option value="$PROJECT_DIR$/src/com/company/ConsoleTest/Program.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Program.java" />
         <option value="$PROJECT_DIR$/src/com/company/HandlerFiles.java" />
         <option value="$PROJECT_DIR$/src/com/company/Main.java" />
         <option value="$PROJECT_DIR$/src/HandlerFiles.java" />
@@ -191,15 +190,18 @@
         <option value="$PROJECT_DIR$/src/Syntax/Tree/SymbolDeclarationNode.java" />
         <option value="$PROJECT_DIR$/src/Automaton/NonTerminal.java" />
         <option value="$PROJECT_DIR$/src/automata.txt" />
-        <option value="$PROJECT_DIR$/src/Automaton/State.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/Automaton/Transition.java" />
-        <option value="$PROJECT_DIR$/src/ycalc.cup" />
-        <option value="$PROJECT_DIR$/src/Automaton/Grammar.java" />
-        <option value="$PROJECT_DIR$/src/Automaton/LR1Parser.java" />
         <option value="$PROJECT_DIR$/src/Automaton/Automaton.java" />
         <option value="$PROJECT_DIR$/src/Automaton/ElementOfProduction.java" />
         <option value="$PROJECT_DIR$/src/Automaton/Production.java" />
+        <option value="$PROJECT_DIR$/src/Automaton/Grammar.java" />
+        <option value="$PROJECT_DIR$/src/Automaton/Transition.java" />
+        <option value="$PROJECT_DIR$/src/TableList.java" />
+        <option value="$PROJECT_DIR$/src/Utilities/TableList.java" />
+        <option value="$PROJECT_DIR$/src/Automaton/State.java" />
+        <option value="$PROJECT_DIR$/src/ycalc.cup" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/Automaton/LR1Parser.java" />
+        <option value="$PROJECT_DIR$/src/Automaton/Action.java" />
       </list>
     </option>
   </component>
@@ -233,8 +235,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -306,6 +306,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -739,16 +741,18 @@
       <workItem from="1487736548291" duration="3075000" />
       <workItem from="1487774324302" duration="14847000" />
       <workItem from="1487815719081" duration="597000" />
-      <workItem from="1487861108066" duration="2574000" />
+      <workItem from="1487861108066" duration="9714000" />
+      <workItem from="1487893588094" duration="4336000" />
+      <workItem from="1488292620834" duration="12192000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124632000" />
+    <option name="totallyTimeSpent" value="148300000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="916" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -760,12 +764,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36909324" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3128991" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16260745" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15830946" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32822478" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -773,7 +777,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6155811" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33077905" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -789,7 +793,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="105" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Main.java</url>
+          <line>162</line>
+          <properties />
+          <option name="timeStamp" value="191" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="192" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -798,39 +810,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#readFile#0;class#Main#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Lexer/Lexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="36" column="10" lean-forward="false" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
-          <folding>
-            <element signature="method#GetOperator#0;class#Lexer#0" expanded="false" />
-            <element signature="method#GetSeparator#0;class#Lexer#0" expanded="false" />
-            <element signature="method#GetIdentifier#0;class#Lexer#0" expanded="false" />
-            <element signature="method#GetBlockComment#0;class#Lexer#0" expanded="false" />
-            <element signature="method#GetJavaCodeBlock#0;class#Lexer#0" expanded="false" />
-            <element signature="method#GetLineComment#0;class#Lexer#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ycalc.cup">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="1" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Lexer/SourceCode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1025">
@@ -926,14 +905,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding>
-            <element signature="method#GetOperator#0;class#Lexer#0" expanded="false" />
-            <element signature="method#GetSeparator#0;class#Lexer#0" expanded="false" />
-            <element signature="method#GetIdentifier#0;class#Lexer#0" expanded="false" />
-            <element signature="method#GetBlockComment#0;class#Lexer#0" expanded="false" />
-            <element signature="method#GetJavaCodeBlock#0;class#Lexer#0" expanded="false" />
-            <element signature="method#GetLineComment#0;class#Lexer#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -976,9 +947,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
-          <folding>
-            <element signature="method#GetNextSymbol#0;class#SourceCode#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -986,23 +954,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding>
-            <element signature="e#460#461#0" expanded="false" />
-            <element signature="e#484#485#0" expanded="false" />
-            <element signature="method#start_spec#0;class#Parser#0" expanded="false" />
-            <element signature="method#precedence_list#0;class#Parser#0" expanded="false" />
-            <element signature="method#symbols_list#0;class#Parser#0" expanded="false" />
-            <element signature="method#optional_symbol#0;class#Parser#0" expanded="false" />
-            <element signature="method#code_parts#0;class#Parser#0" expanded="false" />
-            <element signature="method#code_part#0;class#Parser#0" expanded="false" />
-            <element signature="method#import_spec#0;class#Parser#0" expanded="false" />
-            <element signature="method#import_id#0;class#Parser#0" expanded="false" />
-            <element signature="method#optional_import_id#0;class#Parser#0" expanded="false" />
-            <element signature="method#package_spec#0;class#Parser#0" expanded="false" />
-            <element signature="method#package_id#0;class#Parser#0" expanded="false" />
-            <element signature="method#optional_package_id#0;class#Parser#0" expanded="false" />
-            <element signature="method#getPosition#0;class#Parser#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1055,18 +1006,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
           <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/Automaton/Automaton.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="142" column="20" lean-forward="true" selection-start-line="142" selection-start-column="20" selection-end-line="142" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#readFile#0;class#Main#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="491">
+          <caret line="67" column="13" lean-forward="true" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_92/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="456" column="19" lean-forward="false" selection-start-line="456" selection-start-column="19" selection-end-line="456" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Automaton/Production.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Automaton/NonTerminal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="11" column="35" lean-forward="true" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Automaton/ElementOfProduction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1078,111 +1052,106 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Automaton/LR1Parser.java">
+    <entry file="file://$PROJECT_DIR$/src/Utilities/TableList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1377">
-          <caret line="9" column="12" lean-forward="true" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+        <state relative-caret-position="119">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding>
-            <element signature="e#692#713#0" expanded="true" />
-            <element signature="e#1041#1048#0" expanded="true" />
-            <element signature="e#2948#2969#0" expanded="true" />
-            <element signature="e#3644#3665#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2341#2342#0" expanded="true" />
+            <element signature="e#2426#2427#0" expanded="true" />
+            <element signature="e#8233#8234#0" expanded="true" />
+            <element signature="e#8274#8275#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Automaton/Automaton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="67" column="13" lean-forward="true" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
-          <folding>
-            <element signature="e#193#194#0" expanded="true" />
-            <element signature="e#251#252#0" expanded="true" />
-            <element signature="e#420#421#0" expanded="true" />
-            <element signature="e#462#463#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Automaton/ElementOfProduction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1055">
-          <caret line="208" column="19" lean-forward="false" selection-start-line="208" selection-start-column="19" selection-end-line="208" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Automaton/Grammar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding>
-            <element signature="method#Grammar#1;class#Grammar#0" expanded="false" />
-            <element signature="method#eliminateEpsilonSymbol#0;class#Grammar#0" expanded="false" />
-            <element signature="method#calculateFirst#0;class#Grammar#0" expanded="false" />
-            <element signature="method#calculateFirstRecursive#0;class#Grammar#0" expanded="false" />
-            <element signature="method#getThisNonTerminal#0;class#Grammar#0" expanded="false" />
-            <element signature="method#augmentGrammar#0;class#Grammar#0" expanded="false" />
-            <element signature="method#eliminateOrSymbol#0;class#Grammar#0" expanded="false" />
-            <element signature="method#Validates_Grammar#0;class#Grammar#0" expanded="false" />
-            <element signature="method#Initializes_Productions#0;class#Grammar#0" expanded="false" />
-            <element signature="method#nonTerminalExists#0;class#Grammar#0" expanded="false" />
-            <element signature="method#getFirstOfBetaUnionTerminal#0;class#Grammar#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Automaton/Production.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="41" column="22" lean-forward="true" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
-          <folding>
-            <element signature="e#2948#2960#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Automaton/Transition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Automaton/State.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="20" lean-forward="true" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
-          <folding />
+        <state relative-caret-position="304">
+          <caret line="45" column="38" lean-forward="false" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
+          <folding>
+            <element signature="e#3623#3624#0" expanded="true" />
+            <element signature="e#3653#3654#0" expanded="true" />
+            <element signature="e#3710#3711#0" expanded="true" />
+            <element signature="e#3748#3749#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Automaton/NonTerminal.java">
+    <entry file="file://$PROJECT_DIR$/src/Automaton/Grammar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="51" column="39" lean-forward="true" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
+        <state relative-caret-position="-2431">
+          <caret line="47" column="25" lean-forward="true" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ycalc.cup">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="104" column="18" lean-forward="true" selection-start-line="104" selection-start-column="18" selection-end-line="104" selection-end-column="18" />
+        <state relative-caret-position="200">
+          <caret line="45" column="13" lean-forward="true" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
           <folding>
-            <marker date="1487862557112" expanded="true" signature="43:562" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="622:690" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="1672:1696" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="1777:1794" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="1874:1891" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="1958:1971" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="2053:2070" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="2151:2168" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="2233:2246" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="2327:2340" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="2407:2420" ph="{...}" />
-            <marker date="1487862557112" expanded="true" signature="2483:2496" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="43:562" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="622:690" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="1738:1762" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="1843:1860" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="1940:1957" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="2024:2037" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="2119:2136" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="2217:2234" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="2299:2312" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="2393:2406" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="2473:2486" ph="{...}" />
+            <marker date="1488312330859" expanded="true" signature="2549:2562" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Automaton/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+          <folding>
+            <element signature="e#161#162#0" expanded="true" />
+            <element signature="e#192#193#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Automaton/Transition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding>
+            <element signature="e#202#203#0" expanded="true" />
+            <element signature="e#229#230#0" expanded="true" />
+            <element signature="e#268#269#0" expanded="true" />
+            <element signature="e#300#301#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Automaton/LR1Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="172" column="21" lean-forward="true" selection-start-line="172" selection-start-column="21" selection-end-line="172" selection-end-column="21" />
+          <folding>
+            <element signature="method#buildYourself#0;class#LR1Parser#0" expanded="false" />
+            <element signature="method#ir_A#0;class#LR1Parser#0" expanded="false" />
+            <element signature="method#cerradura#0;class#LR1Parser#0" expanded="false" />
+            <element signature="method#elementExists#0;class#LR1Parser#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#readFile#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
