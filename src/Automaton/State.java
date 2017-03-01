@@ -35,6 +35,14 @@ public class State {
         this.numberOfState = numberOfState;
     }
 
+    public ArrayList<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(ArrayList<Action> actions) {
+        this.actions = actions;
+    }
+
     public State(){
         setElementsOfProductions(new ArrayList<>());
         setActions(new ArrayList<>());
@@ -120,15 +128,22 @@ public class State {
         return false;
     }
 
+    public ArrayList<ElementOfProduction> getElementsOfProductionsMinimized() {
+
+        ArrayList<ElementOfProduction> elementToReturn = new ArrayList<ElementOfProduction>();
+
+        for (ElementOfProduction element: getElementsOfProductions()) {
+            for (ElementOfProduction el :  elementToReturn) {
+                if (!element.IsEqual2(el)){
+                   elementToReturn.add(element) ;
+                }
+            }
+        }
+
+        return elementToReturn;
+    }
+
     public String toString(){
         return "State Q"+String.valueOf(getNumberOfState());
-    }
-
-    public ArrayList<Action> getActions() {
-        return actions;
-    }
-
-    public void setActions(ArrayList<Action> actions) {
-        this.actions = actions;
     }
 }

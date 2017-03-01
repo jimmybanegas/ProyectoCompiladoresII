@@ -148,7 +148,7 @@ public class LR1Parser {
                 Action action = new Action(terminal);
                 if ((toState = state.thereIsTransition(terminal)) != -1)
                 {
-                    action.setAction("Despl.");
+                    action.setAction("Desplazamiento");
                     action.setToState(toState);
                 }
                 if ((ruleToR = state.reductionExists(terminal, this.grammar.getProductions().get(0).getLeftSide())) != -1)
@@ -160,25 +160,17 @@ public class LR1Parser {
                     }
                     else
                     {
-                        action.setAction("Reduc.");
+                        action.setAction("Reduccion");
                         action.setToState(ruleToR);
                     }
                 }
                 if (action.getToState() == -1)
                 {
-                  //  lv.SubItems.Add(action.getAction() + action.getToState());
                     if (state.existAcept(terminal, this.grammar.getProductions().get(0).getProduction()))
                     {
-                        action.setAction("Aceptar");
+                        action.setAction("Aceptacion");
                     }
                 }
-                /*else
-                {
-                    if (state.existAcept(terminal, this.grammar.getProductions().get(0).getProduction()))
-                    {
-                        action.setAction("Aceptar");
-                    }
-                } */
                 state.getActions().add(action);
             }
 
@@ -187,11 +179,19 @@ public class LR1Parser {
             {
                 if ((toState = state.thereIsTransition(this.grammar.getNonTerminals().get(i).getNonTerminal())) != -1)
                 {
-                    //lv.SubItems.Add(String.valueOf(toState));
+                    Action action = new Action(this.grammar.getNonTerminals().get(i).getNonTerminal());
+                    action.setToState(toState);
+                    action.setAction("Especial");
+
+                    state.getActions().add(action);
                 }
                 else
                 {
-                   // lv.SubItems.Add("");
+                    Action action = new Action(this.grammar.getNonTerminals().get(i).getNonTerminal());
+                    action.setToState(-1);
+                    action.setAction("");
+
+                    state.getActions().add(action);
                 }
             }
         }

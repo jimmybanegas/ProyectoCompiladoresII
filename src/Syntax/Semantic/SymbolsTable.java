@@ -2,6 +2,7 @@ package Syntax.Semantic;
 
 import Lexer.TokenType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -47,6 +48,16 @@ public class SymbolsTable {
     public final boolean SymbolExists(String name)
     {
         return _terminals.containsKey(name) || _nonTerminals.containsKey(name);
+    }
+
+    public ArrayList<String> GetAllSymbols()
+    {
+        ArrayList<String> symbols = new ArrayList<>();
+
+       symbols.addAll(_nonTerminals.keySet());
+       symbols.addAll(_terminals.keySet());
+
+       return symbols;
     }
 
     public final boolean SymbolIsTerminal(String name)

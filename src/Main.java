@@ -154,13 +154,38 @@ public class Main {
                 lr1.buildLALRParsingTable();
 
 
-                TableList tl = new TableList(3, "ID", "String 1", "String 2").sortBy(0).withUnicode(false);
-                // from a list
-                //  yourListOrWhatever.forEach(element -> tl.addRow(element.getID(), element.getS1(), element.getS2()));
-                // or manually
-                tl.addRow("Hi", "I am", "Bob");
+                Integer columns = lr1.grammar.getTerminals().size() + lr1.grammar.getNonTerminals().size()-1;
 
-                tl.print();
+                ArrayList<String> symbols = lr1.grammar.getTerminals();
+
+                for (NonTerminal nonTerminal :
+                        lr1.grammar.getNonTerminals()) {
+                    if (!nonTerminal.getNonTerminal().contains("'"))
+                        symbols.add(nonTerminal.getNonTerminal());
+                }
+
+                String[] arreglo = new String[columns];
+                int y = 0;
+                for (String sym: symbols ) {
+                    arreglo[y] = sym;
+                    y++;
+                }
+
+                TableList tl = new TableList(columns, arreglo).sortBy(0).withUnicode(false);
+
+                // from a list
+                for (State state : states) {
+                   // state.getActions().forEach(action -> tl.addRow(action., action.getS1(), action.getS2()));
+                    for (Action action: state.getActions() ) {
+                        if (action.getToState() != -1 || !Objects.equals(action.getAction(), "")){
+                            System.out.println(state.toString()+" "+ action.getAction() +" de " + action.getToState() +" con simbolo "+action.getTerminal());
+                        }
+                    }
+                    System.out.println();
+                }
+
+              //  tl.print();
+                lr1.getAutomaton().ConvertLr1ToLalr();
             }
 
 

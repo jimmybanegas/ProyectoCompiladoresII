@@ -97,6 +97,15 @@ public class ElementOfProduction {
                 && getTerminal().equals(elementOfProduction.getTerminal()));
     }
 
+    public final boolean IsEqual2(ElementOfProduction elementOfProduction){
+        return (production.getProduction().equals(elementOfProduction.production.getProduction())
+               /* && getAlfa().equals(elementOfProduction.getAlfa())
+                && getB().equals(elementOfProduction.getB())
+                && getBeta().equals(elementOfProduction.getBeta())
+                && (new Integer(getNumberOfProduction())).equals(elementOfProduction.getNumberOfProduction()) */
+                && (new Integer(getPointPosition())).equals(elementOfProduction.getPointPosition()));
+    }
+
     private void partitionTheElement() {
         int index = pointPosition;
 

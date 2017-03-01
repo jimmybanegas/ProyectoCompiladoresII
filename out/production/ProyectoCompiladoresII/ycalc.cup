@@ -38,7 +38,7 @@ non terminal Object     expr_list, expr_part, S, C, A,B ,D,E,F;
 non terminal Integer    expr, factor, term;
 
 
-  /*S ::= A a
+/*  S ::= A a
       |d A b
       |d c a
       |c b;
@@ -88,8 +88,8 @@ non terminal Integer    expr, factor, term;
  E ::=	; */
 
 
-//El que está de ejemplo en javacup site
- /*  expr_list ::= expr_list expr_part
+/* El que está de ejemplo en javacup site
+   expr_list ::= expr_list expr_part
                  |expr_part;
 
 
@@ -128,4 +128,4 @@ non terminal Integer    expr, factor, term;
                  ID:i
                  {: RESULT = 0; :}
                  ;
-                 */
+    */
