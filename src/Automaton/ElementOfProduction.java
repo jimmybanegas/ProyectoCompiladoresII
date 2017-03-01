@@ -68,6 +68,8 @@ public class ElementOfProduction {
         this.pointPosition = pointPosition;
     }
 
+    public ElementOfProduction(){}
+
     public ElementOfProduction(Production production, String terminal, int numberOfProduction, int pointPosition){
         setProduction(production);
         setTerminal(terminal);
@@ -98,11 +100,8 @@ public class ElementOfProduction {
     }
 
     public final boolean IsEqual2(ElementOfProduction elementOfProduction){
-        return (production.getProduction().equals(elementOfProduction.production.getProduction())
-               /* && getAlfa().equals(elementOfProduction.getAlfa())
-                && getB().equals(elementOfProduction.getB())
-                && getBeta().equals(elementOfProduction.getBeta())
-                && (new Integer(getNumberOfProduction())).equals(elementOfProduction.getNumberOfProduction()) */
+
+         return (production.getProduction().equals(elementOfProduction.production.getProduction())
                 && (new Integer(getPointPosition())).equals(elementOfProduction.getPointPosition()));
     }
 

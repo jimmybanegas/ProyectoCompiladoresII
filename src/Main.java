@@ -136,23 +136,15 @@ public class Main {
 
                // String json = gson.toJson(states);
 
-                for (State state : states) {
-                    System.out.println(state.toString());
-                    for (ElementOfProduction element :
-                            state.getElementsOfProductions()) {
-                        System.out.println(" "+element.toString());
-                    }
+                printStatesOfAutomaton(states);
 
-                    System.out.println("Transitions: ");
-                    for (Transition transition :
-                            state.getTransitions()) {
-                        System.out.println(transition.toString());
-                    }
-                    System.out.println();
-                }
+                lr1.getAutomaton().ConvertLr1ToLalr();
+
+                System.out.println("\nNEW STATES AFTER CONVERTION\n");
+
+                printStatesOfAutomaton(lr1.getAutomaton().getStatesOfAutomaton());
 
                 lr1.buildLALRParsingTable();
-
 
                 Integer columns = lr1.grammar.getTerminals().size() + lr1.grammar.getNonTerminals().size()-1;
 
@@ -185,12 +177,29 @@ public class Main {
                 }
 
               //  tl.print();
-                lr1.getAutomaton().ConvertLr1ToLalr();
+
             }
 
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void printStatesOfAutomaton(List<State> states) {
+        for (State state : states) {
+            System.out.println(state.toString());
+            for (ElementOfProduction element :
+                    state.getElementsOfProductions()) {
+                System.out.println(" "+element.toString());
+            }
+
+            System.out.println("Transitions: ");
+            for (Transition transition :
+                    state.getTransitions()) {
+                System.out.println(transition.toString());
+            }
+            System.out.println();
         }
     }
 

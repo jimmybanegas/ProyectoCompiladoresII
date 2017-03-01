@@ -41,6 +41,11 @@ public class Transition {
         setValue(value);
     }
 
+    public void changeLinkState(State newLink){
+        setLink(newLink);
+        setLinkState(String.valueOf(newLink.getNumberOfState()));
+    }
+
     public String toString(){
         return "With symbol: "+ getValue() +" - " +"goes to: "+getLinkState();
     }

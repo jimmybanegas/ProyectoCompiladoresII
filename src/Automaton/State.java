@@ -10,6 +10,7 @@ public class State {
     private ArrayList<Transition> transitions;
     private int numberOfState;
     private ArrayList<Action> actions;
+    private boolean minimize;
 
     public ArrayList<ElementOfProduction> getElementsOfProductions() {
         return elementsOfProductions;
@@ -43,16 +44,26 @@ public class State {
         this.actions = actions;
     }
 
+    public boolean isMinimize() {
+        return minimize;
+    }
+
+    public void setMinimize(boolean minimize) {
+        this.minimize = minimize;
+    }
+
     public State(){
         setElementsOfProductions(new ArrayList<>());
         setActions(new ArrayList<>());
         setTransitions(new ArrayList<>());
+        setMinimize(false);
     }
 
     public State(ArrayList<ElementOfProduction> elementsOfProductions){
         setElementsOfProductions(elementsOfProductions);
         setActions(new ArrayList<>());
         setTransitions(new ArrayList<>());
+        setMinimize(false);
     }
 
     public final boolean thereIsElement(ElementOfProduction element)
@@ -133,9 +144,18 @@ public class State {
         ArrayList<ElementOfProduction> elementToReturn = new ArrayList<ElementOfProduction>();
 
         for (ElementOfProduction element: getElementsOfProductions()) {
-            for (ElementOfProduction el :  elementToReturn) {
-                if (!element.IsEqual2(el)){
-                   elementToReturn.add(element) ;
+            if (elementToReturn.size() == 0){
+                elementToReturn.add(element);
+            }else{
+                boolean add = true;
+                for (ElementOfProduction el :  elementToReturn) {
+                    if (element.IsEqual2(el)){
+                        add = false;
+                        break;
+                    }
+                }
+                if(add){
+                    elementToReturn.add(element) ;
                 }
             }
         }
@@ -146,4 +166,5 @@ public class State {
     public String toString(){
         return "State Q"+String.valueOf(getNumberOfState());
     }
+
 }
