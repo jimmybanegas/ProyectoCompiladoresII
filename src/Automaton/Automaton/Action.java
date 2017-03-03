@@ -1,4 +1,4 @@
-package Automaton;
+package Automaton.Automaton;
 
 /**
  * Created by Jimmy Ramos on 28-Feb-17.

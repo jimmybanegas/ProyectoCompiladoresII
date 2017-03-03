@@ -1,4 +1,8 @@
-import Automaton.*;
+import Automaton.Automaton.Action;
+import Automaton.Automaton.Grammar;
+import Automaton.Automaton.NonTerminal;
+import Automaton.Automaton.State;
+import Automaton.Parser.LR1Parser;
 import Lexer.Lexer;
 import Lexer.SourceCode;
 import Syntax.Parser.Parser;
@@ -54,6 +58,7 @@ public class Main {
 
             String[] stringArray;
             ArrayList<String> stringList = new ArrayList<>();
+            List<Character> taken = new ArrayList<>();
 
             for (StatementNode node : root) {
                 if(node instanceof ProductionNode){
@@ -79,8 +84,6 @@ public class Main {
                             pos++;
                             break;
                         }
-
-                        List<Character> taken = new ArrayList<>();
 
                         for (String elemento :  splittedBySpace ) {
                             if(!Objects.equals(elemento, "") && !Objects.equals(elemento, "javaCode")){
@@ -189,16 +192,16 @@ public class Main {
     private static void printStatesOfAutomaton(List<State> states) {
         for (State state : states) {
             System.out.println(state.toString());
-            for (ElementOfProduction element :
+           /* for (ElementOfProduction element :
                     state.getElementsOfProductions()) {
                 System.out.println(" "+element.toString());
-            }
+            }*/
 
-            System.out.println("Transitions: ");
+          /*  System.out.println("Transitions: ");
             for (Transition transition :
                     state.getTransitions()) {
                 System.out.println(transition.toString());
-            }
+            }*/
             System.out.println();
         }
     }

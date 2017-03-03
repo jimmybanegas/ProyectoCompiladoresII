@@ -1,5 +1,7 @@
-package Automaton;
+package Automaton.Parser;
 
+
+import Automaton.Automaton.*;
 
 import java.util.ArrayList;
 

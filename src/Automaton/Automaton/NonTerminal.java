@@ -1,4 +1,4 @@
-package Automaton;
+package Automaton.Automaton;
 
 import java.util.ArrayList;
 

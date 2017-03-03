@@ -1,10 +1,7 @@
-package Automaton;
+package Automaton.Automaton;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * Created by Jimmy Ramos on 18-Feb-17.
