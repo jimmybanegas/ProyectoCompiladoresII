@@ -2,6 +2,7 @@ package Utilities;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -54,5 +55,21 @@ public class DynamicClassGenerator {
         // call a method on the loaded class
         Method helloMethod = helloClass.getDeclaredMethod("hello");
         helloMethod.invoke(helloClass.newInstance());*/
+    }
+
+    public static void createNewClass(String directoryAndClassName, String code) throws IOException {
+        File sourceFile = new File(directoryAndClassName);
+
+        // generate the source code, using the source filename as the class name
+        String classname = sourceFile.getName().split("\\.")[0];
+        String sourceCode = "package Automaton.Parser;" +
+                "\n import com.google.gson.Gson; " +
+                "\n import Automaton.Automaton.*;" +
+                "\n public class " + classname + code;
+
+        // write the source code into the source file
+        FileWriter writer = new FileWriter(sourceFile);
+        writer.write(sourceCode);
+        writer.close();
     }
 }

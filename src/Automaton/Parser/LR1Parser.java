@@ -2,8 +2,12 @@ package Automaton.Parser;
 
 
 import Automaton.Automaton.*;
+import Utilities.DynamicClassGenerator;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
 
 /**
  * Created by Jimmy Ramos on 18-Feb-17.
@@ -199,5 +203,57 @@ public class LR1Parser {
         }
     }
 
+    //Generates parser.java
+    public void GenerateParserForCupEntryFile(){
+        Gson gson = new Gson();
+
+        Automaton clone = this.getAutomaton();
+
+        for (State state : clone.getStatesOfAutomaton()) {
+            for (Transition transition : state.getTransitions() ) {
+                transition.setLink(null);
+            }
+        }
+
+        String json = gson.toJson(clone);
+
+        String code = "{ private String gsonAutomaton = \" "+ json.replaceAll("\"", "\\\\\"") +" \"; " +
+                "\n public void parse() { System.out.print(\"Hello parser\");} " +
+                "\n public Automaton getAutomaton() {   Gson gson = new Gson(); \n return gson.fromJson(gsonAutomaton, Automaton.class); }   } ";
+
+        try {
+            DynamicClassGenerator.createNewClass("./src/Automaton/Parser/parser2.java",code);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Generates sym.java
+    public void GenerateSymbolsDefinitionFile(){
+        String code = "{    public static final int EOF = 0; " +
+                " public static final int error = 1; ";
+
+        int cont = 2;
+        for (String terminal : grammar.getTerminals()  ) {
+            code += " public static final int "+terminal+ "="+cont+";";
+            cont++;
+        }
+
+        code +=  "public static final String[] terminalNames = new String[] { \n   \"EOF\",  \"error\",";
+
+        for (String terminal : grammar.getTerminals()  ) {
+            code += "\""+terminal+"\",";
+        }
+
+        code += " };";
+
+        code+= " }";
+
+        try {
+            DynamicClassGenerator.createNewClass("./src/Automaton/Parser/sym.java",code);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

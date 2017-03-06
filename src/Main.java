@@ -9,7 +9,6 @@ import Syntax.Parser.Parser;
 import Syntax.Semantic.SymbolsTable;
 import Syntax.Tree.ProductionNode;
 import Syntax.Tree.StatementNode;
-import Utilities.TableList;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -40,7 +39,7 @@ public class Main {
         Parser parser = new Parser(lex);
 
         try {
-           List<StatementNode> root =  parser.Parse();
+            List<StatementNode> root =  parser.Parse();
 
             System.out.println("\n");
             Gson gson = new Gson();
@@ -72,7 +71,7 @@ public class Main {
                     int pos=0;
                     for (Syntax.Tree.Production production :   ((ProductionNode) node).productions) {
 
-                       String[] splittedBySpace = production.production.split(" ");
+                        String[] splittedBySpace = production.production.split(" ");
                         if (pos > 0){
                             System.out.print("|");
                             fixedElementOfGrammar += "|";
@@ -87,24 +86,24 @@ public class Main {
 
                         for (String elemento :  splittedBySpace ) {
                             if(!Objects.equals(elemento, "") && !Objects.equals(elemento, "javaCode")){
-                               String symbol = elemento.split(":")[0];
+                                String symbol = elemento.split(":")[0];
 
-                               if (SymbolsTable.getInstance().SymbolIsNonTerminal(symbol)){
-                                   System.out.print("<"+symbol.toUpperCase()+">");
-                                   fixedElementOfGrammar += ("<"+symbol.toUpperCase()+">");
-                               }
+                                if (SymbolsTable.getInstance().SymbolIsNonTerminal(symbol)){
+                                    System.out.print("<"+symbol.toUpperCase()+">");
+                                    fixedElementOfGrammar += ("<"+symbol.toUpperCase()+">");
+                                }
                                 if (SymbolsTable.getInstance().SymbolIsTerminal(symbol)) {
-                                   char c = (char) (r.nextInt(26) + 'a');
-                                   if (symbol.length() > 1){
-                                       while (taken.contains(c)){
-                                           c = (char) (r.nextInt(26) + 'a');
-                                       }
-                                       taken.add(c);
-                                   }
-                                   else{
-                                       taken.add(symbol.charAt(0));
-                                       c = symbol.charAt(0);
-                                   }
+                                    char c = (char) (r.nextInt(26) + 'a');
+                                    if (symbol.length() > 1){
+                                        while (taken.contains(c)){
+                                            c = (char) (r.nextInt(26) + 'a');
+                                        }
+                                        taken.add(c);
+                                    }
+                                    else{
+                                        taken.add(symbol.charAt(0));
+                                        c = symbol.charAt(0);
+                                    }
 
                                     System.out.print(c);
                                     fixedElementOfGrammar += (String.valueOf(c));
@@ -118,7 +117,6 @@ public class Main {
                 }
             }
             System.out.println();
-
 
             //Gson gson = new Gson();
             stringArray = new String[stringList.size()];
@@ -137,7 +135,7 @@ public class Main {
 
                 List<State> states = lr1.getAutomaton().getStatesOfAutomaton();
 
-               // String json = gson.toJson(states);
+                // String json = gson.toJson(states);
 
                 printStatesOfAutomaton(states);
 
@@ -149,28 +147,15 @@ public class Main {
 
                 lr1.buildLALRParsingTable();
 
-                Integer columns = lr1.grammar.getTerminals().size() + lr1.grammar.getNonTerminals().size()-1;
+                ArrayList<String> symbols = (ArrayList<String>) lr1.grammar.getTerminals().clone();
 
-                ArrayList<String> symbols = lr1.grammar.getTerminals();
-
-                for (NonTerminal nonTerminal :
-                        lr1.grammar.getNonTerminals()) {
+                for (NonTerminal nonTerminal :  lr1.grammar.getNonTerminals()) {
                     if (!nonTerminal.getNonTerminal().contains("'"))
                         symbols.add(nonTerminal.getNonTerminal());
                 }
 
-                String[] arreglo = new String[columns];
-                int y = 0;
-                for (String sym: symbols ) {
-                    arreglo[y] = sym;
-                    y++;
-                }
-
-                TableList tl = new TableList(columns, arreglo).sortBy(0).withUnicode(false);
-
                 // from a list
                 for (State state : states) {
-                   // state.getActions().forEach(action -> tl.addRow(action., action.getS1(), action.getS2()));
                     for (Action action: state.getActions() ) {
                         if (action.getToState() != -1 || !Objects.equals(action.getAction(), "")){
                             System.out.println(state.toString()+" "+ action.getAction() +" de " + action.getToState() +" con simbolo "+action.getTerminal());
@@ -179,11 +164,9 @@ public class Main {
                     System.out.println();
                 }
 
-              //  tl.print();
-
+                lr1.GenerateParserForCupEntryFile();
+                lr1.GenerateSymbolsDefinitionFile();
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
