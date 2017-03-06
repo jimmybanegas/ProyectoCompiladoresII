@@ -197,9 +197,7 @@ public class Main {
             try (BufferedReader br = new BufferedReader(new FileReader("./src/ycalc.cup"))) {
                 String line;
                 while ((line = br.readLine()) != null) {
-                    //System.out.println(line);
-
-                    records.add(line);
+                   records.add(line);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
