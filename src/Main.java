@@ -1,7 +1,4 @@
-import Automaton.Automaton.Action;
-import Automaton.Automaton.Grammar;
-import Automaton.Automaton.NonTerminal;
-import Automaton.Automaton.State;
+import Automaton.Automaton.*;
 import Automaton.Parser.LR1Parser;
 import Lexer.Lexer;
 import Lexer.SourceCode;
@@ -175,16 +172,16 @@ public class Main {
     private static void printStatesOfAutomaton(List<State> states) {
         for (State state : states) {
             System.out.println(state.toString());
-           /* for (ElementOfProduction element :
+            for (ElementOfProduction element :
                     state.getElementsOfProductions()) {
                 System.out.println(" "+element.toString());
-            }*/
+            }
 
-          /*  System.out.println("Transitions: ");
+            System.out.println("Transitions: ");
             for (Transition transition :
                     state.getTransitions()) {
                 System.out.println(transition.toString());
-            }*/
+            }
             System.out.println();
         }
     }

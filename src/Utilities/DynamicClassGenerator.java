@@ -65,6 +65,9 @@ public class DynamicClassGenerator {
         String sourceCode = "package Automaton.Parser;" +
                 "\n import com.google.gson.Gson; " +
                 "\n import Automaton.Automaton.*;" +
+                "\n import java_cup.runtime.Symbol;" +
+                "\n import java_cup.runtime.Scanner;" +
+                "\n import java.io.FileReader;" +
                 "\n public class " + classname + code;
 
         // write the source code into the source file

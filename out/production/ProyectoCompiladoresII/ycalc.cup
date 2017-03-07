@@ -32,9 +32,9 @@ parser code {:
 
 terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN,DOT;
 terminal Integer   NUMBER, ID;
-terminal           SATAN, a,b,c,d,e;
+terminal           SATAN, a,b,c,d,e,p,r,l,i;
 
-non terminal Object     expr_list, expr_part, S, C, A,B ,D,E,F;
+non terminal Object     expr_list, expr_part, S, C, A,B ,D,E,F,T;
 non terminal Integer    expr, factor, term;
 
 
@@ -51,6 +51,11 @@ non terminal Integer    expr, factor, term;
   C ::= c C
     |d;
 
+  /*  E::= T p E
+        | T;
+    T::= i
+        | l E r ;
+*/
 
 //Ejemplo de http://smlweb.cpsc.ucalgary.ca/lr1.php?grammar=E+-%3E+d+D+%7C+D+%7C+F.%0AF+-%3E+e+C+%7C+C.%0AD+-%3E+d+e+B+b+%7C+e+A+c.%0AC+-%3E+e+d+B+c+%7C+d+A+b.%0AB+-%3E+a.%0AA+-%3E+a.%0A&substs=
 /* E ::= d D

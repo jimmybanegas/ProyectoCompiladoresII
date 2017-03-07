@@ -218,8 +218,27 @@ public class LR1Parser {
         String json = gson.toJson(clone);
 
         String code = "{ private String gsonAutomaton = \" "+ json.replaceAll("\"", "\\\\\"") +" \"; " +
-                "\n public void parse() { System.out.print(\"Hello parser\");} " +
-                "\n public Automaton getAutomaton() {   Gson gson = new Gson(); \n return gson.fromJson(gsonAutomaton, Automaton.class); }   } ";
+                "\n private Scanner scanner;\n" +
+                "    private Symbol currentToken;\n" +
+                "\n  public parser2(java_cup.runtime.Scanner s) {\n" +
+                "        this.setscanner(s);\n" +
+                "    }"+
+                "\n public Symbol parse() throws Exception { currentToken = getScanner().next_token();\n" +
+                "\n" +
+                "        //SYM 0 is the end of file symbol\n" +
+                "        while (currentToken.sym != 0){\n" +
+                "            System.out.println(\"THIS IS A : \"+ sym.terminalNames[currentToken.sym]);\n" +
+                "\n" +
+                "            currentToken = getScanner().next_token();\n" +
+                "        } return null;} " +
+                "\n public Automaton getAutomaton() {   Gson gson = new Gson(); \n return gson.fromJson(gsonAutomaton, Automaton.class); }  " +
+                "\n public Scanner getScanner() {\n" +
+                "        return scanner;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setscanner(Scanner scanner) {\n" +
+                "        this.scanner = scanner;\n" +
+                "    } } ";
 
         try {
             DynamicClassGenerator.createNewClass("./src/Automaton/Parser/parser2.java",code);

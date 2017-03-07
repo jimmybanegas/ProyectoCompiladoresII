@@ -2,7 +2,7 @@ import Automaton.Automaton.Action;
 import Automaton.Automaton.Automaton;
 import Automaton.Automaton.State;
 import Automaton.Automaton.Transition;
-import Automaton.Parser.parser2;
+import Automaton.Parser.*;
 import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.io.FileReader;
@@ -19,12 +19,13 @@ public class ParserMain {
 
           //  Object result = p.parse().value;
 
-            // argv[0] = "./src/test.txt";
-            parser2 parser = new parser2();
+            parser2 parser =  new parser2(new FlexLexer(new FileReader("./src/test.txt")));
 
-            Automaton automaton = parser.getAutomaton();
+            parser.parse();
 
-            for (State state :  automaton.getStatesOfAutomaton()   ) {
+            //Automaton automaton = parser.getAutomaton();
+
+           /* for (State state :  automaton.getStatesOfAutomaton()   ) {
                 //System.out.println(state);
                 for (Action action: state.getActions() ) {
                     if (action.getToState() != -1 || !Objects.equals(action.getAction(), "")){
@@ -34,10 +35,9 @@ public class ParserMain {
                 System.out.println();
             }
 
-            System.out.println(automaton.getStatesOfAutomaton().size());
+            System.out.println(automaton.getStatesOfAutomaton().size()); */
 
         } catch (Exception e) {
-      /* do cleanup here -- possibly rethrow e */
             e.printStackTrace();
         }
     }
