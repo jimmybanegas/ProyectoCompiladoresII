@@ -15,18 +15,13 @@ public class ParserMain {
     static public void main(String argv[]) {
     /* Start the parser */
         try {
-            //parser p = new parser(new FlexLexer(new FileReader("./src/test.txt")));
-
-          //  Object result = p.parse().value;
-
             parser2 parser =  new parser2(new FlexLexer(new FileReader("./src/test.txt")));
 
             parser.parse();
 
-            //Automaton automaton = parser.getAutomaton();
+            Automaton automaton = parser.getLr1Parser().getAutomaton();
 
-           /* for (State state :  automaton.getStatesOfAutomaton()   ) {
-                //System.out.println(state);
+            for (State state :  automaton.getStatesOfAutomaton()   ) {
                 for (Action action: state.getActions() ) {
                     if (action.getToState() != -1 || !Objects.equals(action.getAction(), "")){
                         System.out.println(state.toString()+" "+ action.getAction() +" de " + action.getToState() +" con simbolo "+action.getTerminal());
@@ -35,7 +30,7 @@ public class ParserMain {
                 System.out.println();
             }
 
-            System.out.println(automaton.getStatesOfAutomaton().size()); */
+            System.out.println(automaton.getStatesOfAutomaton().size());
 
         } catch (Exception e) {
             e.printStackTrace();

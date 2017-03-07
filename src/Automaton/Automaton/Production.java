@@ -112,4 +112,28 @@ public class Production {
         return generatedProductions;
     }
 
+    public final int getNumberOfGrammarOfSymbols()
+    {
+        int numberOfGrammarOfSymbols = 0;
+
+        for (int i = 0; i < getRightSide().length();)
+        {
+            if (!(rightSide.charAt(i) == '<'))
+            {
+                numberOfGrammarOfSymbols++;
+                i++;
+            }
+            else
+            {
+                i++;
+                while (!(rightSide.charAt(i++) == '>'))
+                {
+                    ;
+                }
+                numberOfGrammarOfSymbols++;
+            }
+        }
+        return numberOfGrammarOfSymbols;
+    }
+
 }

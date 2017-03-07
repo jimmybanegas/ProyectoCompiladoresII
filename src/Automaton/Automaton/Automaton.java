@@ -74,7 +74,7 @@ public class Automaton {
     }
 
     public final void ConvertLr1ToLalr(){
-        ArrayList<State> newStates = new ArrayList<State>();
+        ArrayList<State> newStates = new ArrayList<>();
 
         for (State state: statesOfAutomaton ) {
             if (!state.isMinimize()){
@@ -84,14 +84,14 @@ public class Automaton {
                         state2.setMinimize(true);
                         String newNumber = String.valueOf(state.getNumberOfState()) + String.valueOf(state2.getNumberOfState());
 
-                        ArrayList<ElementOfProduction> newElements = new ArrayList<ElementOfProduction>();
+                        ArrayList<ElementOfProduction> newElements = new ArrayList<>();
 
                         newElements.addAll(state.getElementsOfProductions());
                         newElements.addAll(state2.getElementsOfProductions());
 
                         State newState = new State(newElements);
 
-                        ArrayList<Transition> newTrasitions = new ArrayList<Transition>();
+                        ArrayList<Transition> newTrasitions = new ArrayList<>();
 
                         newTrasitions.addAll(state.getTransitions());
                         //newTrasitions.addAll(state2.getTransitions());
@@ -118,7 +118,7 @@ public class Automaton {
                             }
                         }
 
-                        System.out.println(state +" and "+ state2);
+                      //  System.out.println(state +" and "+ state2);
                     }
                 }
             }

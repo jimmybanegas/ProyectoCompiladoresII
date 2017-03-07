@@ -51,11 +51,11 @@ non terminal Integer    expr, factor, term;
   C ::= c C
     |d;
 
-  /*  E::= T p E
+   /* E::= T PLUS E
         | T;
-    T::= i
-        | l E r ;
-*/
+    T::= ID
+        | LPAREN E RPAREN; */
+
 
 //Ejemplo de http://smlweb.cpsc.ucalgary.ca/lr1.php?grammar=E+-%3E+d+D+%7C+D+%7C+F.%0AF+-%3E+e+C+%7C+C.%0AD+-%3E+d+e+B+b+%7C+e+A+c.%0AC+-%3E+e+d+B+c+%7C+d+A+b.%0AB+-%3E+a.%0AA+-%3E+a.%0A&substs=
 /* E ::= d D

@@ -92,6 +92,7 @@ public class Main {
                                 if (SymbolsTable.getInstance().SymbolIsTerminal(symbol)) {
                                     char c = (char) (r.nextInt(26) + 'a');
                                     if (symbol.length() > 1){
+                                        c = symbol.toLowerCase().charAt(0);
                                         while (taken.contains(c)){
                                             c = (char) (r.nextInt(26) + 'a');
                                         }

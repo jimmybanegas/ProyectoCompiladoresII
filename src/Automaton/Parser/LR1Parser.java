@@ -39,7 +39,7 @@ public class LR1Parser {
         ElementOfProduction element = new ElementOfProduction(grammar.getProductions().get(0), "$", 0, 0);
         setOfElements.add(element);
         getAutomaton().addState(cerradura(setOfElements)); //Inicializar Autómata con la cerradura de la primer producción
-        ArrayList<State> statesOfAutomaton = new ArrayList<State>();
+        ArrayList<State> statesOfAutomaton = new ArrayList<>();
         int indexOfState = 0;
         State stateExist = null;
 
@@ -80,7 +80,7 @@ public class LR1Parser {
     }
 
     private ArrayList<ElementOfProduction> ir_A(ArrayList<ElementOfProduction> elementsOfProductions, String symbolOfGrammar) {
-        ArrayList<ElementOfProduction> j = new ArrayList<ElementOfProduction>();
+        ArrayList<ElementOfProduction> j = new ArrayList<>();
 
         for (ElementOfProduction element : elementsOfProductions)
         {
@@ -99,7 +99,7 @@ public class LR1Parser {
         int index = 0;
         boolean addElements;
         ArrayList<String> first;
-        ArrayList<ElementOfProduction> j = new ArrayList<ElementOfProduction>();
+        ArrayList<ElementOfProduction> j = new ArrayList<>();
 
         do
         {
@@ -154,7 +154,7 @@ public class LR1Parser {
                 Action action = new Action(terminal);
                 if ((toState = state.thereIsTransition(terminal)) != -1)
                 {
-                    action.setAction("Desplazamiento");
+                    action.setAction("D");
                     action.setToState(toState);
                 }
                 if ((ruleToR = state.reductionExists(terminal, this.grammar.getProductions().get(0).getLeftSide())) != -1)
@@ -166,7 +166,7 @@ public class LR1Parser {
                     }
                     else
                     {
-                        action.setAction("Reduccion");
+                        action.setAction("R");
                         action.setToState(ruleToR);
                     }
                 }
@@ -174,7 +174,7 @@ public class LR1Parser {
                 {
                     if (state.existAcept(terminal, this.grammar.getProductions().get(0).getProduction()))
                     {
-                        action.setAction("Aceptacion");
+                        action.setAction("Aceptar");
                     }
                 }
                 state.getActions().add(action);
@@ -215,23 +215,137 @@ public class LR1Parser {
             }
         }
 
-        String json = gson.toJson(clone);
+        String json = gson.toJson(this);
 
-        String code = "{ private String gsonAutomaton = \" "+ json.replaceAll("\"", "\\\\\"") +" \"; " +
+        String code = "{ private String gsonLr1 = \" "+ json.replaceAll("\"", "\\\\\"") +" \"; " +
                 "\n private Scanner scanner;\n" +
                 "    private Symbol currentToken;\n" +
                 "\n  public parser2(java_cup.runtime.Scanner s) {\n" +
                 "        this.setscanner(s);\n" +
                 "    }"+
-                "\n public Symbol parse() throws Exception { currentToken = getScanner().next_token();\n" +
-                "\n" +
+                "\n public boolean parse() throws Exception { currentToken = getScanner().next_token();\n" +
+                "\n   String stringToEvaluate = \"\";" +
                 "        //SYM 0 is the end of file symbol\n" +
                 "        while (currentToken.sym != 0){\n" +
+                "   stringToEvaluate += sym.terminalNames[currentToken.sym];" +
                 "            System.out.println(\"THIS IS A : \"+ sym.terminalNames[currentToken.sym]);\n" +
                 "\n" +
                 "            currentToken = getScanner().next_token();\n" +
-                "        } return null;} " +
-                "\n public Automaton getAutomaton() {   Gson gson = new Gson(); \n return gson.fromJson(gsonAutomaton, Automaton.class); }  " +
+                "        } return Evaluate(stringToEvaluate); } " +
+                "\n public LR1Parser getLr1Parser() {   Gson gson = new Gson(); \n return gson.fromJson(gsonLr1,LR1Parser.class); }  " +
+
+                "\n    private boolean Evaluate(String stringToEvaluate) {\n" +
+                "        String buffer = stringToEvaluate + \"$\";\n" +
+                "        Stack<elementOfStack> stack = new Stack<elementOfStack>();\n" +
+                "        State state;\n" +
+                "        elementOfStack current_element_of_stack;\n" +
+                "        String symbol;\n" +
+                "        ArrayList<Action> actions;\n" +
+                "        int index_of_buffer = 0;\n" +
+                "        boolean evaluar = true;\n" +
+                "\n" +
+                "        if (getLr1Parser() == null)\n" +
+                "        {\n" +
+                "           // JOptionPane.showMessageDialog(null, \"Primero debes generar el analizador sintáctico LR1!\");\n" +
+                "            return false;\n" +
+                "        }\n" +
+                "\n" +
+                "        stack.push(new elementOfStack(\"$\", 0));\n" +
+                "        if (stringToEvaluate.length() > 0)\n" +
+                "        {\n" +
+                "            symbol = String.valueOf(buffer.charAt(index_of_buffer));\n" +
+                "        }\n" +
+                "        else\n" +
+                "        {\n" +
+                "            symbol = \"$\";\n" +
+                "        }\n" +
+                "        //listViewLRActionTable.Items.Clear();\n" +
+                "        while (evaluar)\n" +
+                "        {\n" +
+                "            current_element_of_stack = stack.peek();\n" +
+                "            state = getLr1Parser().getAutomaton().getState(current_element_of_stack.getState());\n" +
+                "            //actions = new ArrayList<>();\n" +
+                "\n    String finalSymbol = symbol;" +
+                " actions = state.getActions().stream().filter(ter -> ter.getTerminal().equals(finalSymbol))\n" +
+                "                    .collect(Collectors.toCollection(ArrayList::new));" +
+                "\n" +
+                "            String cadena_pila = \"\";\n" +
+                "            //ListViewItem lv = new ListViewItem();\n" +
+                "\n" +
+                "            if (!actions.isEmpty())\n" +
+                "            {\n" +
+                "                for (int index = stack.size() - 1; index >= 0; index--)\n" +
+                "                {\n" +
+                "                    cadena_pila += stack.elementAt(index).getSymbol() + stack.elementAt(index).getState();\n" +
+                "                }\n" +
+                "                //lv.Text = cadena_pila;\n" +
+                "                if (actions.get(0).getAction().equals(\"D\"))\n" +
+                "                {\n" +
+                "                    //lv.SubItems.Add(buffer.substring(index_of_buffer));\n" +
+                "                    symbol = String.valueOf(buffer.charAt(++index_of_buffer));\n" +
+                "                    stack.push(new elementOfStack(actions.get(0).getTerminal(), actions.get(0).getToState()));\n" +
+                "                    //lv.SubItems.Add(actions.get(0).getAction() + actions.get(0).getToState());\n" +
+                "\n" +
+                "                }\n" +
+                "                else\n" +
+                "                {\n" +
+                "                    if (actions.get(0).getAction().equals(\"R\"))\n" +
+                "                    {\n" +
+                "                        int eliminar_pila = getLr1Parser().grammar.getProductions().get(actions.get(0).getToState()).getNumberOfGrammarOfSymbols();\n" +
+                "                        for (int i = 0; i < eliminar_pila; i++)\n" +
+                "                        {\n" +
+                "                            stack.pop();\n" +
+                "                        }\n" +
+                "                        current_element_of_stack = stack.peek();\n" +
+                "                        state = getLr1Parser().getAutomaton().getState(current_element_of_stack.getState());\n" +
+                "                        stack.push(new elementOfStack(getLr1Parser().grammar.getProductions()\n" +
+                "                                .get(actions.get(0).getToState()).getLeftSide(),\n" +
+                "                                state.thereIsTransition(getLr1Parser().grammar.getProductions().get(actions.get(0).getToState()).getLeftSide())));\n" +
+                "                        //lv.SubItems.Add(buffer.substring(index_of_buffer));\n" +
+                "                        //lv.SubItems.Add(actions.get(0).getAction() + actions.get(0).getToState() + \" \" + getLr1Parser().grammar.getProductions().get(actions.get(0).getToState()).getProduction());\n" +
+                "                    }\n" +
+                "                    else\n" +
+                "                    {\n" +
+                "                        if (actions.get(0).getAction().equals(\"Aceptar\"))\n" +
+                "                        {\n" +
+                "                            //lv.SubItems.Add(buffer.substring(index_of_buffer));\n" +
+                "                            //lv.SubItems.Add(\"Aceptar\");\n" +
+                "                            //listViewLRActionTable.Items.Add(lv);\n" +
+                "                            //JOptionPane.showMessageDialog(null, \"Cadena aceptada!\");\n" +
+                "                            return true;\n" +
+                "                        }\n" +
+                "                        else\n" +
+                "                        {\n" +
+                "                            //lv.SubItems.Add(buffer.substring(index_of_buffer));\n" +
+                "                            //lv.SubItems.Add(\"Error\");\n" +
+                "                            //listViewLRActionTable.Items.Add(lv);\n" +
+                "                           // JOptionPane.showMessageDialog(null, \"Cadena no aceptada!\");\n" +
+                "                            return false;\n" +
+                "                        }\n" +
+                "                    }\n" +
+                "                }\n" +
+                "            }\n" +
+                "            else\n" +
+                "            {\n" +
+                "                if (index_of_buffer < buffer.length())\n" +
+                "                {\n" +
+                "                    //lv.SubItems.Add(buffer.substring(index_of_buffer));\n" +
+                "                }\n" +
+                "                else\n" +
+                "                {\n" +
+                "                    //lv.SubItems.Add(\"$\");\n" +
+                "                }\n" +
+                "                //lv.SubItems.Add(\"Error\");\n" +
+                "                //listViewLRActionTable.Items.Add(lv);\n" +
+                "                //JOptionPane.showMessageDialog(null, \"Cadena no aceptada\");\n" +
+                "                return false;\n" +
+                "            }\n" +
+                "            //listViewLRActionTable.Items.Add(lv);\n" +
+                "        }\n" +
+                "\n" +
+                "        return false;\n" +
+                "    }" +
+
                 "\n public Scanner getScanner() {\n" +
                 "        return scanner;\n" +
                 "    }\n" +

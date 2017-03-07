@@ -5,7 +5,9 @@ import Automaton.Automaton.*;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.Scanner;
 
-import java.io.FileReader;
+import java.util.Stack;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class sym {
     public static final int EOF = 0;

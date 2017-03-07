@@ -67,7 +67,9 @@ public class DynamicClassGenerator {
                 "\n import Automaton.Automaton.*;" +
                 "\n import java_cup.runtime.Symbol;" +
                 "\n import java_cup.runtime.Scanner;" +
-                "\n import java.io.FileReader;" +
+                "\n import java.util.Stack;" +
+                "\n import java.util.ArrayList;" +
+                "\n import java.util.Arrays;" +
                 "\n public class " + classname + code;
 
         // write the source code into the source file
