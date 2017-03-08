@@ -30,11 +30,12 @@ parser code {:
 
 
 
-terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN,DOT;
-terminal Integer   NUMBER, ID;
-terminal           SATAN, a,b,c,d,e,p,r,l,i;
+terminal          s, p, m, t, d, l, r;
+terminal Integer  n, i;
+//terminal           SATAN, a,b,c,d,e,p,r,l,i;
 
-non terminal Object     expr_list, expr_part, S, C, A,B ,D,E,F,T;
+non terminal Object     expr_list, expr_part;
+//non terminal Object S, C, A,B ,D,E,F,T;
 non terminal Integer    expr, factor, term;
 
 
@@ -46,10 +47,10 @@ non terminal Integer    expr, factor, term;
   A ::= c;*/
 
 //La gramatica de la clase
-  S ::= C C;
+ /* S ::= C C;
 
   C ::= c C
-    |d;
+    |d;  */
 
    /* E::= T PLUS E
         | T;
@@ -94,18 +95,18 @@ non terminal Integer    expr, factor, term;
 
 
 // El que está de ejemplo en javacup site
- /*  expr_list ::= expr_list expr_part
+   expr_list ::= expr_list expr_part
                  |expr_part;
 
 
-   expr_part ::= expr:e SEMI {: System.out.println(e); :}
+   expr_part ::= expr:e s {: System.out.println(e); :}
                  ;
 
 
-   expr      ::= expr:e PLUS factor:f
+   expr      ::= expr:e p factor:f
                  {: RESULT = e + f; :}
                  |
-                 expr:e MINUS factor:f
+                 expr:e m factor:f
                  {: RESULT = e - f; :}
                  |
                  factor:f
@@ -113,10 +114,10 @@ non terminal Integer    expr, factor, term;
                  ;
 
 
-   factor    ::= factor:f TIMES term:t
+   factor    ::= factor:f t term:t
                  {: RESULT = f * t; :}
                  |
-                 factor:f DIVIDE term:t
+                 factor:f d term:t
                  {: RESULT = f / t; :}
                  |
                  term:t
@@ -124,12 +125,12 @@ non terminal Integer    expr, factor, term;
                  ;
 
 
-   term      ::= LPAREN expr:e RPAREN
+   term      ::= l expr:e r
                  {: RESULT = e; :}
                  |
-                 NUMBER:n
+                 n:n
                  {: RESULT = n; :}
                  |
-                 ID:i
+                 i:i
                  {: RESULT = 0; :}
-                 ; */
+                 ;

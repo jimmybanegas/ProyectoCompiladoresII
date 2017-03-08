@@ -3,7 +3,7 @@ package Automaton.Parser;
 /**
  * Created by Jimmy Ramos on 07-Mar-17.
  */
-public class elementOfStack
+public class ElementOfStack
 {
     private String Symbol;
     public final String getSymbol()
@@ -24,9 +24,9 @@ public class elementOfStack
         State = value;
     }
 
-    public elementOfStack() { }
+    public ElementOfStack() { }
 
-    public elementOfStack(String symbol, int state)
+    public ElementOfStack(String symbol, int state)
     {
         setSymbol(symbol);
         setState(state);

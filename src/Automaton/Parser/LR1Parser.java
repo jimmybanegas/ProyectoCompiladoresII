@@ -2,10 +2,12 @@ package Automaton.Parser;
 
 
 import Automaton.Automaton.*;
+import Syntax.Semantic.SymbolsTable;
 import Utilities.DynamicClassGenerator;
 import com.google.gson.Gson;
+import sun.misc.IOUtils;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -217,7 +219,24 @@ public class LR1Parser {
 
         String json = gson.toJson(this);
 
-        String code = "{ private String gsonLr1 = \" "+ json.replaceAll("\"", "\\\\\"") +" \"; " +
+        BufferedWriter out;
+        try {
+            out = new BufferedWriter(new FileWriter("./src/Automaton/Parser/gsonLr1.txt"));
+
+           // out.write(json.replaceAll("\"", "\\\\\""));  //Replace with the string
+            out.write(json);
+            //you are trying to write
+            out.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+       // String theString2 = IOUtils.toString(new FileInputStream(new File("./properties/filename.text")), "UTF-8");
+
+       // private static final String gsonLr1 = org.apache.commons.lang.StringUtils.join( new String[] { " "+ json.replaceAll("\"", "\\\\\"") +" \" } );" +
+
+        String code = "{  String gsonLr1 = readFile().toString();\n " +
                 "\n private Scanner scanner;\n" +
                 "    private Symbol currentToken;\n" +
                 "\n  public parser2(java_cup.runtime.Scanner s) {\n" +
@@ -232,119 +251,77 @@ public class LR1Parser {
                 "\n" +
                 "            currentToken = getScanner().next_token();\n" +
                 "        } return Evaluate(stringToEvaluate); } " +
-                "\n public LR1Parser getLr1Parser() {   Gson gson = new Gson(); \n return gson.fromJson(gsonLr1,LR1Parser.class); }  " +
+                "\n public LR1Parser getLr1Parser() {   Gson gson = new Gson(); \n String trimmedJson = gsonLr1.substring(1, gsonLr1.length() - 1);" +
+                " \n return gson.fromJson(trimmedJson,LR1Parser.class); }  " +
 
-                "\n    private boolean Evaluate(String stringToEvaluate) {\n" +
+                "\n   private boolean Evaluate(String stringToEvaluate) {\n" +
                 "        String buffer = stringToEvaluate + \"$\";\n" +
-                "        Stack<elementOfStack> stack = new Stack<elementOfStack>();\n" +
+                "        Stack<ElementOfStack> stack = new Stack<>();\n" +
                 "        State state;\n" +
-                "        elementOfStack current_element_of_stack;\n" +
+                "        ElementOfStack elementOfStack;\n" +
                 "        String symbol;\n" +
                 "        ArrayList<Action> actions;\n" +
-                "        int index_of_buffer = 0;\n" +
+                "        int indexOfBuffer = 0;\n" +
                 "        boolean evaluar = true;\n" +
                 "\n" +
-                "        if (getLr1Parser() == null)\n" +
-                "        {\n" +
-                "           // JOptionPane.showMessageDialog(null, \"Primero debes generar el analizador sintáctico LR1!\");\n" +
-                "            return false;\n" +
-                "        }\n" +
+                "        LR1Parser lr1Parser = getLr1Parser();\n" +
                 "\n" +
-                "        stack.push(new elementOfStack(\"$\", 0));\n" +
-                "        if (stringToEvaluate.length() > 0)\n" +
-                "        {\n" +
-                "            symbol = String.valueOf(buffer.charAt(index_of_buffer));\n" +
+                "        //Rebuild link states set to null because of gson redundancy error\n" +
+                "        for (State state1 : lr1Parser.getAutomaton().getStatesOfAutomaton()) {\n" +
+                "            for (Transition transition : state1.getTransitions()) {\n" +
+                "                State stateFromAutomaton = lr1Parser.getAutomaton().getState(Integer.parseInt(transition.getLinkState()));\n" +
+                "                transition.setLink(stateFromAutomaton);\n" +
+                "            }\n" +
                 "        }\n" +
-                "        else\n" +
-                "        {\n" +
+                "        stack.push(new ElementOfStack(\"$\", 0));\n" +
+                "        if (stringToEvaluate.length() > 0) {\n" +
+                "            symbol = String.valueOf(buffer.charAt(indexOfBuffer));\n" +
+                "        } else {\n" +
                 "            symbol = \"$\";\n" +
                 "        }\n" +
-                "        //listViewLRActionTable.Items.Clear();\n" +
-                "        while (evaluar)\n" +
-                "        {\n" +
-                "            current_element_of_stack = stack.peek();\n" +
-                "            state = getLr1Parser().getAutomaton().getState(current_element_of_stack.getState());\n" +
-                "            //actions = new ArrayList<>();\n" +
-                "\n    String finalSymbol = symbol;" +
-                " actions = state.getActions().stream().filter(ter -> ter.getTerminal().equals(finalSymbol))\n" +
-                "                    .collect(Collectors.toCollection(ArrayList::new));" +
+                "        while (evaluar) {\n" +
+                "            elementOfStack = stack.peek();\n" +
+                "            state = getLr1Parser().getAutomaton().getState(elementOfStack.getState());\n" +
                 "\n" +
-                "            String cadena_pila = \"\";\n" +
-                "            //ListViewItem lv = new ListViewItem();\n" +
+                "            String finalSymbol = symbol;\n" +
+                "            actions = state.getActions().stream().filter(ter -> ter.getTerminal().equals(finalSymbol))\n" +
+                "                    .collect(Collectors.toCollection(ArrayList::new));\n" +
                 "\n" +
-                "            if (!actions.isEmpty())\n" +
-                "            {\n" +
-                "                for (int index = stack.size() - 1; index >= 0; index--)\n" +
-                "                {\n" +
-                "                    cadena_pila += stack.elementAt(index).getSymbol() + stack.elementAt(index).getState();\n" +
+                "            String cadenaPila = \"\";\n" +
+                "\n" +
+                "            if (!actions.isEmpty()) {\n" +
+                "                for (int index = stack.size() - 1; index >= 0; index--) {\n" +
+                "                    cadenaPila += stack.elementAt(index).getSymbol() + stack.elementAt(index).getState();\n" +
                 "                }\n" +
-                "                //lv.Text = cadena_pila;\n" +
-                "                if (actions.get(0).getAction().equals(\"D\"))\n" +
-                "                {\n" +
-                "                    //lv.SubItems.Add(buffer.substring(index_of_buffer));\n" +
-                "                    symbol = String.valueOf(buffer.charAt(++index_of_buffer));\n" +
-                "                    stack.push(new elementOfStack(actions.get(0).getTerminal(), actions.get(0).getToState()));\n" +
-                "                    //lv.SubItems.Add(actions.get(0).getAction() + actions.get(0).getToState());\n" +
+                "                if (actions.get(0).getAction().equals(\"D\")) {\n" +
+                "                    symbol = String.valueOf(buffer.charAt(++indexOfBuffer));\n" +
+                "                    stack.push(new ElementOfStack(actions.get(0).getTerminal(), actions.get(0).getToState()));\n" +
                 "\n" +
-                "                }\n" +
-                "                else\n" +
-                "                {\n" +
-                "                    if (actions.get(0).getAction().equals(\"R\"))\n" +
-                "                    {\n" +
-                "                        int eliminar_pila = getLr1Parser().grammar.getProductions().get(actions.get(0).getToState()).getNumberOfGrammarOfSymbols();\n" +
-                "                        for (int i = 0; i < eliminar_pila; i++)\n" +
-                "                        {\n" +
+                "                } else {\n" +
+                "                    if (actions.get(0).getAction().equals(\"R\")) {\n" +
+                "                        int eliminarPila = lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).getNumberOfGrammarOfSymbols();\n" +
+                "\n" +
+                "                        for (int i = 0; i < eliminarPila; i++) {\n" +
                 "                            stack.pop();\n" +
                 "                        }\n" +
-                "                        current_element_of_stack = stack.peek();\n" +
-                "                        state = getLr1Parser().getAutomaton().getState(current_element_of_stack.getState());\n" +
-                "                        stack.push(new elementOfStack(getLr1Parser().grammar.getProductions()\n" +
+                "\n" +
+                "                        elementOfStack = stack.peek();\n" +
+                "                        state = lr1Parser.getAutomaton().getState(elementOfStack.getState());\n" +
+                "\n" +
+                "                        stack.push(new ElementOfStack(lr1Parser.grammar.getProductions()\n" +
                 "                                .get(actions.get(0).getToState()).getLeftSide(),\n" +
-                "                                state.thereIsTransition(getLr1Parser().grammar.getProductions().get(actions.get(0).getToState()).getLeftSide())));\n" +
-                "                        //lv.SubItems.Add(buffer.substring(index_of_buffer));\n" +
-                "                        //lv.SubItems.Add(actions.get(0).getAction() + actions.get(0).getToState() + \" \" + getLr1Parser().grammar.getProductions().get(actions.get(0).getToState()).getProduction());\n" +
-                "                    }\n" +
-                "                    else\n" +
-                "                    {\n" +
-                "                        if (actions.get(0).getAction().equals(\"Aceptar\"))\n" +
-                "                        {\n" +
-                "                            //lv.SubItems.Add(buffer.substring(index_of_buffer));\n" +
-                "                            //lv.SubItems.Add(\"Aceptar\");\n" +
-                "                            //listViewLRActionTable.Items.Add(lv);\n" +
-                "                            //JOptionPane.showMessageDialog(null, \"Cadena aceptada!\");\n" +
-                "                            return true;\n" +
-                "                        }\n" +
-                "                        else\n" +
-                "                        {\n" +
-                "                            //lv.SubItems.Add(buffer.substring(index_of_buffer));\n" +
-                "                            //lv.SubItems.Add(\"Error\");\n" +
-                "                            //listViewLRActionTable.Items.Add(lv);\n" +
-                "                           // JOptionPane.showMessageDialog(null, \"Cadena no aceptada!\");\n" +
-                "                            return false;\n" +
-                "                        }\n" +
+                "                                state.thereIsTransition(lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).getLeftSide())));\n" +
+                "                    } else {\n" +
+                "                        return actions.get(0).getAction().equals(\"Aceptar\");\n" +
                 "                    }\n" +
                 "                }\n" +
-                "            }\n" +
-                "            else\n" +
-                "            {\n" +
-                "                if (index_of_buffer < buffer.length())\n" +
-                "                {\n" +
-                "                    //lv.SubItems.Add(buffer.substring(index_of_buffer));\n" +
-                "                }\n" +
-                "                else\n" +
-                "                {\n" +
-                "                    //lv.SubItems.Add(\"$\");\n" +
-                "                }\n" +
-                "                //lv.SubItems.Add(\"Error\");\n" +
-                "                //listViewLRActionTable.Items.Add(lv);\n" +
-                "                //JOptionPane.showMessageDialog(null, \"Cadena no aceptada\");\n" +
+                "            } else {\n" +
                 "                return false;\n" +
                 "            }\n" +
-                "            //listViewLRActionTable.Items.Add(lv);\n" +
                 "        }\n" +
                 "\n" +
                 "        return false;\n" +
-                "    }" +
+                "    } " +
 
                 "\n public Scanner getScanner() {\n" +
                 "        return scanner;\n" +
@@ -352,7 +329,31 @@ public class LR1Parser {
                 "\n" +
                 "    public void setscanner(Scanner scanner) {\n" +
                 "        this.scanner = scanner;\n" +
-                "    } } ";
+                "    } " +
+                " private static List<String> readFile()\n" +
+                "     {\n" +
+                "         List<String> records = new ArrayList<>();\n" +
+                "         try\n" +
+                "         {\n" +
+                "             try (BufferedReader br = new BufferedReader(new FileReader(\"./src/Automaton/Parser/gsonLr1.txt\"))) {\n" +
+                "                 String line;\n" +
+                "                 while ((line = br.readLine()) != null) {\n" +
+                "                     records.add(line);\n" +
+                "                 }\n" +
+                "             } catch (IOException e) {\n" +
+                "                 e.printStackTrace();\n" +
+                "             }\n" +
+                "\n" +
+                "             return records;\n" +
+                "         }\n" +
+                "         catch (Exception e)\n" +
+                "         {\n" +
+                "             System.err.format(\"Exception occurred trying to read '%s'.\", \"./src/Automaton/Parser/gsonLr1.txt\");\n" +
+                "             e.printStackTrace();\n" +
+                "             return null;\n" +
+                "         }\n" +
+                "     } " +
+                "} ";
 
         try {
             DynamicClassGenerator.createNewClass("./src/Automaton/Parser/parser2.java",code);
@@ -364,18 +365,31 @@ public class LR1Parser {
     //Generates sym.java
     public void GenerateSymbolsDefinitionFile(){
         String code = "{    public static final int EOF = 0; " +
-                " public static final int error = 1; ";
+                " public static final int error = 1;  " +
+                " public static final int $ = 2; ";
 
-        int cont = 2;
-        for (String terminal : grammar.getTerminals()  ) {
+        int cont = 3;
+       /* for (String terminal : grammar.getTerminals()  ) {
             code += " public static final int "+terminal+ "="+cont+";";
             cont++;
+        } */
+
+        for (String symbol : SymbolsTable.getInstance().GetAllSymbols()) {
+            if (SymbolsTable.getInstance().SymbolIsTerminal(symbol)){
+                code += " public static final int "+symbol+ "="+cont+";";
+                cont++;
+            }
         }
 
-        code +=  "public static final String[] terminalNames = new String[] { \n   \"EOF\",  \"error\",";
+        code +=  "public static final String[] terminalNames = new String[] { \n   \"EOF\",  \"error\", \"$\", ";
 
-        for (String terminal : grammar.getTerminals()  ) {
+        /*for (String terminal : grammar.getTerminals()  ) {
             code += "\""+terminal+"\",";
+        } */
+        for (String symbol : SymbolsTable.getInstance().GetAllSymbols()) {
+            if (SymbolsTable.getInstance().SymbolIsTerminal(symbol)){
+                code += "\""+symbol+"\",";
+            }
         }
 
         code += " };";

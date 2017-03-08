@@ -69,7 +69,11 @@ public class DynamicClassGenerator {
                 "\n import java_cup.runtime.Scanner;" +
                 "\n import java.util.Stack;" +
                 "\n import java.util.ArrayList;" +
-                "\n import java.util.Arrays;" +
+                "\n import java.util.stream.Collectors;" +
+                "\n  import java.util.List;  " +
+                " import java.io.BufferedReader;\n" +
+                " import java.io.FileReader;\n" +
+                " import java.io.IOException;" +
                 "\n public class " + classname + code;
 
         // write the source code into the source file
