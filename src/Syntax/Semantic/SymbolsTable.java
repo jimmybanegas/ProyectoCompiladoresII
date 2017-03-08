@@ -12,11 +12,12 @@ public class SymbolsTable {
     private static SymbolsTable _instance;
     private HashMap<String, String> _terminals;
     private HashMap<String, String> _nonTerminals;
-
+    public HashMap<String,Character> _charsForTerminals;
 
     private SymbolsTable(){
         _terminals = new HashMap<>();
         _nonTerminals = new HashMap<>();
+        _charsForTerminals = new HashMap<>();
     }
 
     public static SymbolsTable getInstance()

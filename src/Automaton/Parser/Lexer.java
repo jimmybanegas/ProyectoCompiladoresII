@@ -626,39 +626,39 @@ public class Lexer implements java_cup.runtime.Scanner {
             }
           case 13: break;
           case 3: 
-            { return symbol(sym.n, new Integer(yytext()));
+            { return symbol(sym.NUMBER, new Integer(yytext()));
             }
           case 14: break;
           case 4: 
-            { return symbol(sym.i, new Integer(1));
+            { return symbol(sym.ID, new Integer(1));
             }
           case 15: break;
           case 5: 
-            { return symbol(sym.s);
+            { return symbol(sym.SEMI);
             }
           case 16: break;
           case 6: 
-            { return symbol(sym.p);
+            { return symbol(sym.PLUS);
             }
           case 17: break;
           case 7: 
-            { return symbol(sym.m);
+            { return symbol(sym.MINUS);
             }
           case 18: break;
           case 8: 
-            { return symbol(sym.t);
+            { return symbol(sym.TIMES);
             }
           case 19: break;
           case 9: 
-            { return symbol(sym.d);
+            { return symbol(sym.DIVIDE);
             }
           case 20: break;
           case 10: 
-            { return symbol(sym.l);
+            { return symbol(sym.LPAREN);
             }
           case 21: break;
           case 11: 
-            { return symbol(sym.r);
+            { return symbol(sym.RPAREN);
             }
           case 22: break;
           default:

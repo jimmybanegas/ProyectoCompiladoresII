@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class LR1Parser {
     public Grammar grammar;
     private Automaton automaton;
+    public SymbolsTable symbolsTable;
 
     public Automaton getAutomaton() {
         return automaton;
@@ -32,6 +33,7 @@ public class LR1Parser {
         this.grammar = grammar;
         setAutomaton(new Automaton());
         buildYourself();
+        symbolsTable = SymbolsTable.getInstance();
     }
 
     private void buildYourself() {

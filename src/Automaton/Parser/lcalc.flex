@@ -33,21 +33,21 @@ dec_int_id = [A-Za-z_][A-Za-z_0-9]*
 
 <YYINITIAL> {
 
-    ";"                { return symbol(sym.s); }
+    ";"                { return symbol(sym.SEMI); }
 
-    "+"                { return symbol(sym.p); }
-    "@"                { return symbol(sym.p); }
-    "-"                { return symbol(sym.m); }
-    "*"                { return symbol(sym.t); }
-    "/"                { return symbol(sym.d); }
-    "("                { return symbol(sym.l); }
-    ")"                { return symbol(sym.r); }
+    "+"                { return symbol(sym.PLUS); }
+    "@"                { return symbol(sym.PLUS); }
+    "-"                { return symbol(sym.MINUS); }
+    "*"                { return symbol(sym.TIMES); }
+    "/"                { return symbol(sym.DIVIDE); }
+    "("                { return symbol(sym.LPAREN); }
+    ")"                { return symbol(sym.RPAREN); }
 
     {dec_int_lit}      {
-                         return symbol(sym.n, new Integer(yytext())); }
+                         return symbol(sym.NUMBER, new Integer(yytext())); }
 
     {dec_int_id}       {
-                         return symbol(sym.i, new Integer(1));}
+                         return symbol(sym.ID, new Integer(1));}
 
     {WhiteSpace}       { /* just skip what was found, do nothing */ }
 }

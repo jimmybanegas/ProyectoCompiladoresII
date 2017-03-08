@@ -30,8 +30,8 @@ parser code {:
 
 
 
-terminal          s, p, m, t, d, l, r;
-terminal Integer  n, i;
+terminal          SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN,DOT;
+terminal Integer  NUMBER, ID;
 //terminal           SATAN, a,b,c,d,e,p,r,l,i;
 
 non terminal Object     expr_list, expr_part;
@@ -99,14 +99,14 @@ non terminal Integer    expr, factor, term;
                  |expr_part;
 
 
-   expr_part ::= expr:e s {: System.out.println(e); :}
+   expr_part ::= expr:e SEMI {: System.out.println(e); :}
                  ;
 
 
-   expr      ::= expr:e p factor:f
+   expr      ::= expr:e PLUS factor:f
                  {: RESULT = e + f; :}
                  |
-                 expr:e m factor:f
+                 expr:e MINUS factor:f
                  {: RESULT = e - f; :}
                  |
                  factor:f
@@ -114,10 +114,10 @@ non terminal Integer    expr, factor, term;
                  ;
 
 
-   factor    ::= factor:f t term:t
+   factor    ::= factor:f TIMES term:t
                  {: RESULT = f * t; :}
                  |
-                 factor:f d term:t
+                 factor:f DIVIDE term:t
                  {: RESULT = f / t; :}
                  |
                  term:t
@@ -125,12 +125,12 @@ non terminal Integer    expr, factor, term;
                  ;
 
 
-   term      ::= l expr:e r
+   term      ::= LPAREN expr:e RPAREN
                  {: RESULT = e; :}
                  |
-                 n:n
+                 NUMBER:n
                  {: RESULT = n; :}
                  |
-                 i:i
+                 ID:i
                  {: RESULT = 0; :}
                  ;

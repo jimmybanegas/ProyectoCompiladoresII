@@ -30,7 +30,6 @@ public class Main {
             sb.append("\t");
         }
 
-
         Lexer lex = new Lexer(new SourceCode(sb.toString()));
 
         Parser parser = new Parser(lex);
@@ -104,6 +103,7 @@ public class Main {
                                     }
 
                                     System.out.print(c);
+                                    SymbolsTable.getInstance()._charsForTerminals.put(symbol,c);
                                     fixedElementOfGrammar += (String.valueOf(c));
                                 }
                             }
