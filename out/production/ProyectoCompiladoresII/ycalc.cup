@@ -32,19 +32,28 @@ parser code {:
 
 terminal          SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN,DOT;
 terminal Integer  NUMBER, ID;
-//terminal           SATAN, a,b,c,d,e,p,r,l,i;
 
 non terminal Object     expr_list, expr_part;
-//non terminal Object S, C, A,B ,D,E,F,T;
 non terminal Integer    expr, factor, term;
 
+/*non terminal Object S,A;
+terminal     a,b,c,d; */
 
-  /*S ::= A a
+/*terminal LPAREN, RPAREN, LBRACKET,RBRACKET;
+non terminal Object S;
+
+S ::= S S
+    | LPAREN RPAREN
+    | LPAREN S RPAREN
+    | LBRACKET RBRACKET
+    | LBRACKET S RBRACKET; */
+
+/*  S ::= A a
       |d A b
       |d c a
       |c b;
 
-  A ::= c;*/
+  A ::= c; */
 
 //La gramatica de la clase
  /* S ::= C C;
@@ -92,7 +101,6 @@ non terminal Integer    expr, factor, term;
  D ::=	E;
 
  E ::=	; */
-
 
 // El que está de ejemplo en javacup site
    expr_list ::= expr_list expr_part

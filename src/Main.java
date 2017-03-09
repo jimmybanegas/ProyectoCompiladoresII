@@ -90,16 +90,26 @@ public class Main {
                                 }
                                 if (SymbolsTable.getInstance().SymbolIsTerminal(symbol)) {
                                     char c = (char) (r.nextInt(26) + 'a');
-                                    if (symbol.length() > 1){
-                                        c = symbol.toLowerCase().charAt(0);
-                                        while (taken.contains(c)){
-                                            c = (char) (r.nextInt(26) + 'a');
-                                        }
-                                        taken.add(c);
+                                    if(SymbolsTable.getInstance()._charsForTerminals.get(symbol) != null){
+                                        c = SymbolsTable.getInstance()._charsForTerminals.get(symbol);
                                     }
                                     else{
-                                        taken.add(symbol.charAt(0));
-                                        c = symbol.charAt(0);
+                                        if (symbol.length() > 1){
+                                            c = symbol.toLowerCase().charAt(0);
+                                            while (taken.contains(c)){
+                                                if (taken.size() < 26)
+                                                    c = (char) (r.nextInt(26) + 'a');
+                                                else
+                                                   c =  Integer.toString(r.nextInt(10) + 1).charAt(0);
+                                                    // c = (char) ((r.nextInt(10) + 1)+ '0');
+                                                //c = randomSeriesForThreeCharacter();
+                                            }
+                                            taken.add(c);
+                                        }
+                                        else{
+                                            taken.add(symbol.charAt(0));
+                                            c = symbol.charAt(0);
+                                        }
                                     }
 
                                     System.out.print(c);
@@ -170,6 +180,18 @@ public class Main {
         }
     }
 
+    public static char randomSeriesForThreeCharacter() {
+        Random r = new Random();
+        /*char random_3_Char = (char) (48 + r.nextInt(47));
+        return Character.toLowerCase(random_3_Char); */
+        int n = r.nextInt(69) + 32;
+        if (n > 96) {
+            n += 26;
+        }
+         char c = (char) n;
+        return Character.toLowerCase(c);
+    }
+
     private static void printStatesOfAutomaton(List<State> states) {
         for (State state : states) {
             System.out.println(state.toString());
@@ -205,7 +227,7 @@ public class Main {
         }
         catch (Exception e)
         {
-            System.err.format("Exception occurred trying to read '%s'.", "./src/test.txt");
+            System.err.format("Exception occurred trying to read '%s'.", "./src/ycalc.txt");
             e.printStackTrace();
             return null;
         }

@@ -50,7 +50,7 @@ public class Grammar {
     public Grammar(String[] productions) //Constructor de una gramática a partir de un arreglo de producciones.
     {
         error = "";
-        this.productions = new ArrayList<Production>();
+        this.productions = new ArrayList<>();
         nonTerminals = new ArrayList<>();
         terminals = new ArrayList<>();
         initializeProductions(productions);
