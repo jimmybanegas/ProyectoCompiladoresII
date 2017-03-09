@@ -30,23 +30,29 @@ parser code {:
 
 
 
-terminal          SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN,DOT;
+/*terminal          SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN,DOT;
 terminal Integer  NUMBER, ID;
 
 non terminal Object     expr_list, expr_part;
-non terminal Integer    expr, factor, term;
+non terminal Integer    expr, factor, term; */
 
 /*non terminal Object S,A;
 terminal     a,b,c,d; */
 
 /*terminal LPAREN, RPAREN, LBRACKET,RBRACKET;
-non terminal Object S;
+non terminal Object S; */
 
-S ::= S S
+terminal cero, uno;
+non terminal Object RE;
+
+/*S ::= S S
     | LPAREN RPAREN
     | LPAREN S RPAREN
     | LBRACKET RBRACKET
     | LBRACKET S RBRACKET; */
+
+      RE ::= cero uno
+            | cero RE uno;
 
 /*  S ::= A a
       |d A b
@@ -102,7 +108,7 @@ S ::= S S
 
  E ::=	; */
 
-// El que está de ejemplo en javacup site
+/* El que está de ejemplo en javacup site
    expr_list ::= expr_list expr_part
                  |expr_part;
 
@@ -141,4 +147,4 @@ S ::= S S
                  |
                  ID:i
                  {: RESULT = 0; :}
-                 ;
+                 ; */
