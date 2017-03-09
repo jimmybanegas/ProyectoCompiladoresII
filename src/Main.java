@@ -54,6 +54,10 @@ public class Main {
             String[] stringArray;
             ArrayList<String> stringList = new ArrayList<>();
             List<Character> taken = new ArrayList<>();
+            taken.add('.');
+            taken.add('$');
+            taken.add('|');
+            taken.add(' ');
 
             for (StatementNode node : root) {
                 if(node instanceof ProductionNode){
@@ -97,12 +101,13 @@ public class Main {
                                         if (symbol.length() > 1){
                                             c = symbol.toLowerCase().charAt(0);
                                             while (taken.contains(c)){
-                                                if (taken.size() < 26)
-                                                    c = (char) (r.nextInt(26) + 'a');
-                                                else
-                                                   c =  Integer.toString(r.nextInt(10) + 1).charAt(0);
+                                              //  if (taken.size() < 26)
+                                              //      c = (char) (r.nextInt(26) + 'a');
+                                               // else
+                                                    c = randomSeriesForThreeCharacter();
+                                                   //c =  Integer.toString(r.nextInt(10) + 1).charAt(0);
                                                     // c = (char) ((r.nextInt(10) + 1)+ '0');
-                                                //c = randomSeriesForThreeCharacter();
+
                                             }
                                             taken.add(c);
                                         }
@@ -182,14 +187,14 @@ public class Main {
 
     public static char randomSeriesForThreeCharacter() {
         Random r = new Random();
-        /*char random_3_Char = (char) (48 + r.nextInt(47));
-        return Character.toLowerCase(random_3_Char); */
-        int n = r.nextInt(69) + 32;
+        char random_3_Char = (char) (48 + r.nextInt(47));
+        return Character.toLowerCase(random_3_Char);
+        /*int n = r.nextInt(69) + 32;
         if (n > 96) {
             n += 26;
         }
-         char c = (char) n;
-        return Character.toLowerCase(c);
+         char c = (char) n; */
+       // return Character.toLowerCase(c);
     }
 
     private static void printStatesOfAutomaton(List<State> states) {

@@ -45,7 +45,7 @@ public class FlexLexer implements java_cup.runtime.Scanner {
    */
   private static final String ZZ_CMAP_PACKED = 
     "\11\0\1\3\1\2\1\0\1\3\1\1\22\0\1\3\7\0\1\4"+
-    "\1\5\61\0\1\4\1\0\1\5\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffb2\0";
+    "\1\5\61\0\1\6\1\0\1\7\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffb2\0";
 
   /** 
    * Translates characters to character classes
@@ -58,10 +58,10 @@ public class FlexLexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\2\2\1\3\1\4";
+    "\1\0\1\1\2\2\1\3\1\4\1\5\1\6";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[6];
+    int [] result = new int[8];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -86,10 +86,10 @@ public class FlexLexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\6\0\14\0\6\0\6\0\6";
+    "\0\0\0\10\0\20\0\10\0\10\0\10\0\10\0\10";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[6];
+    int [] result = new int[8];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -112,10 +112,11 @@ public class FlexLexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\2\4\1\5\1\6\10\0\1\4\3\0";
+    "\1\2\1\3\2\4\1\5\1\6\1\7\1\10\12\0"+
+    "\1\4\5\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[18];
+    int [] result = new int[24];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -153,10 +154,10 @@ public class FlexLexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\1\1\3\11";
+    "\1\0\1\11\1\1\5\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[6];
+    int [] result = new int[8];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -632,19 +633,27 @@ public class FlexLexer implements java_cup.runtime.Scanner {
           case 1: 
             { throw new Error("Illegal character <"+yytext()+">");
             }
-          case 5: break;
+          case 7: break;
           case 2: 
             { /* just skip what was found, do nothing */
             }
-          case 6: break;
-          case 3: 
-            { return symbol(sym.d);
-            }
-          case 7: break;
-          case 4: 
-            { return symbol(sym.c);
-            }
           case 8: break;
+          case 3: 
+            { return symbol(sym.LPAREN);
+            }
+          case 9: break;
+          case 4: 
+            { return symbol(sym.RPAREN);
+            }
+          case 10: break;
+          case 5: 
+            { return symbol(sym.LBRACKET);
+            }
+          case 11: break;
+          case 6: 
+            { return symbol(sym.RBRACKET);
+            }
+          case 12: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

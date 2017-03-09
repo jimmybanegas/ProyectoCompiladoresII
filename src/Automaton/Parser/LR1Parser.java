@@ -248,7 +248,7 @@ public class LR1Parser {
                 "\n   String stringToEvaluate = \"\";" +
                 "        //SYM 0 is the end of file symbol\n" +
                 "        while (currentToken.sym != 0){\n" +
-                "   stringToEvaluate += sym.terminalNames[currentToken.sym];" +
+                "    stringToEvaluate += getLr1Parser().symbolsTable._charsForTerminals.get(sym.terminalNames[currentToken.sym]);" +
                 "            System.out.println(\"THIS IS A : \"+ sym.terminalNames[currentToken.sym]);\n" +
                 "\n" +
                 "            currentToken = getScanner().next_token();\n" +
