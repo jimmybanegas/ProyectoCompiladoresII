@@ -1,4 +1,5 @@
 import Automaton.Automaton.*;
+import Automaton.Parser.DirectedTranslationObject;
 import Automaton.Parser.LR1Parser;
 import Lexer.Lexer;
 import Lexer.SourceCode;
@@ -46,7 +47,9 @@ public class Main {
             taken.add('|');
             taken.add(' ');
 
+            int numberOfProduction = 1;
             for (StatementNode node : root) {
+
                 if(node instanceof ProductionNode){
                     String nonTerminal =((ProductionNode) node).nonTerminal.toUpperCase();
 
@@ -68,9 +71,30 @@ public class Main {
                             break;
                         }
 
+                        int positionOfElement = -1;
+                        HashMap<String,String> labels = new HashMap<>();
+
+                        for (String elemento : splittedBySpace){
+                            if (Objects.equals(elemento,"javaCode")){
+                                DirectedTranslationObject sdt = new DirectedTranslationObject(
+                                        numberOfProduction,positionOfElement,production.javaCode.replace("{:","").replace(":}","")
+                                        ,nonTerminal,production.production);
+                                //   if (sdt != null){
+                                SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
+                                //   }
+                            }
+                        }
+
                         for (String elemento :  splittedBySpace ) {
+
                             if(!Objects.equals(elemento, "") && !Objects.equals(elemento, "javaCode")){
-                                String symbol = elemento.split(":")[0];
+                                String[] elementoSplitted = elemento.split(":");
+
+                                String symbol = elementoSplitted[0];
+
+                                if (elementoSplitted.length ==2 ){
+                                    labels.put(symbol,elementoSplitted[1]);
+                                }
 
                                 if (SymbolsTable.getInstance().SymbolIsNonTerminal(symbol)){
                                     fixedElementOfGrammar += ("<"+symbol.toUpperCase()+">");
@@ -97,10 +121,18 @@ public class Main {
                                     fixedElementOfGrammar += (String.valueOf(c));
                                 }
                             }
+                            positionOfElement++;
+
+                            if (labels.size()>0){
+                                HashMap<Integer,DirectedTranslationObject> ne = SymbolsTable.getInstance()._sdtObjects;
+                                SymbolsTable.getInstance()._sdtObjects.get(numberOfProduction).setLabels(labels);
+                            }
                         }
                         pos++;
+                        numberOfProduction++;
                     }
                     stringList.add(fixedElementOfGrammar);
+                    //numberOfProduction++;
                 }
             }
             System.out.println("\n");
@@ -162,6 +194,9 @@ public class Main {
 
                 lr1.GenerateParserForCupEntryFile();
                 lr1.GenerateSymbolsDefinitionFile();
+
+              //  HashMap<Integer,DirectedTranslationObject> ne= SymbolsTable.getInstance()._sdtObjects;
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -173,12 +208,6 @@ public class Main {
         Random r = new Random();
         char random_3_Char = (char) (48 + r.nextInt(47));
         return Character.toLowerCase(random_3_Char);
-        /*int n = r.nextInt(69) + 32;
-        if (n > 96) {
-            n += 26;
-        }
-         char c = (char) n; */
-       // return Character.toLowerCase(c);
     }
 
     private static void printStatesOfAutomaton(List<State> states) {
