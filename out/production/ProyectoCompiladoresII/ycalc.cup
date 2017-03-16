@@ -28,50 +28,68 @@ parser code {:
     }
 :};
 
-
-
 /*terminal          SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN,DOT;
 terminal Integer  NUMBER, ID;
 
 non terminal Object     expr_list, expr_part;
 non terminal Integer    expr, factor, term; */
 
-/*non terminal Object S,A;
-terminal     a,b,c,d; */
+/*non terminal Object S,A,B ;
+terminal     a,b,c,d,e;
 
-/*terminal LPAREN, RPAREN, LBRACKET,RBRACKET;
-non terminal Object S; */
-
-terminal cero, uno;
-non terminal Object RE;
-
-/*S ::= S S
-    | LPAREN RPAREN
-    | LPAREN S RPAREN
-    | LBRACKET RBRACKET
-    | LBRACKET S RBRACKET; */
-
-      RE ::= cero uno
-            | cero RE uno;
-
-/*  S ::= A a
+  S ::= A a
       |d A b
       |d c a
       |c b;
 
   A ::= c; */
 
+/*  S::= a A d
+      | b B d
+      | a B e
+      | b A e;
+
+  A::= c;
+
+  B::= c;
+*/
+
+/*S->a<A>d|b<B>d|a<B>e|b<A>e
+A->c
+B->c */
+
+/*terminal cero, uno;
+non terminal Object RE;
+
+  RE ::= cero uno
+            | cero RE uno; */
+
+/*terminal LPAREN, RPAREN, LBRACKET,RBRACKET;
+non terminal Object S; */
+/*S ::= S S
+    | LPAREN RPAREN
+    | LPAREN S RPAREN
+    | LBRACKET RBRACKET
+    | LBRACKET S RBRACKET; */
+
 //La gramatica de la clase
- /* S ::= C C;
+
+ non terminal Object S,C;
+terminal     c,d;
+
+  S ::= C C;
 
   C ::= c C
-    |d;  */
+    |d;
 
-   /* E::= T PLUS E
+/*terminal ID, LPAREN,RPAREN,PLUS;
+non terminal E,T;
+
+    E::= T PLUS E
         | T;
     T::= ID
-        | LPAREN E RPAREN; */
-
+        | LPAREN E RPAREN;
+*/
 
 //Ejemplo de http://smlweb.cpsc.ucalgary.ca/lr1.php?grammar=E+-%3E+d+D+%7C+D+%7C+F.%0AF+-%3E+e+C+%7C+C.%0AD+-%3E+d+e+B+b+%7C+e+A+c.%0AC+-%3E+e+d+B+c+%7C+d+A+b.%0AB+-%3E+a.%0AA+-%3E+a.%0A&substs=
 /* E ::= d D

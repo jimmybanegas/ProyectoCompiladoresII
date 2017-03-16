@@ -1,5 +1,7 @@
 package Automaton.Automaton;
 
+import Syntax.Semantic.SymbolsTable;
+
 /**
  * Created by Jimmy Ramos on 18-Feb-17.
  */
@@ -214,7 +216,6 @@ public class ElementOfProduction {
     }
 
     public String toString(){
-        //return getAlfa()+getB()+getBeta()+", "+getTerminal();
         return production.getLeftSide() + " -> " + insert(production.getRightSide(), getPointPosition()).replace("<"," ").replace(">"," ") + " , " +getTerminal();
     }
 

@@ -11,10 +11,7 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class Main {
 
@@ -37,19 +34,9 @@ public class Main {
         try {
             List<StatementNode> root =  parser.Parse();
 
-            System.out.println("\n");
-            Gson gson = new Gson();
-
-            System.out.println(gson.toJson(gson.toJson(root)));
-
             for (StatementNode statement:root){
                 statement.ValidateSemantic();
             }
-
-            SymbolsTable general = SymbolsTable.getInstance();
-
-            System.out.println(gson.toJson(general));
-            System.out.println();
 
             String[] stringArray;
             ArrayList<String> stringList = new ArrayList<>();
@@ -63,7 +50,6 @@ public class Main {
                 if(node instanceof ProductionNode){
                     String nonTerminal =((ProductionNode) node).nonTerminal.toUpperCase();
 
-                    System.out.print(nonTerminal.toUpperCase()+"->");
                     Random r = new Random();
 
                     String fixedElementOfGrammar = nonTerminal.toUpperCase()+"->";
@@ -73,12 +59,10 @@ public class Main {
 
                         String[] splittedBySpace = production.production.split(" ");
                         if (pos > 0){
-                            System.out.print("|");
                             fixedElementOfGrammar += "|";
                         }
 
                         if(production.production.equals("")){
-                            System.out.print("~");
                             fixedElementOfGrammar+= "~";
                             pos++;
                             break;
@@ -89,7 +73,6 @@ public class Main {
                                 String symbol = elemento.split(":")[0];
 
                                 if (SymbolsTable.getInstance().SymbolIsNonTerminal(symbol)){
-                                    System.out.print("<"+symbol.toUpperCase()+">");
                                     fixedElementOfGrammar += ("<"+symbol.toUpperCase()+">");
                                 }
                                 if (SymbolsTable.getInstance().SymbolIsTerminal(symbol)) {
@@ -101,13 +84,7 @@ public class Main {
                                         if (symbol.length() > 1){
                                             c = symbol.toLowerCase().charAt(0);
                                             while (taken.contains(c)){
-                                              //  if (taken.size() < 26)
-                                              //      c = (char) (r.nextInt(26) + 'a');
-                                               // else
                                                     c = randomSeriesForThreeCharacter();
-                                                   //c =  Integer.toString(r.nextInt(10) + 1).charAt(0);
-                                                    // c = (char) ((r.nextInt(10) + 1)+ '0');
-
                                             }
                                             taken.add(c);
                                         }
@@ -116,8 +93,6 @@ public class Main {
                                             c = symbol.charAt(0);
                                         }
                                     }
-
-                                    System.out.print(c);
                                     SymbolsTable.getInstance()._charsForTerminals.put(symbol,c);
                                     fixedElementOfGrammar += (String.valueOf(c));
                                 }
@@ -125,13 +100,11 @@ public class Main {
                         }
                         pos++;
                     }
-                    System.out.println();
                     stringList.add(fixedElementOfGrammar);
                 }
             }
-            System.out.println();
+            System.out.println("\n");
 
-            //Gson gson = new Gson();
             stringArray = new String[stringList.size()];
 
             int x = 0;
@@ -147,8 +120,6 @@ public class Main {
                 LR1Parser lr1 = new LR1Parser(Grammar);
 
                 List<State> states = lr1.getAutomaton().getStatesOfAutomaton();
-
-                // String json = gson.toJson(states);
 
                 printStatesOfAutomaton(states);
 
@@ -171,7 +142,19 @@ public class Main {
                 for (State state : states) {
                     for (Action action: state.getActions() ) {
                         if (action.getToState() != -1 || !Objects.equals(action.getAction(), "")){
-                            System.out.println(state.toString()+" "+ action.getAction() +" de " + action.getToState() +" con simbolo "+action.getTerminal());
+                            System.out.print(state.toString()+" "+ action.getAction() +" de " + action.getToState() +" con simbolo ");
+
+                            final boolean[] found = {false};
+                            SymbolsTable.getInstance()._charsForTerminals.forEach((key, value) -> {
+                                if (value.equals(action.getTerminal().charAt(0))) {
+                                    System.out.print(key.toLowerCase());
+                                    found[0] = true;
+                                }
+                            });
+                            if (!found[0]){
+                                System.out.print(action.getTerminal());
+                            }
+                            System.out.println();
                         }
                     }
                     System.out.println();
@@ -184,6 +167,7 @@ public class Main {
             e.printStackTrace();
         }
     }
+
 
     public static char randomSeriesForThreeCharacter() {
         Random r = new Random();

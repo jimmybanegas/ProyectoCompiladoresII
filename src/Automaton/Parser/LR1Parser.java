@@ -293,8 +293,10 @@ public class LR1Parser {
                 "\n" +
                 "            if (!actions.isEmpty()) {\n" +
                 "                for (int index = stack.size() - 1; index >= 0; index--) {\n" +
-                "                    cadenaPila += stack.elementAt(index).getSymbol() + stack.elementAt(index).getState();\n" +
+                "                   // cadenaPila += stack.elementAt(index).getSymbol() +\" \"+ stack.elementAt(index).getState() +\" \";\n" +
+                "          cadenaPila += stack.elementAt(index).getState() +\" \"+ stack.elementAt(index).getSymbol() +\" \";" +
                 "                }\n" +
+                "System.out.println(new StringBuilder(cadenaPila).reverse().toString());"+
                 "                if (actions.get(0).getAction().equals(\"D\")) {\n" +
                 "                    symbol = String.valueOf(buffer.charAt(++indexOfBuffer));\n" +
                 "                    stack.push(new ElementOfStack(actions.get(0).getTerminal(), actions.get(0).getToState()));\n" +

@@ -19,7 +19,7 @@ import java_cup.runtime.*;
    The name of the class JFlex will create will be Lexer.
    Will write the code to the file Lexer.java.
 */
-%class FlexLexer
+%class Lexer
 
 /*
   The current line number can be accessed with the variable yyline
@@ -91,6 +91,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
        return it. */
     "d"                { return symbol(sym.d); }
     "c"                { return symbol(sym.c); }
+
 
     {WhiteSpace}       { /* just skip what was found, do nothing */ }
 }
