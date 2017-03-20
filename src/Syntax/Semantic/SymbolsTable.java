@@ -1,5 +1,6 @@
 package Syntax.Semantic;
 
+import Automaton.Parser.DirectedTranslationObject;
 import Lexer.TokenType;
 
 import java.util.ArrayList;
@@ -13,11 +14,13 @@ public class SymbolsTable {
     private HashMap<String, String> _terminals;
     private HashMap<String, String> _nonTerminals;
     public HashMap<String,Character> _charsForTerminals;
+    public HashMap<Integer,DirectedTranslationObject> _sdtObjects;
 
     private SymbolsTable(){
         _terminals = new HashMap<>();
         _nonTerminals = new HashMap<>();
         _charsForTerminals = new HashMap<>();
+        _sdtObjects = new HashMap<>();
     }
 
     public static SymbolsTable getInstance()

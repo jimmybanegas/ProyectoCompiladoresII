@@ -28,11 +28,11 @@ parser code {:
     }
 :};
 
-/*terminal          SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN,DOT;
+terminal          SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN,DOT;
 terminal Integer  NUMBER, ID;
 
 non terminal Object     expr_list, expr_part;
-non terminal Integer    expr, factor, term; */
+non terminal Integer    expr, factor, term;
 
 /*non terminal Object S,A,B ;
 terminal     a,b,c,d,e;
@@ -74,13 +74,13 @@ non terminal Object S; */
 
 //La gramatica de la clase
 
- non terminal Object S,C;
+ /*non terminal Object S,C;
 terminal     c,d;
 
-  S ::= C C;
+  S ::= C C ;
 
   C ::= c C
-    |d;
+    |d {: System.out.println("Esta es d "); :}; */
 
 /*terminal ID, LPAREN,RPAREN,PLUS;
 non terminal E,T;
@@ -126,7 +126,7 @@ non terminal E,T;
 
  E ::=	; */
 
-/* El que está de ejemplo en javacup site
+// El que está de ejemplo en javacup site
    expr_list ::= expr_list expr_part
                  |expr_part;
 
@@ -165,4 +165,4 @@ non terminal E,T;
                  |
                  ID:i
                  {: RESULT = 0; :}
-                 ; */
+                 ;
