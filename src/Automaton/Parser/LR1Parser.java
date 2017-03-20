@@ -264,7 +264,7 @@ public class LR1Parser {
                 "    }"+
                 "\n public LR1Parser getLr1Parser() {   Gson gson = new Gson(); \n String trimmedJson = gsonLr1.substring(1, gsonLr1.length() - 1);" +
                 " \n return gson.fromJson(trimmedJson,LR1Parser.class); }  " +
-                "private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {\n" +
+                "     private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {\n" +
                 "        String buffer = stringToEvaluate + \"$\";\n" +
                 "        Stack<ElementOfStack> stack = new Stack<>();\n" +
                 "        State state;\n" +
@@ -302,13 +302,13 @@ public class LR1Parser {
                 "            if (!actions.isEmpty()) {\n" +
                 "                for (int index = stack.size() - 1; index >= 0; index--) {\n" +
                 "                    if (stack.elementAt(index).getLexerSymbol() != null && stack.elementAt(index).getLexerSymbol().value != null)\n" +
-                "                        cadenaPila += stack.elementAt(index).getState() + \" \" + stack.elementAt(index).getLexerSymbol().value + \" \";\n" +
+                "                        cadenaPila += stack.elementAt(index).getState()+ \"ts\" + \" \" + stack.elementAt(index).getLexerSymbol().value + \" \";\n" +
                 "                    else\n" +
-                "                        cadenaPila += stack.elementAt(index).getState() + \" \" + stack.elementAt(index).getSymbol() + \" \";\n" +
+                "                        cadenaPila += stack.elementAt(index).getState()+\"ts\" + \" \" + stack.elementAt(index).getSymbol() + \" \";\n" +
                 "                }\n" +
-                "                \n" +
+                "\n" +
                 "                System.out.println(new StringBuilder(cadenaPila).reverse().toString());\n" +
-                "                \n" +
+                "\n" +
                 "                if (actions.get(0).getAction().equals(\"D\")) {\n" +
                 "                    symbol = String.valueOf(buffer.charAt(++indexOfBuffer));\n" +
                 "                    stack.push(new ElementOfStack(actions.get(0).getTerminal(), actions.get(0).getToState()\n" +
@@ -321,8 +321,8 @@ public class LR1Parser {
                 "                        int productionTaken = lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).hashCode();\n" +
                 "\n" +
                 "                        int productionNumber = 0;\n" +
-                "                        for (Production production : productions ) {\n" +
-                "                            if (production.hashCode() == productionTaken){\n" +
+                "                        for (Production production : productions) {\n" +
+                "                            if (production.hashCode() == productionTaken) {\n" +
                 "                                break;\n" +
                 "                            }\n" +
                 "                            productionNumber++;\n" +
@@ -331,13 +331,18 @@ public class LR1Parser {
                 "                        DirectedTranslationObject sdtObject = lr1Parser.symbolsTable._sdtObjects.get(productionNumber);\n" +
                 "\n" +
                 "                        //Si este es nulo significa que no tiene labels ni java code\n" +
-                "                        if (sdtObject != null){\n" +
-                "                            for (String label: sdtObject.getLabels().keySet()) {\n" +
-                "                                System.out.println(label+\":\"+sdtObject.getLabels().get(label));\n" +
+                "                        if (sdtObject != null) {\n" +
+                "                            for (String label : sdtObject.getLabels().keySet()) {\n" +
+                "                                System.out.println(label + \":\" + sdtObject.getLabels().get(label));\n" +
                 "                            }\n" +
-                "                            System.out.println( \"Production :\"+productionNumber+\" code: \" + sdtObject.getJavaCode()+ \"\\n\");\n" +
+                " // System.out.println(\"Production :\" + productionNumber + \" code: \" + sdtObject.getJavaCode() + \"\\n\");\n" +
+                "                            try {\n" +
+                "                                DynamicClassGenerator.createClassAndExecuteCode(sdtObject.getJavaCode());\n" +
+                "                                System.out.println();\n" +
+                "                            } catch (Exception e) {\n" +
+                "                                e.printStackTrace();\n" +
+                "                            }"+
                 "                        }\n" +
-                "\n" +
                 "                        for (int i = 0; i < eliminarPila; i++) {\n" +
                 "                            stack.pop();\n" +
                 "                        }\n" +
@@ -358,7 +363,7 @@ public class LR1Parser {
                 "            }\n" +
                 "        }\n" +
                 "        return false;\n" +
-                "    }"+
+                "    }\n"+
                 "\n public Scanner getScanner() {\n" +
                 "        return scanner;\n" +
                 "    }\n" +

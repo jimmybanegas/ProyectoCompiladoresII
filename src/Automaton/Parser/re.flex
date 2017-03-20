@@ -89,8 +89,8 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 
     /* Print the token found that was declared in the class sym and then
        return it. */
-    "0"                { return symbol(sym.cero); }
-    "1"                { return symbol(sym.uno); }
+    "0"                { return symbol(sym.cero, new Integer(yytext())); }
+    "1"                { return symbol(sym.uno, new Integer(yytext())); }
 
     {WhiteSpace}       { /* just skip what was found, do nothing */ }
 }

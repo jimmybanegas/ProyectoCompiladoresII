@@ -1,22 +1,31 @@
 package Automaton.Parser;
- import com.google.gson.Gson; 
- import Automaton.Automaton.*;
- import java_cup.runtime.Symbol;
- import java_cup.runtime.Scanner;
- import java.util.Stack;
- import java.util.ArrayList;
- import java.util.stream.Collectors;
-  import java.util.List;   import java.io.BufferedReader;
- import java.io.FileReader;
- import java.io.IOException;
- public class parser2{  String gsonLr1 = readFile().toString();
- 
- private Scanner scanner;
+
+import com.google.gson.Gson;
+import Automaton.Automaton.*;
+import java_cup.runtime.Symbol;
+import java_cup.runtime.Scanner;
+
+import java.util.Stack;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+import Utilities.DynamicClassGenerator;
+
+public class parser2 {
+    String gsonLr1 = readFile().toString();
+
+    private Scanner scanner;
     private Symbol currentToken;
 
-  public parser2(java_cup.runtime.Scanner s) {
+    public parser2(java_cup.runtime.Scanner s) {
         this.setscanner(s);
-    } public boolean parse() throws Exception {
+    }
+
+    public boolean parse() throws Exception {
         currentToken = getScanner().next_token();
 
         List<StringToEvaluate> stringsToEvaluate = new ArrayList<>();
@@ -35,15 +44,20 @@ package Automaton.Parser;
 
         String stringToEvaluate = "";
 
-        for (StringToEvaluate element : stringsToEvaluate  ) {
+        for (StringToEvaluate element : stringsToEvaluate) {
             stringToEvaluate += element.symbol;
         }
 
-        return Evaluate(stringToEvaluate,stringsToEvaluate);
+        return Evaluate(stringToEvaluate, stringsToEvaluate);
     }
- public LR1Parser getLr1Parser() {   Gson gson = new Gson(); 
- String trimmedJson = gsonLr1.substring(1, gsonLr1.length() - 1); 
- return gson.fromJson(trimmedJson,LR1Parser.class); }  private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {
+
+    public LR1Parser getLr1Parser() {
+        Gson gson = new Gson();
+        String trimmedJson = gsonLr1.substring(1, gsonLr1.length() - 1);
+        return gson.fromJson(trimmedJson, LR1Parser.class);
+    }
+
+    private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {
         String buffer = stringToEvaluate + "$";
         Stack<ElementOfStack> stack = new Stack<>();
         State state;
@@ -81,13 +95,13 @@ package Automaton.Parser;
             if (!actions.isEmpty()) {
                 for (int index = stack.size() - 1; index >= 0; index--) {
                     if (stack.elementAt(index).getLexerSymbol() != null && stack.elementAt(index).getLexerSymbol().value != null)
-                        cadenaPila += stack.elementAt(index).getState() + " " + stack.elementAt(index).getLexerSymbol().value + " ";
+                        cadenaPila += stack.elementAt(index).getState() + "ts" + " " + stack.elementAt(index).getLexerSymbol().value + " ";
                     else
-                        cadenaPila += stack.elementAt(index).getState() + " " + stack.elementAt(index).getSymbol() + " ";
+                        cadenaPila += stack.elementAt(index).getState() + "ts" + " " + stack.elementAt(index).getSymbol() + " ";
                 }
-                
+
                 System.out.println(new StringBuilder(cadenaPila).reverse().toString());
-                
+
                 if (actions.get(0).getAction().equals("D")) {
                     symbol = String.valueOf(buffer.charAt(++indexOfBuffer));
                     stack.push(new ElementOfStack(actions.get(0).getTerminal(), actions.get(0).getToState()
@@ -100,8 +114,8 @@ package Automaton.Parser;
                         int productionTaken = lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).hashCode();
 
                         int productionNumber = 0;
-                        for (Production production : productions ) {
-                            if (production.hashCode() == productionTaken){
+                        for (Production production : productions) {
+                            if (production.hashCode() == productionTaken) {
                                 break;
                             }
                             productionNumber++;
@@ -110,13 +124,18 @@ package Automaton.Parser;
                         DirectedTranslationObject sdtObject = lr1Parser.symbolsTable._sdtObjects.get(productionNumber);
 
                         //Si este es nulo significa que no tiene labels ni java code
-                        if (sdtObject != null){
-                            for (String label: sdtObject.getLabels().keySet()) {
-                                System.out.println(label+":"+sdtObject.getLabels().get(label));
+                        if (sdtObject != null) {
+                            for (String label : sdtObject.getLabels().keySet()) {
+                                System.out.println(label + ":" + sdtObject.getLabels().get(label));
                             }
-                            System.out.println( "Production :"+productionNumber+" code: " + sdtObject.getJavaCode()+ "\n");
+                            // System.out.println("Production :" + productionNumber + " code: " + sdtObject.getJavaCode() + "\n");
+                            try {
+                                DynamicClassGenerator.createClassAndExecuteCode(sdtObject.getJavaCode());
+                                System.out.println();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
-
                         for (int i = 0; i < eliminarPila; i++) {
                             stack.pop();
                         }
@@ -138,32 +157,32 @@ package Automaton.Parser;
         }
         return false;
     }
- public Scanner getScanner() {
+
+    public Scanner getScanner() {
         return scanner;
     }
 
     public void setscanner(Scanner scanner) {
         this.scanner = scanner;
-    }  private static List<String> readFile()
-     {
-         List<String> records = new ArrayList<>();
-         try
-         {
-             try (BufferedReader br = new BufferedReader(new FileReader("./src/Automaton/Parser/gsonLr1.txt"))) {
-                 String line;
-                 while ((line = br.readLine()) != null) {
-                     records.add(line);
-                 }
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }
+    }
 
-             return records;
-         }
-         catch (Exception e)
-         {
-             System.err.format("Exception occurred trying to read '%s'.", "./src/Automaton/Parser/gsonLr1.txt");
-             e.printStackTrace();
-             return null;
-         }
-     } } 
+    private static List<String> readFile() {
+        List<String> records = new ArrayList<>();
+        try {
+            try (BufferedReader br = new BufferedReader(new FileReader("./src/Automaton/Parser/gsonLr1.txt"))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    records.add(line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return records;
+        } catch (Exception e) {
+            System.err.format("Exception occurred trying to read '%s'.", "./src/Automaton/Parser/gsonLr1.txt");
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
