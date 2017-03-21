@@ -17,7 +17,7 @@ import Utilities.DynamicClassGenerator;
 
 public class parser2 {
     String gsonLr1 = readFile().toString();
-
+    Stack stack = new Stack<>();
     private Scanner scanner;
     private Symbol currentToken;
 
@@ -41,6 +41,7 @@ public class parser2 {
             currentToken = getScanner().next_token();
         }
 
+
         String stringToEvaluate = "";
 
         for (StringToEvaluate element : stringsToEvaluate) {
@@ -58,7 +59,6 @@ public class parser2 {
 
     private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {
         String buffer = stringToEvaluate + "$";
-        Stack<Object> stack = new Stack<>();
         State state;
         ElementOfStack elementOfStack;
         String symbol;
@@ -93,10 +93,13 @@ public class parser2 {
 
             if (!actions.isEmpty()) {
                 for (int index = stack.size() - 1; index >= 0; index--) {
-                    if (((ElementOfStack)stack.elementAt(index)).getLexerSymbol() != null && ((ElementOfStack)stack.elementAt(index)).getLexerSymbol().value != null)
-                        cadenaPila += ((ElementOfStack)stack.elementAt(index)).getState() + "ts" + " " + ((ElementOfStack)stack.elementAt(index)).getLexerSymbol().value + " ";
+                    if (((ElementOfStack) stack.elementAt(index)).getLexerSymbol() != null
+                            && ((ElementOfStack) stack.elementAt(index)).getLexerSymbol().value != null)
+                        cadenaPila += ((ElementOfStack) stack.elementAt(index)).getState() + "ts"
+                                + " " + ((ElementOfStack) stack.elementAt(index)).getLexerSymbol().value + " ";
                     else
-                        cadenaPila += ((ElementOfStack)stack.elementAt(index)).getState() + "ts" + " " + ((ElementOfStack)stack.elementAt(index)).getSymbol() + " ";
+                        cadenaPila += ((ElementOfStack) stack.elementAt(index)).getState() + "ts"
+                                + " " + ((ElementOfStack) stack.elementAt(index)).getSymbol() + " ";
                 }
 
                 System.out.println(new StringBuilder(cadenaPila).reverse().toString());
@@ -120,41 +123,9 @@ public class parser2 {
                             productionNumber++;
                         }
 
-                        DirectedTranslationObject sdtObject = lr1Parser.symbolsTable._sdtObjects.get(productionNumber);
+                        doReduction(productionNumber);
 
-                        //Si este es nulo significa que no tiene labels ni java code
-                        if (sdtObject != null) {
-                            for (String label : sdtObject.getLabels().keySet()) {
-                                // System.out.println(label + ":" + sdtObject.getLabels().get(label));
-                                //System.out.println(" Return type " +lr1Parser.symbolsTable.GetSymbol(label));
-
-                                String returnTypeOfLabel = lr1Parser.symbolsTable.GetSymbol(label);
-                                String labelId = sdtObject.getLabels().get(label);
-
-                                System.out.println(returnTypeOfLabel + " " + labelId
-                                        + " = " + "(" + returnTypeOfLabel + ")" + ((ElementOfStack)stack.peek()).getLexerSymbol().value + ";");
-
-                                if (sdtObject.getJavaCode().contains("RESULT")) {
-                                    String returnTypeOfNonTerminal = lr1Parser.symbolsTable.GetSymbol(sdtObject.getTerminal());
-
-                                    System.out.println(returnTypeOfNonTerminal + " " + sdtObject.getJavaCode());
-                                    System.out.println();
-                                }
-
-                            }
-
-                            if (!sdtObject.getJavaCode().contains("RESULT")) {
-                                // System.out.println("Production :" + productionNumber + " code: " + sdtObject.getJavaCode() + "\n");
-                                try {
-                                    DynamicClassGenerator.createClassAndExecuteCode(sdtObject.getJavaCode());
-                                    System.out.println();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-
-                        for (int i = 0; i < eliminarPila; i++) {
+                        for (int i = 0; i < eliminarPila * 2; i++) {
                             stack.pop();
                         }
 
@@ -202,6 +173,36 @@ public class parser2 {
             System.err.format("Exception occurred trying to read '%s'.", "./src/Automaton/Parser/gsonLr1.txt");
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private void doReduction(int r) {
+        Object RESULT = null;
+        switch (r) {
+            case 1: {
+                stack.push(RESULT);
+                return;
+            }
+            case 2: {
+                stack.push(RESULT);
+                return;
+            }
+            case 3: {
+                Object c = (Object) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                System.out.println("Y acá tenemos un cero");
+
+                stack.push(RESULT);
+                return;
+            }
+            case 4: {
+                Integer u = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                RESULT = new Temp(u, u);
+
+                stack.push(RESULT);
+                return;
+            }
+            default:
+                return;
         }
     }
 }

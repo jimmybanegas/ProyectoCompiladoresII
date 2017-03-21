@@ -9,6 +9,7 @@ import sun.misc.IOUtils;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -232,6 +233,7 @@ public class LR1Parser {
         }
 
         String code = "{  String gsonLr1 = readFile().toString();\n " +
+                "Stack stack = new Stack<>();"+
                 "\n private Scanner scanner;\n" +
                 "    private Symbol currentToken;\n" +
                 "\n  public parser2(java_cup.runtime.Scanner s) {\n" +
@@ -264,9 +266,8 @@ public class LR1Parser {
                 "    }"+
                 "\n public LR1Parser getLr1Parser() {   Gson gson = new Gson(); \n String trimmedJson = gsonLr1.substring(1, gsonLr1.length() - 1);" +
                 " \n return gson.fromJson(trimmedJson,LR1Parser.class); }  " +
-                "     private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {\n" +
+                "private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {\n" +
                 "        String buffer = stringToEvaluate + \"$\";\n" +
-                "        Stack<ElementOfStack> stack = new Stack<>();\n" +
                 "        State state;\n" +
                 "        ElementOfStack elementOfStack;\n" +
                 "        String symbol;\n" +
@@ -290,7 +291,7 @@ public class LR1Parser {
                 "            symbol = \"$\";\n" +
                 "        }\n" +
                 "        while (evaluar) {\n" +
-                "            elementOfStack = stack.peek();\n" +
+                "            elementOfStack = (ElementOfStack) stack.peek();\n" +
                 "            state = getLr1Parser().getAutomaton().getState(elementOfStack.getState());\n" +
                 "\n" +
                 "            String finalSymbol = symbol;\n" +
@@ -301,10 +302,13 @@ public class LR1Parser {
                 "\n" +
                 "            if (!actions.isEmpty()) {\n" +
                 "                for (int index = stack.size() - 1; index >= 0; index--) {\n" +
-                "                    if (stack.elementAt(index).getLexerSymbol() != null && stack.elementAt(index).getLexerSymbol().value != null)\n" +
-                "                        cadenaPila += stack.elementAt(index).getState()+ \"ts\" + \" \" + stack.elementAt(index).getLexerSymbol().value + \" \";\n" +
+                "                    if (((ElementOfStack)stack.elementAt(index)).getLexerSymbol() != null\n" +
+                "                            && ((ElementOfStack)stack.elementAt(index)).getLexerSymbol().value != null)\n" +
+                "                        cadenaPila += ((ElementOfStack)stack.elementAt(index)).getState() + \"ts\"\n" +
+                "                                + \" \" + ((ElementOfStack)stack.elementAt(index)).getLexerSymbol().value + \" \";\n" +
                 "                    else\n" +
-                "                        cadenaPila += stack.elementAt(index).getState()+\"ts\" + \" \" + stack.elementAt(index).getSymbol() + \" \";\n" +
+                "                        cadenaPila += ((ElementOfStack)stack.elementAt(index)).getState() + \"ts\"\n" +
+                "                                + \" \" + ((ElementOfStack)stack.elementAt(index)).getSymbol() + \" \";\n" +
                 "                }\n" +
                 "\n" +
                 "                System.out.println(new StringBuilder(cadenaPila).reverse().toString());\n" +
@@ -328,46 +332,14 @@ public class LR1Parser {
                 "                            productionNumber++;\n" +
                 "                        }\n" +
                 "\n" +
-                "                        DirectedTranslationObject sdtObject = lr1Parser.symbolsTable._sdtObjects.get(productionNumber);\n" +
+                "                        doReduction(productionNumber);\n" +
                 "\n" +
-                "                    //Si este es nulo significa que no tiene labels ni java code\n" +
-                "                        if (sdtObject != null) {\n" +
-                "                            for (String label : sdtObject.getLabels().keySet()) {\n" +
-                "                                // System.out.println(label + \":\" + sdtObject.getLabels().get(label));\n" +
-                "                                //System.out.println(\" Return type \" +lr1Parser.symbolsTable.GetSymbol(label));\n" +
-                "\n" +
-                "                                String returnTypeOfLabel = lr1Parser.symbolsTable.GetSymbol(label);\n" +
-                "                                String labelId = sdtObject.getLabels().get(label);\n" +
-                "\n" +
-                "                                System.out.println(returnTypeOfLabel + \" \" + labelId\n" +
-                "                                        + \" = \" + \"(\" + returnTypeOfLabel + \")\" + stack.peek().getLexerSymbol().value + \";\");\n" +
-                "\n" +
-                "                                if (sdtObject.getJavaCode().contains(\"RESULT\")){\n" +
-                "                                    String returnTypeOfNonTerminal = lr1Parser.symbolsTable.GetSymbol(sdtObject.getTerminal());\n" +
-                "\n" +
-                "                                System.out.println(returnTypeOfNonTerminal + \" \" + sdtObject.getJavaCode());" +
-                "                                System.out.println();"+
-                "                                }\n" +
-                "\n" +
-                "                            }\n" +
-                "\n" +
-                "                            if (!sdtObject.getJavaCode().contains(\"RESULT\")){\n" +
-                "                                // System.out.println(\"Production :\" + productionNumber + \" code: \" + sdtObject.getJavaCode() + \"\\n\");\n" +
-                "                                try {\n" +
-                "                                    DynamicClassGenerator.createClassAndExecuteCode(sdtObject.getJavaCode());\n" +
-                "                                    System.out.println();\n" +
-                "                                } catch (Exception e) {\n" +
-                "                                    e.printStackTrace();\n" +
-                "                                }\n" +
-                "                            }\n" +
-                "                        }\n" +
-                "\n" +
-                "                        for (int i = 0; i < eliminarPila; i++) {\n" +
+                "                        for (int i = 0; i < eliminarPila * 2; i++) {\n" +
                 "                            stack.pop();\n" +
                 "                        }\n" +
                 "\n" +
-                "                        //Push RESULT \n"+
-                "                        elementOfStack = stack.peek();\n" +
+                "                        //Push RESULT \n" +
+                "                        elementOfStack = (ElementOfStack) stack.peek();\n" +
                 "                        state = lr1Parser.getAutomaton().getState(elementOfStack.getState());\n" +
                 "\n" +
                 "                        stack.push(new ElementOfStack(lr1Parser.grammar.getProductions()\n" +
@@ -383,7 +355,7 @@ public class LR1Parser {
                 "            }\n" +
                 "        }\n" +
                 "        return false;\n" +
-                "    }\n"+
+                "    }"+
                 "\n public Scanner getScanner() {\n" +
                 "        return scanner;\n" +
                 "    }\n" +
@@ -413,8 +385,54 @@ public class LR1Parser {
                 "             e.printStackTrace();\n" +
                 "             return null;\n" +
                 "         }\n" +
-                "     } " +
-                "} ";
+                "     } " ;
+
+
+        List<Production> productions = this.grammar.getProductions();
+
+        String doReduction = " private void doReduction(int r)\n" +
+                "    {\n" +
+                "        Object RESULT = null;\n" +
+                "        switch (r)\n" +
+                "        {";
+
+        int numberOfProduction = 0;
+        for (Production production : productions  ) {
+
+            if (numberOfProduction>0){
+                String s = "\n\t\t\tcase " + (numberOfProduction) + ":\n\t\t\t{";
+                DirectedTranslationObject sdtObject = this.symbolsTable._sdtObjects.get(numberOfProduction);
+
+                if (sdtObject != null) {
+                    for (String label : sdtObject.getLabels().keySet()) {
+                        String returnTypeOfLabel = this.symbolsTable.GetSymbol(label);
+                        String labelId = sdtObject.getLabels().get(label);
+
+                        s = s + "\n"+ returnTypeOfLabel + " " + labelId
+                                + " = " + "(" + returnTypeOfLabel + ") ((ElementOfStack)stack.peek()).getLexerSymbol().value ;";
+
+                        //  if (sdtObject.getJavaCode().contains("RESULT")) {
+                        // String returnTypeOfNonTerminal = this.symbolsTable.GetSymbol(sdtObject.getTerminal());
+
+                        s = s + "\n"+sdtObject.getJavaCode()+"\n";
+                        //  System.out.println();
+                        s = s + "\n\t\t\t\tstack.push(RESULT);\n\t\t\t\treturn;\n\t\t\t}";
+                        //  }
+
+                        doReduction = doReduction + s;
+                    }
+                }else{
+                    doReduction = doReduction + s + "\n\t\t\t\tstack.push(RESULT);\n\t\t\t\treturn;\n\t\t\t}";
+                }
+            }
+            numberOfProduction++;
+        }
+
+        doReduction = doReduction + "\n\t\t\tdefault:\n\t\t\t\treturn;\n\t\t}\n\t}\n}";
+
+        code = code + doReduction;
+
+        //System.out.println(doReduction);
 
         try {
             DynamicClassGenerator.createNewClass("./src/Automaton/Parser/parser2.java",code);

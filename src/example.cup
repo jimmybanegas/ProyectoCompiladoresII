@@ -36,7 +36,7 @@ S::= D S
     | D;
 
 D::= cero:c {: System.out.println("Y acá tenemos un cero"); :}
-    | uno:u {: RESULT = new Temp(u); :} tres:t;
+    | uno:u {: RESULT = new Temp(u,u); :} ;
 
 
 /*:d {: int v = d;
