@@ -232,15 +232,17 @@ public class LR1Parser {
             e.printStackTrace();
         }
 
-        String code = "{  String gsonLr1 = readFile().toString();\n " +
-                "Stack stack = new Stack<>();"+
-                "\n private Scanner scanner;\n" +
+        String code = "{   String gsonLr1 = readFile().toString();\n" +
+                "    Stack stack = new Stack<>();\n" +
+                "    private Lexer scanner;\n" +
                 "    private Symbol currentToken;\n" +
-                "\n  public parser2(java_cup.runtime.Scanner s) {\n" +
+                "\n" +
+                "    public parser2(Lexer s) {\n" +
                 "        this.setscanner(s);\n" +
-                "    }"+
-                " public boolean parse() throws Exception {\n" +
-                "        currentToken = getScanner().next_token();\n" +
+                "    }\n" +
+                "\n" +
+                "    public boolean parse() throws Exception {\n" +
+                "        currentToken = getScanner().yylex();\n" +
                 "\n" +
                 "        List<StringToEvaluate> stringsToEvaluate = new ArrayList<>();\n" +
                 "        //SYM 0 is the end of file symbol\n" +
@@ -252,17 +254,17 @@ public class LR1Parser {
                 "\n" +
                 "            stringsToEvaluate.add(stringToEvaluate);\n" +
                 "\n" +
-                "            currentToken = getScanner().next_token();\n" +
+                "            currentToken = getScanner().yylex();\n" +
                 "        }\n" +
                 "\n" +
                 "\n" +
                 "        String stringToEvaluate = \"\";\n" +
                 "\n" +
-                "        for (StringToEvaluate element : stringsToEvaluate  ) {\n" +
+                "        for (StringToEvaluate element : stringsToEvaluate) {\n" +
                 "            stringToEvaluate += element.symbol;\n" +
                 "        }\n" +
                 "\n" +
-                "        return Evaluate(stringToEvaluate,stringsToEvaluate);\n" +
+                "        return Evaluate(stringToEvaluate, stringsToEvaluate);\n" +
                 "    }"+
                 "\n public LR1Parser getLr1Parser() {   Gson gson = new Gson(); \n String trimmedJson = gsonLr1.substring(1, gsonLr1.length() - 1);" +
                 " \n return gson.fromJson(trimmedJson,LR1Parser.class); }  " +
@@ -356,13 +358,13 @@ public class LR1Parser {
                 "        }\n" +
                 "        return false;\n" +
                 "    }"+
-                "\n public Scanner getScanner() {\n" +
+                "    public Lexer getScanner() {\n" +
                 "        return scanner;\n" +
                 "    }\n" +
                 "\n" +
-                "    public void setscanner(Scanner scanner) {\n" +
+                "    public void setscanner(Lexer scanner) {\n" +
                 "        this.scanner = scanner;\n" +
-                "    } " +
+                "    }"+
                 " private static List<String> readFile()\n" +
                 "     {\n" +
                 "         List<String> records = new ArrayList<>();\n" +
@@ -399,7 +401,7 @@ public class LR1Parser {
         int numberOfProduction = 0;
         for (Production production : productions  ) {
 
-            if (numberOfProduction>0){
+            if (numberOfProduction > 0){
                 String s = "\n\t\t\tcase " + (numberOfProduction) + ":\n\t\t\t{";
                 DirectedTranslationObject sdtObject = this.symbolsTable._sdtObjects.get(numberOfProduction);
 
@@ -410,17 +412,10 @@ public class LR1Parser {
 
                         s = s + "\n"+ returnTypeOfLabel + " " + labelId
                                 + " = " + "(" + returnTypeOfLabel + ") ((ElementOfStack)stack.peek()).getLexerSymbol().value ;";
-
-                        //  if (sdtObject.getJavaCode().contains("RESULT")) {
-                        // String returnTypeOfNonTerminal = this.symbolsTable.GetSymbol(sdtObject.getTerminal());
-
-                        s = s + "\n"+sdtObject.getJavaCode()+"\n";
-                        //  System.out.println();
-                        s = s + "\n\t\t\t\tstack.push(RESULT);\n\t\t\t\treturn;\n\t\t\t}";
-                        //  }
-
-                        doReduction = doReduction + s;
                     }
+                    doReduction = doReduction + s;
+                    doReduction = doReduction + "\n"+sdtObject.getJavaCode()+"\n";
+                    doReduction = doReduction + "\n\t\t\t\tstack.push(RESULT);\n\t\t\t\treturn;\n\t\t\t}";
                 }else{
                     doReduction = doReduction + s + "\n\t\t\t\tstack.push(RESULT);\n\t\t\t\treturn;\n\t\t\t}";
                 }
@@ -431,8 +426,6 @@ public class LR1Parser {
         doReduction = doReduction + "\n\t\t\tdefault:\n\t\t\t\treturn;\n\t\t}\n\t}\n}";
 
         code = code + doReduction;
-
-        //System.out.println(doReduction);
 
         try {
             DynamicClassGenerator.createNewClass("./src/Automaton/Parser/parser2.java",code);

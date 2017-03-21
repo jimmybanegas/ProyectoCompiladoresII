@@ -1,7 +1,5 @@
 package Automaton.Parser;
 
-import java_cup.runtime.Symbol;
-
 /**
  * Created by Jimmy Ramos on 07-Mar-17.
  */

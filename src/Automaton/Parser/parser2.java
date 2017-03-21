@@ -2,8 +2,6 @@ package Automaton.Parser;
 
 import com.google.gson.Gson;
 import Automaton.Automaton.*;
-import java_cup.runtime.Symbol;
-import java_cup.runtime.Scanner;
 
 import java.util.Stack;
 import java.util.ArrayList;
@@ -13,20 +11,18 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import Utilities.DynamicClassGenerator;
-
 public class parser2 {
     String gsonLr1 = readFile().toString();
     Stack stack = new Stack<>();
-    private Scanner scanner;
+    private Lexer scanner;
     private Symbol currentToken;
 
-    public parser2(java_cup.runtime.Scanner s) {
+    public parser2(Lexer s) {
         this.setscanner(s);
     }
 
     public boolean parse() throws Exception {
-        currentToken = getScanner().next_token();
+        currentToken = getScanner().yylex();
 
         List<StringToEvaluate> stringsToEvaluate = new ArrayList<>();
         //SYM 0 is the end of file symbol
@@ -38,7 +34,7 @@ public class parser2 {
 
             stringsToEvaluate.add(stringToEvaluate);
 
-            currentToken = getScanner().next_token();
+            currentToken = getScanner().yylex();
         }
 
 
@@ -148,11 +144,11 @@ public class parser2 {
         return false;
     }
 
-    public Scanner getScanner() {
+    public Lexer getScanner() {
         return scanner;
     }
 
-    public void setscanner(Scanner scanner) {
+    public void setscanner(Lexer scanner) {
         this.scanner = scanner;
     }
 
@@ -188,15 +184,75 @@ public class parser2 {
                 return;
             }
             case 3: {
-                Object c = (Object) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
-                System.out.println("Y acá tenemos un cero");
+                Integer e = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                System.out.println(e);
 
                 stack.push(RESULT);
                 return;
             }
             case 4: {
-                Integer u = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
-                RESULT = new Temp(u, u);
+                Integer e = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                Integer f = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                RESULT = e + f;
+
+                stack.push(RESULT);
+                return;
+            }
+            case 5: {
+                Integer e = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                Integer f = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                RESULT = e - f;
+
+                stack.push(RESULT);
+                return;
+            }
+            case 6: {
+                Integer f = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                RESULT = f;
+
+                stack.push(RESULT);
+                return;
+            }
+            case 7: {
+                Integer t = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                Integer f = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                RESULT = f * t;
+
+                stack.push(RESULT);
+                return;
+            }
+            case 8: {
+                Integer t = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                Integer f = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                RESULT = f / t;
+
+                stack.push(RESULT);
+                return;
+            }
+            case 9: {
+                Integer t = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                RESULT = t;
+
+                stack.push(RESULT);
+                return;
+            }
+            case 10: {
+                Integer e = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                RESULT = e;
+
+                stack.push(RESULT);
+                return;
+            }
+            case 11: {
+                Integer n = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                RESULT = n;
+
+                stack.push(RESULT);
+                return;
+            }
+            case 12: {
+                Integer i = (Integer) ((ElementOfStack) stack.peek()).getLexerSymbol().value;
+                RESULT = 0;
 
                 stack.push(RESULT);
                 return;
