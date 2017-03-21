@@ -88,16 +88,16 @@ public class parser2 {
             String cadenaPila = "";
 
             if (!actions.isEmpty()) {
-               for (int index = stack.size() - 1; index >= 0; index--) {
-                  if (stack.elementAt(index) instanceof ElementOfStack){
-                      if (((ElementOfStack) stack.elementAt(index)).getLexerSymbol() != null
-                              && ((ElementOfStack) stack.elementAt(index)).getLexerSymbol().value != null)
-                          cadenaPila += ((ElementOfStack) stack.elementAt(index)).getState() + "ts"
-                                  + " " + ((ElementOfStack) stack.elementAt(index)).getLexerSymbol().value + " ";
-                      else
-                          cadenaPila += ((ElementOfStack) stack.elementAt(index)).getState() + "ts"
-                                  + " " + ((ElementOfStack) stack.elementAt(index)).getSymbol() + " ";
-                  }
+                for (int index = stack.size() - 1; index >= 0; index--) {
+                    if (stack.elementAt(index) instanceof ElementOfStack) {
+                        if (((ElementOfStack) stack.elementAt(index)).getLexerSymbol() != null
+                                && ((ElementOfStack) stack.elementAt(index)).getLexerSymbol().value != null)
+                            cadenaPila += ((ElementOfStack) stack.elementAt(index)).getState() + "ts"
+                                    + " " + ((ElementOfStack) stack.elementAt(index)).getLexerSymbol().value + " ";
+                        else
+                            cadenaPila += ((ElementOfStack) stack.elementAt(index)).getState() + "ts"
+                                    + " " + ((ElementOfStack) stack.elementAt(index)).getSymbol() + " ";
+                    }
                 }
 
                 System.out.println(new StringBuilder(cadenaPila).reverse().toString());
@@ -122,16 +122,16 @@ public class parser2 {
                             productionNumber++;
                         }
 
-                        doReduction(productionNumber,eliminarPila);
+                        doReduction(productionNumber, eliminarPila);
 
                         /*for (int i = 0; i < eliminarPila * 2; i++) {
                             stack.pop();
                         }*/
 
-                      //  doPop(eliminarPila);
+                        //  doPop(eliminarPila);
 
                         //Push RESULT 
-                        elementOfStack = (ElementOfStack) stack.elementAt(stack.size()-2);
+                        elementOfStack = (ElementOfStack) stack.elementAt(stack.size() - 2);
                         state = lr1Parser.getAutomaton().getState(elementOfStack.getState());
 
                         stack.push(new ElementOfStack(lr1Parser.grammar.getProductions()
@@ -150,14 +150,9 @@ public class parser2 {
     }
 
     private void doPop(int eliminarPila) {
-       // ElementOfStack elementOfStack = new ElementOfStack();
-        for (int i = 0; i < eliminarPila * 2 ; i++) {
-           /* if (i == 0)
-                elementOfStack = (ElementOfStack) stack.peek(); */
+        for (int i = 0; i < eliminarPila * 2; i++) {
             stack.pop();
         }
-
-        //return elementOfStack;
     }
 
     public Lexer getScanner() {
@@ -188,13 +183,13 @@ public class parser2 {
         }
     }
 
-    private void doReduction(int r,int cantPop) {
+    private void doReduction(int r, int cantPop) {
         Object RESULT = null;
         switch (r) {
             case 1: {
                 doPop(cantPop);
                 stack.push(RESULT);
-                return ;
+                return;
             }
             case 2: {
                 doPop(cantPop);
@@ -202,86 +197,86 @@ public class parser2 {
                 return;
             }
             case 3: {
-                Integer e = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
-                doPop(cantPop);
+                Integer e = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 3)).getLexerSymbol().value;
                 System.out.println(e);
 
+                doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 4: {
-                Integer e = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
-                Integer f = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 3)).getLexerSymbol().value;
-                doPop(cantPop);
+                Integer e = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 3)).getLexerSymbol().value;
+                Integer f = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
                 RESULT = e + f;
 
+                doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 5: {
                 Integer e = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
                 Integer f = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 3)).getLexerSymbol().value;
-                doPop(cantPop);
                 RESULT = e - f;
 
+                doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 6: {
                 Integer f = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
-                doPop(cantPop);
                 RESULT = f;
 
+                doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 7: {
                 Integer t = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
                 Integer f = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 3)).getLexerSymbol().value;
-                doPop(cantPop);
                 RESULT = f * t;
 
+                doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 8: {
                 Integer t = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
                 Integer f = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 3)).getLexerSymbol().value;
-                doPop(cantPop);
                 RESULT = f / t;
 
+                doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 9: {
                 Integer t = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
-                doPop(cantPop);
                 RESULT = t;
 
+                doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 10: {
                 Integer e = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
-                doPop(cantPop);
                 RESULT = e;
 
+                doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 11: {
                 Integer n = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
-                doPop(cantPop);
                 RESULT = n;
 
+                doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 12: {
                 Integer i = (Integer) ((ElementOfStack) stack.elementAt(stack.size() - 1)).getLexerSymbol().value;
-                doPop(cantPop);
                 RESULT = 0;
 
+                doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }

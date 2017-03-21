@@ -269,7 +269,7 @@ public class LR1Parser {
                 "    }"+
                 "\n public LR1Parser getLr1Parser() {   Gson gson = new Gson(); \n String trimmedJson = gsonLr1.substring(1, gsonLr1.length() - 1);" +
                 " \n return gson.fromJson(trimmedJson,LR1Parser.class); }  " +
-                "private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {\n" +
+                " private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {\n" +
                 "        String buffer = stringToEvaluate + \"$\";\n" +
                 "        State state;\n" +
                 "        ElementOfStack elementOfStack;\n" +
@@ -304,20 +304,23 @@ public class LR1Parser {
                 "            String cadenaPila = \"\";\n" +
                 "\n" +
                 "            if (!actions.isEmpty()) {\n" +
-                "                for (int index = stack.size() - 1; index >= 0; index--) {\n" +
-                "                    if (((ElementOfStack)stack.elementAt(index)).getLexerSymbol() != null\n" +
-                "                            && ((ElementOfStack)stack.elementAt(index)).getLexerSymbol().value != null)\n" +
-                "                        cadenaPila += ((ElementOfStack)stack.elementAt(index)).getState() + \"ts\"\n" +
-                "                                + \" \" + ((ElementOfStack)stack.elementAt(index)).getLexerSymbol().value + \" \";\n" +
-                "                    else\n" +
-                "                        cadenaPila += ((ElementOfStack)stack.elementAt(index)).getState() + \"ts\"\n" +
-                "                                + \" \" + ((ElementOfStack)stack.elementAt(index)).getSymbol() + \" \";\n" +
+                "               for (int index = stack.size() - 1; index >= 0; index--) {\n" +
+                "                  if (stack.elementAt(index) instanceof ElementOfStack){\n" +
+                "                      if (((ElementOfStack) stack.elementAt(index)).getLexerSymbol() != null\n" +
+                "                              && ((ElementOfStack) stack.elementAt(index)).getLexerSymbol().value != null)\n" +
+                "                          cadenaPila += ((ElementOfStack) stack.elementAt(index)).getState() + \"ts\"\n" +
+                "                                  + \" \" + ((ElementOfStack) stack.elementAt(index)).getLexerSymbol().value + \" \";\n" +
+                "                      else\n" +
+                "                          cadenaPila += ((ElementOfStack) stack.elementAt(index)).getState() + \"ts\"\n" +
+                "                                  + \" \" + ((ElementOfStack) stack.elementAt(index)).getSymbol() + \" \";\n" +
+                "                  }\n" +
                 "                }\n" +
                 "\n" +
                 "                System.out.println(new StringBuilder(cadenaPila).reverse().toString());\n" +
                 "\n" +
                 "                if (actions.get(0).getAction().equals(\"D\")) {\n" +
                 "                    symbol = String.valueOf(buffer.charAt(++indexOfBuffer));\n" +
+                "                    stack.push(stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol().value);\n" +
                 "                    stack.push(new ElementOfStack(actions.get(0).getTerminal(), actions.get(0).getToState()\n" +
                 "                            , stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol()));\n" +
                 "                } else {\n" +
@@ -335,14 +338,16 @@ public class LR1Parser {
                 "                            productionNumber++;\n" +
                 "                        }\n" +
                 "\n" +
-                "                        doReduction(productionNumber);\n" +
+                "                        doReduction(productionNumber,eliminarPila);\n" +
                 "\n" +
-                "                        for (int i = 0; i < eliminarPila * 2; i++) {\n" +
+                "                        /*for (int i = 0; i < eliminarPila * 2; i++) {\n" +
                 "                            stack.pop();\n" +
-                "                        }\n" +
+                "                        }*/\n" +
+                "\n" +
+                "                      //  doPop(eliminarPila);\n" +
                 "\n" +
                 "                        //Push RESULT \n" +
-                "                        elementOfStack = (ElementOfStack) stack.peek();\n" +
+                "                        elementOfStack = (ElementOfStack) stack.elementAt(stack.size()-2);\n" +
                 "                        state = lr1Parser.getAutomaton().getState(elementOfStack.getState());\n" +
                 "\n" +
                 "                        stack.push(new ElementOfStack(lr1Parser.grammar.getProductions()\n" +
@@ -358,6 +363,11 @@ public class LR1Parser {
                 "            }\n" +
                 "        }\n" +
                 "        return false;\n" +
+                "    }"+
+                "    private void doPop(int eliminarPila) {\n" +
+                "        for (int i = 0; i < eliminarPila * 2 ; i++) {\n" +
+                "            stack.pop();\n" +
+                "        }\n" +
                 "    }"+
                 "    public Lexer getScanner() {\n" +
                 "        return scanner;\n" +
@@ -393,7 +403,7 @@ public class LR1Parser {
 
         List<Production> productions = this.grammar.getProductions();
 
-        String doReduction = " private void doReduction(int r)\n" +
+        String doReduction = " private void doReduction(int r,int cantPop)\n" +
                 "    {\n" +
                 "        Object RESULT = null;\n" +
                 "        switch (r)\n" +
@@ -420,8 +430,10 @@ public class LR1Parser {
                     }
                     doReduction = doReduction + s;
                     doReduction = doReduction + "\n"+sdtObject.getJavaCode()+"\n";
+                    doReduction = doReduction + "\n   doPop(cantPop);";
                     doReduction = doReduction + "\n\t\t\t\tstack.push(RESULT);\n\t\t\t\treturn;\n\t\t\t}";
                 }else{
+                    s = s +"\n   doPop(cantPop);";
                     doReduction = doReduction + s + "\n\t\t\t\tstack.push(RESULT);\n\t\t\t\treturn;\n\t\t\t}";
                 }
             }
