@@ -10,6 +10,7 @@ import sun.misc.IOUtils;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -406,12 +407,16 @@ public class LR1Parser {
                 DirectedTranslationObject sdtObject = this.symbolsTable._sdtObjects.get(numberOfProduction);
 
                 if (sdtObject != null) {
-                    for (String label : sdtObject.getLabels().keySet()) {
+                    Set<String> labels = sdtObject.getLabels().keySet();
+                    int stackPosition = -1;
+                    for (String label : labels ) {
                         String returnTypeOfLabel = this.symbolsTable.GetSymbol(label);
                         String labelId = sdtObject.getLabels().get(label);
 
                         s = s + "\n"+ returnTypeOfLabel + " " + labelId
-                                + " = " + "(" + returnTypeOfLabel + ") ((ElementOfStack)stack.peek()).getLexerSymbol().value ;";
+                                + " = " + "(" + returnTypeOfLabel + ") ((ElementOfStack)stack.elementAt(stack.size()"+stackPosition+")).getLexerSymbol().value ;";
+
+                        stackPosition += (-2);
                     }
                     doReduction = doReduction + s;
                     doReduction = doReduction + "\n"+sdtObject.getJavaCode()+"\n";
