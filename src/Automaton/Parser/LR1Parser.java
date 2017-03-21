@@ -10,7 +10,9 @@ import sun.misc.IOUtils;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -418,15 +420,34 @@ public class LR1Parser {
 
                 if (sdtObject != null) {
                     Set<String> labels = sdtObject.getLabels().keySet();
-                    int stackPosition = -1;
+                  //  int stackPosition = labels.size() *2 + 2 ;
+                    //int stackPosition = -1;
+                    int labelPositon = 0;
+
+                    /*ArrayList<Production> sameLeftSide = productions.stream().filter(ter -> ter.getLeftSide().equals(production.getLeftSide()))
+                            .collect(Collectors.toCollection(ArrayList::new)); */
+
+                    String original = sdtObject.getOriginalProduction();
+
+                    String[] splittedBySpace = original.split(" ");
+
+                    int cant = 0;
+                    for (String split : splittedBySpace  ) {
+                        if(!Objects.equals(split, "") && !Objects.equals(split, "javaCode")){
+                            cant++;
+                        }
+                    }
+
                     for (String label : labels ) {
                         String returnTypeOfLabel = this.symbolsTable.GetSymbol(label);
                         String labelId = sdtObject.getLabels().get(label);
 
                         s = s + "\n"+ returnTypeOfLabel + " " + labelId
-                                + " = " + "(" + returnTypeOfLabel + ") ((ElementOfStack)stack.elementAt(stack.size()"+stackPosition+")).getLexerSymbol().value ;";
+                                + " = " + "(" + returnTypeOfLabel + ") stack.elementAt(stack.size() - "+ 2 * (cant - labelPositon) +") ;";
+                              //+ " = " + "(" + returnTypeOfLabel + ") stack.elementAt(stack.size() - "+stackPosition+") ;";
 
-                        stackPosition += (-2);
+                        //stackPosition += (-2) ;
+                        labelPositon += 2;
                     }
                     doReduction = doReduction + s;
                     doReduction = doReduction + "\n"+sdtObject.getJavaCode()+"\n";

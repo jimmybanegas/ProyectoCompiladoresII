@@ -17,7 +17,7 @@ public class ParserMain {
         try {
 
            // parser2 parser =  new parser2(new FlexLexer(new FileReader("./src/test.txt")));
-            parser2 parser =  new parser2(new Lexer(new FileReader("./src/test.txt")));
+           parser2 parser =  new parser2(new Lexer(new FileReader("./src/test.txt")));
 
             boolean accepted = parser.parse();
 

@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1325bcd4-79e3-4332-a901-8d775620dc75" name="Default" comment="Last workinfg version">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Automaton/Parser/parser2.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Automaton/Parser/LR1Parser.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Automaton/Parser/LR1Parser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Automaton/Parser/parser2.class" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/Automaton/Parser/parser2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/test.txt" afterPath="$PROJECT_DIR$/out/production/ProyectoCompiladoresII/test.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Automaton/Parser/LR1Parser.java" afterPath="$PROJECT_DIR$/src/Automaton/Parser/LR1Parser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Automaton/Parser/parser2.java" afterPath="$PROJECT_DIR$/src/Automaton/Parser/parser2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ParserMain.java" afterPath="$PROJECT_DIR$/src/ParserMain.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test.txt" afterPath="$PROJECT_DIR$/src/test.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -48,21 +49,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="parser2.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="parser2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Automaton/Parser/parser2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="207" column="24" lean-forward="true" selection-start-line="207" selection-start-column="24" selection-end-line="207" selection-end-column="24" />
-              <folding />
+            <state relative-caret-position="315">
+              <caret line="194" column="31" lean-forward="true" selection-start-line="194" selection-start-column="31" selection-end-line="194" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#474#475#0" expanded="true" />
+                <element signature="e#508#509#0" expanded="true" />
+                <element signature="e#6611#6612#0" expanded="true" />
+                <element signature="e#6641#6642#0" expanded="true" />
+                <element signature="e#6686#6687#0" expanded="true" />
+                <element signature="e#6724#6725#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LR1Parser.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LR1Parser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Automaton/Parser/LR1Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2">
-              <caret line="423" column="63" lean-forward="false" selection-start-line="423" selection-start-column="63" selection-end-line="423" selection-end-column="63" />
+            <state relative-caret-position="180">
+              <caret line="443" column="0" lean-forward="true" selection-start-line="443" selection-start-column="0" selection-end-line="443" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#buildYourself#0;class#LR1Parser#0" expanded="false" />
@@ -71,11 +80,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1533">
+              <caret line="90" column="80" lean-forward="true" selection-start-line="90" selection-start-column="80" selection-end-line="90" selection-end-column="80" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="test.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="3" lean-forward="false" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
+              <caret line="0" column="6" lean-forward="true" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -84,8 +103,8 @@
       <file leaf-file-name="ycalc.cup" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ycalc.cup">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="128" column="23" lean-forward="false" selection-start-line="128" selection-start-column="23" selection-end-line="128" selection-end-column="23" />
+            <state relative-caret-position="309">
+              <caret line="135" column="34" lean-forward="true" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
               <folding>
                 <marker date="1490116927980" expanded="true" signature="15:534" ph="{...}" />
                 <marker date="1490116927980" expanded="true" signature="594:662" ph="{...}" />
@@ -192,9 +211,9 @@
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/Automaton/Parser/Lexer.java" />
         <option value="$PROJECT_DIR$/src/Automaton/Parser/sym.java" />
-        <option value="$PROJECT_DIR$/src/Automaton/Parser/LR1Parser.java" />
-        <option value="$PROJECT_DIR$/src/ParserMain.java" />
         <option value="$PROJECT_DIR$/src/test.txt" />
+        <option value="$PROJECT_DIR$/src/ParserMain.java" />
+        <option value="$PROJECT_DIR$/src/Automaton/Parser/LR1Parser.java" />
         <option value="$PROJECT_DIR$/src/Automaton/Parser/parser2.java" />
       </list>
     </option>
@@ -802,12 +821,12 @@
       <workItem from="1490069818659" duration="22000" />
       <workItem from="1490069979286" duration="2684000" />
       <workItem from="1490105324376" duration="1356000" />
-      <workItem from="1490107745529" duration="18545000" />
+      <workItem from="1490107745529" duration="24285000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="309523000" />
+    <option name="totallyTimeSpent" value="315263000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -832,7 +851,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2707535" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3090677" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32694763" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -845,7 +864,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43422732" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43422732" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -884,15 +903,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Automaton/Parser/parser2.java</url>
-          <line>207</line>
-          <properties />
-          <option name="timeStamp" value="412" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="413" />
+      <option name="time" value="431" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1259,18 +1270,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="6" lean-forward="true" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ParserMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="25" column="71" lean-forward="false" selection-start-line="25" selection-start-column="71" selection-end-line="25" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1239">
-          <caret line="229" column="42" lean-forward="true" selection-start-line="229" selection-start-column="42" selection-end-line="229" selection-end-column="42" />
+        <state relative-caret-position="-1533">
+          <caret line="90" column="80" lean-forward="true" selection-start-line="90" selection-start-column="80" selection-end-line="90" selection-end-column="80" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ycalc.cup">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="128" column="23" lean-forward="false" selection-start-line="128" selection-start-column="23" selection-end-line="128" selection-end-column="23" />
+        <state relative-caret-position="309">
+          <caret line="135" column="34" lean-forward="true" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
           <folding>
             <marker date="1490116927980" expanded="true" signature="15:534" ph="{...}" />
             <marker date="1490116927980" expanded="true" signature="594:662" ph="{...}" />
@@ -1288,37 +1315,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ParserMain.java">
+    <entry file="file://$PROJECT_DIR$/src/Automaton/Parser/LR1Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="25" column="71" lean-forward="false" selection-start-line="25" selection-start-column="71" selection-end-line="25" selection-end-column="71" />
-          <folding />
+        <state relative-caret-position="180">
+          <caret line="443" column="0" lean-forward="true" selection-start-line="443" selection-start-column="0" selection-end-line="443" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#buildYourself#0;class#LR1Parser#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Automaton/Parser/parser2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="207" column="24" lean-forward="true" selection-start-line="207" selection-start-column="24" selection-end-line="207" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="3" lean-forward="false" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Automaton/Parser/LR1Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
-          <caret line="423" column="63" lean-forward="false" selection-start-line="423" selection-start-column="63" selection-end-line="423" selection-end-column="63" />
+        <state relative-caret-position="315">
+          <caret line="194" column="31" lean-forward="true" selection-start-line="194" selection-start-column="31" selection-end-line="194" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#buildYourself#0;class#LR1Parser#0" expanded="false" />
+            <element signature="e#474#475#0" expanded="true" />
+            <element signature="e#508#509#0" expanded="true" />
+            <element signature="e#6611#6612#0" expanded="true" />
+            <element signature="e#6641#6642#0" expanded="true" />
+            <element signature="e#6686#6687#0" expanded="true" />
+            <element signature="e#6724#6725#0" expanded="true" />
           </folding>
         </state>
       </provider>
