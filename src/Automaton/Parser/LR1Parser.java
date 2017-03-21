@@ -330,23 +330,43 @@ public class LR1Parser {
                 "\n" +
                 "                        DirectedTranslationObject sdtObject = lr1Parser.symbolsTable._sdtObjects.get(productionNumber);\n" +
                 "\n" +
-                "                        //Si este es nulo significa que no tiene labels ni java code\n" +
+                "                    //Si este es nulo significa que no tiene labels ni java code\n" +
                 "                        if (sdtObject != null) {\n" +
                 "                            for (String label : sdtObject.getLabels().keySet()) {\n" +
-                "                                System.out.println(label + \":\" + sdtObject.getLabels().get(label));\n" +
+                "                                // System.out.println(label + \":\" + sdtObject.getLabels().get(label));\n" +
+                "                                //System.out.println(\" Return type \" +lr1Parser.symbolsTable.GetSymbol(label));\n" +
+                "\n" +
+                "                                String returnTypeOfLabel = lr1Parser.symbolsTable.GetSymbol(label);\n" +
+                "                                String labelId = sdtObject.getLabels().get(label);\n" +
+                "\n" +
+                "                                System.out.println(returnTypeOfLabel + \" \" + labelId\n" +
+                "                                        + \" = \" + \"(\" + returnTypeOfLabel + \")\" + stack.peek().getLexerSymbol().value + \";\");\n" +
+                "\n" +
+                "                                if (sdtObject.getJavaCode().contains(\"RESULT\")){\n" +
+                "                                    String returnTypeOfNonTerminal = lr1Parser.symbolsTable.GetSymbol(sdtObject.getTerminal());\n" +
+                "\n" +
+                "                                System.out.println(returnTypeOfNonTerminal + \" \" + sdtObject.getJavaCode());" +
+                "                                System.out.println();"+
+                "                                }\n" +
+                "\n" +
                 "                            }\n" +
-                " // System.out.println(\"Production :\" + productionNumber + \" code: \" + sdtObject.getJavaCode() + \"\\n\");\n" +
-                "                            try {\n" +
-                "                                DynamicClassGenerator.createClassAndExecuteCode(sdtObject.getJavaCode());\n" +
-                "                                System.out.println();\n" +
-                "                            } catch (Exception e) {\n" +
-                "                                e.printStackTrace();\n" +
-                "                            }"+
+                "\n" +
+                "                            if (!sdtObject.getJavaCode().contains(\"RESULT\")){\n" +
+                "                                // System.out.println(\"Production :\" + productionNumber + \" code: \" + sdtObject.getJavaCode() + \"\\n\");\n" +
+                "                                try {\n" +
+                "                                    DynamicClassGenerator.createClassAndExecuteCode(sdtObject.getJavaCode());\n" +
+                "                                    System.out.println();\n" +
+                "                                } catch (Exception e) {\n" +
+                "                                    e.printStackTrace();\n" +
+                "                                }\n" +
+                "                            }\n" +
                 "                        }\n" +
+                "\n" +
                 "                        for (int i = 0; i < eliminarPila; i++) {\n" +
                 "                            stack.pop();\n" +
                 "                        }\n" +
                 "\n" +
+                "                        //Push RESULT \n"+
                 "                        elementOfStack = stack.peek();\n" +
                 "                        state = lr1Parser.getAutomaton().getState(elementOfStack.getState());\n" +
                 "\n" +

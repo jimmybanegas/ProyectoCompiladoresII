@@ -28,14 +28,15 @@ parser code {:
     }
 :};
 
-terminal cero, uno;
+terminal cero;
+terminal Integer uno;
 non terminal Temp D,S;
 
-S::=D S
+S::= D S
     | D;
 
-D::=cero {: System.out.println("Y acá tenemos un cero"); :}
-    | uno {: System.out.println("Este es un uno"); :};
+D::= cero:c {: System.out.println("Y acá tenemos un cero"); :}
+    | uno:u {: RESULT = new Temp(u); :} tres:t;
 
 
 /*:d {: int v = d;
