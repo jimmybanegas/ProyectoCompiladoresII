@@ -195,8 +195,6 @@ public class Main {
                 lr1.GenerateParserForCupEntryFile();
                 lr1.GenerateSymbolsDefinitionFile();
 
-              //  HashMap<Integer,DirectedTranslationObject> ne= SymbolsTable.getInstance()._sdtObjects;
-
             }
         } catch (Exception e) {
             e.printStackTrace();

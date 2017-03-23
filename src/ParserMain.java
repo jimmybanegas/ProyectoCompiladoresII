@@ -21,7 +21,7 @@ public class ParserMain {
 
             boolean accepted = parser.parse();
 
-            System.out.println(accepted);
+            System.out.println(accepted ? "\nAceptado" : "\nNo aceptado");
 
             Automaton automaton = parser.getLr1Parser().getAutomaton();
 

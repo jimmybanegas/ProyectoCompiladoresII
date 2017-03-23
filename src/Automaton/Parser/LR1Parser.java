@@ -8,10 +8,7 @@ import com.google.gson.Gson;
 import sun.misc.IOUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -253,7 +250,7 @@ public class LR1Parser {
                 "            StringToEvaluate stringToEvaluate = new StringToEvaluate();\n" +
                 "            stringToEvaluate.symbol += getLr1Parser().symbolsTable._charsForTerminals.get(sym.terminalNames[currentToken.sym]);\n" +
                 "            stringToEvaluate.setLexerSymbol(currentToken);\n" +
-                "            System.out.println(\"THIS IS A : \" + sym.terminalNames[currentToken.sym]);\n" +
+                "           // System.out.println(\"THIS IS A : \" + sym.terminalNames[currentToken.sym]);\n" +
                 "\n" +
                 "            stringsToEvaluate.add(stringToEvaluate);\n" +
                 "\n" +
@@ -318,7 +315,7 @@ public class LR1Parser {
                 "                  }\n" +
                 "                }\n" +
                 "\n" +
-                "                System.out.println(new StringBuilder(cadenaPila).reverse().toString());\n" +
+                "             //   System.out.println(new StringBuilder(cadenaPila).reverse().toString());\n" +
                 "\n" +
                 "                if (actions.get(0).getAction().equals(\"D\")) {\n" +
                 "                    symbol = String.valueOf(buffer.charAt(++indexOfBuffer));\n" +
@@ -419,13 +416,9 @@ public class LR1Parser {
                 DirectedTranslationObject sdtObject = this.symbolsTable._sdtObjects.get(numberOfProduction);
 
                 if (sdtObject != null) {
-                    Set<String> labels = sdtObject.getLabels().keySet();
-                  //  int stackPosition = labels.size() *2 + 2 ;
-                    //int stackPosition = -1;
-                    int labelPositon = 0;
+                    List<String> reversedLabels = new ArrayList<>(sdtObject.getLabels().keySet());
 
-                    /*ArrayList<Production> sameLeftSide = productions.stream().filter(ter -> ter.getLeftSide().equals(production.getLeftSide()))
-                            .collect(Collectors.toCollection(ArrayList::new)); */
+                    Collections.reverse(reversedLabels);
 
                     String original = sdtObject.getOriginalProduction();
 
@@ -438,16 +431,20 @@ public class LR1Parser {
                         }
                     }
 
-                    for (String label : labels ) {
+                    for (String label : reversedLabels ) {
                         String returnTypeOfLabel = this.symbolsTable.GetSymbol(label);
                         String labelId = sdtObject.getLabels().get(label);
+                        int labelPositon = 0;
+                        for (String element : splittedBySpace ) {
+                            if(!Objects.equals(element, "")){
+                                if (element.equals(label+":"+labelId))
+                                 break;
+                                labelPositon++;
+                            }
+                        }
 
                         s = s + "\n"+ returnTypeOfLabel + " " + labelId
                                 + " = " + "(" + returnTypeOfLabel + ") stack.elementAt(stack.size() - "+ 2 * (cant - labelPositon) +") ;";
-                              //+ " = " + "(" + returnTypeOfLabel + ") stack.elementAt(stack.size() - "+stackPosition+") ;";
-
-                        //stackPosition += (-2) ;
-                        labelPositon += 2;
                     }
                     doReduction = doReduction + s;
                     doReduction = doReduction + "\n"+sdtObject.getJavaCode()+"\n";
