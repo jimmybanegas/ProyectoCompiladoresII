@@ -497,7 +497,7 @@ public class LR1Parser {
         code+= " }";
 
         try {
-            DynamicClassGenerator.createNewClass("./src/Automaton/Parser/sym.java",code);
+            DynamicClassGenerator.createNewSymClass("./src/Automaton/Parser/sym.java",code);
         } catch (IOException e) {
             e.printStackTrace();
         }

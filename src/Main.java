@@ -230,7 +230,7 @@ public class Main {
         List<String> records = new ArrayList<>();
         try
         {
-            try (BufferedReader br = new BufferedReader(new FileReader("./src/ycalc.cup"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader("./src/ycalc2.cup"))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                    records.add(line);
