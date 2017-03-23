@@ -1,5 +1,3 @@
-import java_cup.runtime.*;
-
 
 parser code {:
 
@@ -131,7 +129,7 @@ non terminal E,T;
                  |expr_part;
 
 
-   expr_part ::= expr:e SEMI {: System.out.println(e); :}
+   expr_part ::= expr:e SEMI {: System.out.println("\nRespuesta: "+e); :}
                  ;
 
 

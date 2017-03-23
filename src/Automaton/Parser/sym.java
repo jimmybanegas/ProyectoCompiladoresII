@@ -1,8 +1,6 @@
 package Automaton.Parser;
  import com.google.gson.Gson; 
  import Automaton.Automaton.*;
- import java_cup.runtime.Symbol;
- import java_cup.runtime.Scanner;
  import java.util.Stack;
  import java.util.ArrayList;
  import java.util.stream.Collectors;

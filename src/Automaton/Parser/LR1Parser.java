@@ -8,7 +8,8 @@ import com.google.gson.Gson;
 import sun.misc.IOUtils;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -224,41 +225,51 @@ public class LR1Parser {
         BufferedWriter out;
         try {
             out = new BufferedWriter(new FileWriter("./src/Automaton/Parser/gsonLr1.txt"));
-
-           // out.write(json.replaceAll("\"", "\\\\\""));  //Replace with the string
             out.write(json);
-            //you are trying to write
             out.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-       // String theString2 = IOUtils.toString(new FileInputStream(new File("./properties/filename.text")), "UTF-8");
-
-       // private static final String gsonLr1 = org.apache.commons.lang.StringUtils.join( new String[] { " "+ json.replaceAll("\"", "\\\\\"") +" \" } );" +
-
-        String code = "{  String gsonLr1 = readFile().toString();\n " +
-                "\n private Scanner scanner;\n" +
+        String code = "{   String gsonLr1 = readFile().toString();\n" +
+                "    Stack stack = new Stack<>();\n" +
+                "    private Lexer scanner;\n" +
                 "    private Symbol currentToken;\n" +
-                "\n  public parser2(java_cup.runtime.Scanner s) {\n" +
-                "        this.setscanner(s);\n" +
-                "    }"+
-                "\n public boolean parse() throws Exception { currentToken = getScanner().next_token();\n" +
-                "\n   String stringToEvaluate = \"\";" +
-                "        //SYM 0 is the end of file symbol\n" +
-                "        while (currentToken.sym != 0){\n" +
-                "    stringToEvaluate += getLr1Parser().symbolsTable._charsForTerminals.get(sym.terminalNames[currentToken.sym]);" +
-                "            System.out.println(\"THIS IS A : \"+ sym.terminalNames[currentToken.sym]);\n" +
                 "\n" +
-                "            currentToken = getScanner().next_token();\n" +
-                "        } return Evaluate(stringToEvaluate); } " +
+                "    public parser2(Lexer s) {\n" +
+                "        this.setscanner(s);\n" +
+                "    }\n" +
+                "\n" +
+                "    public boolean parse() throws Exception {\n" +
+                "        currentToken = getScanner().yylex();\n" +
+                "\n" +
+                "        List<StringToEvaluate> stringsToEvaluate = new ArrayList<>();\n" +
+                "        //SYM 0 is the end of file symbol\n" +
+                "        while (currentToken.sym != 0) {\n" +
+                "            StringToEvaluate stringToEvaluate = new StringToEvaluate();\n" +
+                "            stringToEvaluate.symbol += getLr1Parser().symbolsTable._charsForTerminals.get(sym.terminalNames[currentToken.sym]);\n" +
+                "            stringToEvaluate.setLexerSymbol(currentToken);\n" +
+                "           // System.out.println(\"THIS IS A : \" + sym.terminalNames[currentToken.sym]);\n" +
+                "\n" +
+                "            stringsToEvaluate.add(stringToEvaluate);\n" +
+                "\n" +
+                "            currentToken = getScanner().yylex();\n" +
+                "        }\n" +
+                "\n" +
+                "\n" +
+                "        String stringToEvaluate = \"\";\n" +
+                "\n" +
+                "        for (StringToEvaluate element : stringsToEvaluate) {\n" +
+                "            stringToEvaluate += element.symbol;\n" +
+                "        }\n" +
+                "\n" +
+                "        return Evaluate(stringToEvaluate, stringsToEvaluate);\n" +
+                "    }"+
                 "\n public LR1Parser getLr1Parser() {   Gson gson = new Gson(); \n String trimmedJson = gsonLr1.substring(1, gsonLr1.length() - 1);" +
                 " \n return gson.fromJson(trimmedJson,LR1Parser.class); }  " +
-
-                "\n   private boolean Evaluate(String stringToEvaluate) {\n" +
+                " private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {\n" +
                 "        String buffer = stringToEvaluate + \"$\";\n" +
-                "        Stack<ElementOfStack> stack = new Stack<>();\n" +
                 "        State state;\n" +
                 "        ElementOfStack elementOfStack;\n" +
                 "        String symbol;\n" +
@@ -275,14 +286,14 @@ public class LR1Parser {
                 "                transition.setLink(stateFromAutomaton);\n" +
                 "            }\n" +
                 "        }\n" +
-                "        stack.push(new ElementOfStack(\"$\", 0));\n" +
+                "        stack.push(new ElementOfStack(\"$\", 0, null));\n" +
                 "        if (stringToEvaluate.length() > 0) {\n" +
                 "            symbol = String.valueOf(buffer.charAt(indexOfBuffer));\n" +
                 "        } else {\n" +
                 "            symbol = \"$\";\n" +
                 "        }\n" +
                 "        while (evaluar) {\n" +
-                "            elementOfStack = stack.peek();\n" +
+                "            elementOfStack = (ElementOfStack) stack.peek();\n" +
                 "            state = getLr1Parser().getAutomaton().getState(elementOfStack.getState());\n" +
                 "\n" +
                 "            String finalSymbol = symbol;\n" +
@@ -292,29 +303,56 @@ public class LR1Parser {
                 "            String cadenaPila = \"\";\n" +
                 "\n" +
                 "            if (!actions.isEmpty()) {\n" +
-                "                for (int index = stack.size() - 1; index >= 0; index--) {\n" +
-                "                   // cadenaPila += stack.elementAt(index).getSymbol() +\" \"+ stack.elementAt(index).getState() +\" \";\n" +
-                "          cadenaPila += stack.elementAt(index).getState() +\" \"+ stack.elementAt(index).getSymbol() +\" \";" +
+                "               for (int index = stack.size() - 1; index >= 0; index--) {\n" +
+                "                  if (stack.elementAt(index) instanceof ElementOfStack){\n" +
+                "                      if (((ElementOfStack) stack.elementAt(index)).getLexerSymbol() != null\n" +
+                "                              && ((ElementOfStack) stack.elementAt(index)).getLexerSymbol().value != null)\n" +
+                "                          cadenaPila += ((ElementOfStack) stack.elementAt(index)).getState() + \"ts\"\n" +
+                "                                  + \" \" + ((ElementOfStack) stack.elementAt(index)).getLexerSymbol().value + \" \";\n" +
+                "                      else\n" +
+                "                          cadenaPila += ((ElementOfStack) stack.elementAt(index)).getState() + \"ts\"\n" +
+                "                                  + \" \" + ((ElementOfStack) stack.elementAt(index)).getSymbol() + \" \";\n" +
+                "                  }\n" +
                 "                }\n" +
-                "System.out.println(new StringBuilder(cadenaPila).reverse().toString());"+
+                "\n" +
+                "             //   System.out.println(new StringBuilder(cadenaPila).reverse().toString());\n" +
+                "\n" +
                 "                if (actions.get(0).getAction().equals(\"D\")) {\n" +
                 "                    symbol = String.valueOf(buffer.charAt(++indexOfBuffer));\n" +
-                "                    stack.push(new ElementOfStack(actions.get(0).getTerminal(), actions.get(0).getToState()));\n" +
-                "\n" +
+                "                    stack.push(stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol().value);\n" +
+                "                    stack.push(new ElementOfStack(actions.get(0).getTerminal(), actions.get(0).getToState()\n" +
+                "                            , stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol()));\n" +
                 "                } else {\n" +
                 "                    if (actions.get(0).getAction().equals(\"R\")) {\n" +
                 "                        int eliminarPila = lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).getNumberOfGrammarOfSymbols();\n" +
                 "\n" +
-                "                        for (int i = 0; i < eliminarPila; i++) {\n" +
-                "                            stack.pop();\n" +
+                "                        List<Production> productions = lr1Parser.grammar.getProductions();\n" +
+                "                        int productionTaken = lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).hashCode();\n" +
+                "\n" +
+                "                        int productionNumber = 0;\n" +
+                "                        for (Production production : productions) {\n" +
+                "                            if (production.hashCode() == productionTaken) {\n" +
+                "                                break;\n" +
+                "                            }\n" +
+                "                            productionNumber++;\n" +
                 "                        }\n" +
                 "\n" +
-                "                        elementOfStack = stack.peek();\n" +
+                "                        doReduction(productionNumber,eliminarPila);\n" +
+                "\n" +
+                "                        /*for (int i = 0; i < eliminarPila * 2; i++) {\n" +
+                "                            stack.pop();\n" +
+                "                        }*/\n" +
+                "\n" +
+                "                      //  doPop(eliminarPila);\n" +
+                "\n" +
+                "                        //Push RESULT \n" +
+                "                        elementOfStack = (ElementOfStack) stack.elementAt(stack.size()-2);\n" +
                 "                        state = lr1Parser.getAutomaton().getState(elementOfStack.getState());\n" +
                 "\n" +
                 "                        stack.push(new ElementOfStack(lr1Parser.grammar.getProductions()\n" +
                 "                                .get(actions.get(0).getToState()).getLeftSide(),\n" +
-                "                                state.thereIsTransition(lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).getLeftSide())));\n" +
+                "                                state.thereIsTransition(lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).getLeftSide())\n" +
+                "                                , stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol()));\n" +
                 "                    } else {\n" +
                 "                        return actions.get(0).getAction().equals(\"Aceptar\");\n" +
                 "                    }\n" +
@@ -323,17 +361,20 @@ public class LR1Parser {
                 "                return false;\n" +
                 "            }\n" +
                 "        }\n" +
-                "\n" +
                 "        return false;\n" +
-                "    } " +
-
-                "\n public Scanner getScanner() {\n" +
+                "    }"+
+                "    private void doPop(int eliminarPila) {\n" +
+                "        for (int i = 0; i < eliminarPila * 2 ; i++) {\n" +
+                "            stack.pop();\n" +
+                "        }\n" +
+                "    }"+
+                "    public Lexer getScanner() {\n" +
                 "        return scanner;\n" +
                 "    }\n" +
                 "\n" +
-                "    public void setscanner(Scanner scanner) {\n" +
+                "    public void setscanner(Lexer scanner) {\n" +
                 "        this.scanner = scanner;\n" +
-                "    } " +
+                "    }"+
                 " private static List<String> readFile()\n" +
                 "     {\n" +
                 "         List<String> records = new ArrayList<>();\n" +
@@ -356,8 +397,70 @@ public class LR1Parser {
                 "             e.printStackTrace();\n" +
                 "             return null;\n" +
                 "         }\n" +
-                "     } " +
-                "} ";
+                "     } " ;
+
+
+        List<Production> productions = this.grammar.getProductions();
+
+        String doReduction = " private void doReduction(int r,int cantPop)\n" +
+                "    {\n" +
+                "        Object RESULT = null;\n" +
+                "        switch (r)\n" +
+                "        {";
+
+        int numberOfProduction = 0;
+        for (Production production : productions  ) {
+
+            if (numberOfProduction > 0){
+                String s = "\n\t\t\tcase " + (numberOfProduction) + ":\n\t\t\t{";
+                DirectedTranslationObject sdtObject = this.symbolsTable._sdtObjects.get(numberOfProduction);
+
+                if (sdtObject != null) {
+                    List<String> reversedLabels = new ArrayList<>(sdtObject.getLabels().keySet());
+
+                    Collections.reverse(reversedLabels);
+
+                    String original = sdtObject.getOriginalProduction();
+
+                    String[] splittedBySpace = original.split(" ");
+
+                    int cant = 0;
+                    for (String split : splittedBySpace  ) {
+                        if(!Objects.equals(split, "") && !Objects.equals(split, "javaCode")){
+                            cant++;
+                        }
+                    }
+
+                    for (String label : reversedLabels ) {
+                        String returnTypeOfLabel = this.symbolsTable.GetSymbol(label);
+                        String labelId = sdtObject.getLabels().get(label);
+                        int labelPositon = 0;
+                        for (String element : splittedBySpace ) {
+                            if(!Objects.equals(element, "")){
+                                if (element.equals(label+":"+labelId))
+                                 break;
+                                labelPositon++;
+                            }
+                        }
+
+                        s = s + "\n"+ returnTypeOfLabel + " " + labelId
+                                + " = " + "(" + returnTypeOfLabel + ") stack.elementAt(stack.size() - "+ 2 * (cant - labelPositon) +") ;";
+                    }
+                    doReduction = doReduction + s;
+                    doReduction = doReduction + "\n"+sdtObject.getJavaCode()+"\n";
+                    doReduction = doReduction + "\n   doPop(cantPop);";
+                    doReduction = doReduction + "\n\t\t\t\tstack.push(RESULT);\n\t\t\t\treturn;\n\t\t\t}";
+                }else{
+                    s = s +"\n   doPop(cantPop);";
+                    doReduction = doReduction + s + "\n\t\t\t\tstack.push(RESULT);\n\t\t\t\treturn;\n\t\t\t}";
+                }
+            }
+            numberOfProduction++;
+        }
+
+        doReduction = doReduction + "\n\t\t\tdefault:\n\t\t\t\treturn;\n\t\t}\n\t}\n}";
+
+        code = code + doReduction;
 
         try {
             DynamicClassGenerator.createNewClass("./src/Automaton/Parser/parser2.java",code);
@@ -373,10 +476,6 @@ public class LR1Parser {
                 " public static final int $ = 2; ";
 
         int cont = 3;
-       /* for (String terminal : grammar.getTerminals()  ) {
-            code += " public static final int "+terminal+ "="+cont+";";
-            cont++;
-        } */
 
         for (String symbol : SymbolsTable.getInstance().GetAllSymbols()) {
             if (SymbolsTable.getInstance().SymbolIsTerminal(symbol)){
@@ -387,9 +486,6 @@ public class LR1Parser {
 
         code +=  "public static final String[] terminalNames = new String[] { \n   \"EOF\",  \"error\", \"$\", ";
 
-        /*for (String terminal : grammar.getTerminals()  ) {
-            code += "\""+terminal+"\",";
-        } */
         for (String symbol : SymbolsTable.getInstance().GetAllSymbols()) {
             if (SymbolsTable.getInstance().SymbolIsTerminal(symbol)){
                 code += "\""+symbol+"\",";

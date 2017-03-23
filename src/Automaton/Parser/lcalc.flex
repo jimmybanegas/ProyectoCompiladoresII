@@ -1,13 +1,11 @@
-import java_cup.runtime.*;
 %%
 
 %class Lexer
+%type Symbol
 %public
-
 %line
 %column
 
-%cup
 
 
 %{
@@ -24,9 +22,7 @@ import java_cup.runtime.*;
 LineTerminator = \r|\n|\r\n
 
 WhiteSpace     = {LineTerminator} | [ \t\f]
-
 dec_int_lit = 0 | [1-9][0-9]*
-
 dec_int_id = [A-Za-z_][A-Za-z_0-9]*
 
 %%
@@ -53,4 +49,6 @@ dec_int_id = [A-Za-z_][A-Za-z_0-9]*
 }
 
 
-[^]                    { throw new Error("Illegal character <"+yytext()+">"); }
+
+[^]                    { throw new Error("Illegal character <"+yytext()+"> at line: " + yyline + " column: " + yycolumn); }
+<<EOF>>                          { return symbol(sym.EOF); }

@@ -5,30 +5,42 @@ package Automaton.Parser;
  */
 public class ElementOfStack
 {
-    private String Symbol;
+    private String symbol;
+    private int state;
+    private Symbol lexerSymbol;
+
     public final String getSymbol()
     {
-        return Symbol;
+        return symbol;
     }
     public final void setSymbol(String value)
     {
-        Symbol = value;
+        symbol = value;
     }
-    private int State;
+
     public final int getState()
     {
-        return State;
+        return state;
     }
     public final void setState(int value)
     {
-        State = value;
+        state = value;
     }
 
     public ElementOfStack() { }
 
-    public ElementOfStack(String symbol, int state)
+    public ElementOfStack(String symbol, int state, Symbol lexerSymbol)
     {
         setSymbol(symbol);
         setState(state);
+        setLexerSymbol(lexerSymbol);
+    }
+
+    public Symbol getLexerSymbol() {
+        return lexerSymbol;
+    }
+
+    public void setLexerSymbol(Symbol lexerSymbol) {
+        this.lexerSymbol = lexerSymbol;
     }
 }

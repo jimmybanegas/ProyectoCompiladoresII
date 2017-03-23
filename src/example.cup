@@ -1,127 +1,43 @@
-// Copyright (c) 2010 Gavin Harrison
-// See LICENSE for GPLv3 Terms
+import Automaton.Parser.*;
 
-import java_cup.runtime.*;
-import java.util.*;
+parser code {:
+
+    public void report_error(String message, Object info) {
+
+        StringBuilder m = new StringBuilder("Error");
+
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+
+            if (s.left >= 0) {
+                m.append(" in line "+(s.left+1));
+                if (s.right >= 0)
+                    m.append(", column "+(s.right+1));
+            }
+        }
+
+        m.append(" : "+message);
+
+        System.err.println(m);
+    }
+
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+:};
+
+terminal cero;
+terminal Integer uno;
+non terminal Temp D,S;
+
+S::= D S
+    | D;
+
+D::= cero:c {: System.out.println("Y acá tenemos un cero"); :}
+    | uno:u {: RESULT = new Temp(u,u); :} ;
 
 
-terminal VAR,BEGIN,END,IF,THEN,WHILE,DO,ODD;
-terminal EQ,NEQ,LT,LTE,GT,GTE,LPAREN,RPAREN,PERIOD;
-terminal COMMA,SEMI,ASSIGN,PLUS,MINUS,MULT,DIV,PRINT;
-terminal Integer INT;
-terminal String ID;
-
-non terminal Program program;
-non terminal Block block;
-non terminal VarLst var_lst;
-non terminal StmtLst stmt_lst;
-non terminal Statement statement;
-non terminal Condition condition;
-non terminal Expr expr, term, factor;
-
-program ::=
-		  block:b
-		  {: Program p = new Program(b);
-			 p.exec();
-		  :}
-		;
-
-block ::=
-		  var_lst:vl SEMI statement:s PERIOD
-		  	{: RESULT = new Block(vl,s); :}
-		;
-
-var_lst ::=
-		  VAR ID:i
-		  	{: RESULT = new VarLst(i); :}
-		| var_lst:vl COMMA ID:i
-			{: vl.add(i); RESULT = vl; :}
-		;
-
-statement ::=
-		  ID:i ASSIGN expr:e
-		  	{: RESULT = new AssignStmt(i,e); :}
-		| BEGIN stmt_lst:s END
-			{: RESULT = new BeginStmt(s); :}
-		| IF condition:c THEN statement:s
-			{: RESULT = new IfStmt(c,s); :}
-		| WHILE condition:c DO statement:s
-			{: RESULT = new WhileStmt(c,s); :}
-		| PRINT expr:e
-			{: RESULT = new PrintStmt(e); :}
-		;
-
-stmt_lst ::=
-		  statement:s
-		  	{: RESULT = new StmtLst(s); :}
-		| stmt_lst:sl SEMI statement:s
-			{: sl.add(s); RESULT = sl; :}
-		;
-
-condition ::=
-		  ODD expr:e
-		  	{: RESULT = new OddCond(e); :}
-		| expr:l EQ expr:r
-			{: RESULT = new EqCond(l,r); :}
-		| expr:l NEQ expr:r
-			{: RESULT = new NeqCond(l,r); :}
-		| expr:l LT expr:r
-			{: RESULT = new LtCond(l,r); :}
-		| expr:l LTE expr:r
-			{: RESULT = new LteCond(l,r); :}
-		| expr:l GT expr:r
-			{: RESULT = new GtCond(l,r); :}
-		| expr:l GTE expr:r
-			{: RESULT = new GteCond(l,r); :}
-		;
-
-expr ::=
-		  term:t
-		  	{: RESULT = t; :}
-		| PLUS term:t
-			{: RESULT = t; :}
-		| MINUS term:t
-			{: RESULT = new InvExpr(t); :}
-		| expr:e PLUS term:t
-			{: RESULT = new PlusExpr(e,t); :}
-		| expr:e MINUS term:t
-			{: RESULT = new MinusExpr(e,t); :}
-		;
-
-term ::=
-		  factor:f
-		  	{: RESULT = f; :}
-		| term:t MULT factor:f
-			{: RESULT = new MultExpr(t,f); :}
-		| term:t DIV factor:f
-			{: RESULT = new DivExpr(t,f); :}
-		;
-
-factor ::=
-		  ID:i
-		  	{: RESULT = new ID(i); :}
-		| INT:i
-			{: RESULT = new Num(i); :}
-		| LPAREN expr:e RPAREN
-			{: RESULT = e; :}
-		;
-
-		/*https://github.com/gmh33/Java-CUP-jLex-Example/blob/master/example.lex
-
-		var a,b,c;
-          begin
-          	a := 1;
-          	b := 2;
-          	print c;
-          	c := a + b;
-          	print c;
-          	if odd a then
-          		a := 0 - a;
-          	print a;
-          	b := 10;
-          	while b # 0 do
-          	begin
-          		print b;
-          		b := b - 1
-          	end
-          end.*/
+/*:d {: int v = d;
+               int prof = 1;
+               RESULT = new Temp(v,prof); :}*/
