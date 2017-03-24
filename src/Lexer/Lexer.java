@@ -184,7 +184,10 @@ public class Lexer
 	{
 		setCurrentSymbol(getSourceCode().GetNextSymbol());
 
-		while (Character.isLetterOrDigit(getCurrentSymbol().getCurrentSymbol()) || getCurrentSymbol().getCurrentSymbol() == '_')
+		while (Character.isLetterOrDigit(getCurrentSymbol().getCurrentSymbol())
+				|| getCurrentSymbol().getCurrentSymbol() == '_'
+				|| getCurrentSymbol().getCurrentSymbol() == '<'
+				|| getCurrentSymbol().getCurrentSymbol() == '>')
 		{
 			lexeme += getCurrentSymbol().getCurrentSymbol();
 			setCurrentSymbol(getSourceCode().GetNextSymbol());

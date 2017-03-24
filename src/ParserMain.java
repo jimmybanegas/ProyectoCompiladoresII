@@ -17,13 +17,13 @@ public class ParserMain {
         try {
 
            // parser2 parser =  new parser2(new FlexLexer(new FileReader("./src/test.txt")));
-           parser2 parser =  new parser2(new Lexer(new FileReader("./src/test.txt")));
+          /* parser2 parser =  new parser2(new Lexer(new FileReader("./src/test.txt")));
 
             boolean accepted = parser.parse();
 
             System.out.println(accepted ? "\nAceptado" : "\nNo aceptado");
 
-            Automaton automaton = parser.getLr1Parser().getAutomaton();
+            Automaton automaton = parser.getLr1Parser().getAutomaton(); */
 
            /* for (State state :  automaton.getStatesOfAutomaton()   ) {
                 for (Action action: state.getActions() ) {

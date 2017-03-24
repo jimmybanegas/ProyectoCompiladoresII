@@ -1,5 +1,9 @@
 package Automaton.Parser;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.ListMultimap;
+
 import java.util.HashMap;
 
 /**
@@ -12,6 +16,7 @@ public class DirectedTranslationObject {
     private String javaCode;
     private String originalProduction;
     private HashMap<String,String> labels;
+    private ListMultimap<String, String> multimap ;
 
     public DirectedTranslationObject(int numberOfProduction, int positionJavaCode, String javaCode,String terminal, String originalProduction) {
         this.numberOfProduction = numberOfProduction;
@@ -20,6 +25,7 @@ public class DirectedTranslationObject {
         this.terminal = terminal;
         this.originalProduction = originalProduction;
         labels = new HashMap<>();
+        multimap =  ArrayListMultimap.create();
     }
 
     public int getNumberOfProduction() {
@@ -68,5 +74,13 @@ public class DirectedTranslationObject {
 
     public void setLabels(HashMap<String, String> labels) {
         this.labels = labels;
+    }
+
+    public void setMultimap(ListMultimap<String, String> multimap) {
+        this.multimap = multimap;
+    }
+
+    public ListMultimap<String, String> getMultimap() {
+        return multimap;
     }
 }
