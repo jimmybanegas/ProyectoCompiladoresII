@@ -17,7 +17,7 @@ public class ParserMain {
 
             System.out.println(accepted ? "\nAceptado" : "\nNo aceptado");
 
-           // Automaton automaton = parser.getLr1Parser().getAutomaton();
+           // Automaton automaton = parser.getLr1Parser().getAutomaton();  */
 
 
         } catch (Exception e) {

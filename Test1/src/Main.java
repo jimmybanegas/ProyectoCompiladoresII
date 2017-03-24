@@ -66,14 +66,17 @@ public class Main {
                             fixedElementOfGrammar += "|";
                         }
 
-                        if(production.production.equals("")){
+                        if(production.production.equals("") || production.production.trim().equals("javaCode")){
                             fixedElementOfGrammar+= "~";
+
+                            DirectedTranslationObject sdt = new DirectedTranslationObject(
+                                    numberOfProduction,-1,production.javaCode.replace("{:","").replace(":}","")
+                                    ,nonTerminal,production.production);
+                            //   if (sdt != null){
+                            SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
+
                             pos++;
                             break;
-                        }
-
-                        if (numberOfProduction==6){
-                            System.out.println();
                         }
 
                         int positionOfElement = -1;
@@ -131,10 +134,6 @@ public class Main {
                             positionOfElement++;
 
                             if (labels.size()>0){
-
-                                if (numberOfProduction == 6){
-                                    System.out.println();
-                                }
                                 HashMap<Integer,DirectedTranslationObject> ne = SymbolsTable.getInstance()._sdtObjects;
                                 SymbolsTable.getInstance()._sdtObjects.get(numberOfProduction).setLabels(labels);
                                 SymbolsTable.getInstance()._sdtObjects.get(numberOfProduction).setMultimap(multimap);
@@ -242,7 +241,7 @@ public class Main {
         List<String> records = new ArrayList<>();
         try
         {
-            try (BufferedReader br = new BufferedReader(new FileReader("./Test1/src/ycalcConArbol.cup"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader("./Test1/src/asm.cup"))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                    records.add(line);

@@ -163,4 +163,5 @@ non terminal E,T;
                  |
                  ID:i
                  {: RESULT = i; :}
+                // | {: RESULT = 0; :}
                  ;

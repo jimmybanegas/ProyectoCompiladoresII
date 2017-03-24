@@ -157,6 +157,13 @@ public class Parser
 
         Production production = new Production();
         Token position = getPosition();
+
+        if(getUtilities().CompareTokenType(TokenType.JavaCode)){
+            production.production += " javaCode " ;
+            production.javaCode = CurrentToken.getLexeme();
+            getUtilities().NextToken();
+        }
+
         while (getUtilities().CompareTokenType(TokenType.Identifier)){
 
             production.production += " " + (CurrentToken.getLexeme());
