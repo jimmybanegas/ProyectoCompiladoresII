@@ -3,6 +3,7 @@ package Automaton.Parser;
 import com.google.gson.Gson;
 import Automaton.Automaton.*;
 
+import java.util.Hashtable;
 import java.util.Stack;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -16,6 +17,10 @@ public class parser2 {
     Stack stack = new Stack<>();
     private Lexer scanner;
     private Symbol currentToken;
+
+
+    public Hashtable<String, Object> variables
+            = new Hashtable<String, Object>();
 
     public parser2(Lexer s) {
         this.setscanner(s);
@@ -197,51 +202,102 @@ public class parser2 {
                 return;
             }
             case 3: {
+                Object e = (Object) stack.elementAt(stack.size() - 4);
+                System.out.println(e);
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 4: {
+                String i = (String) stack.elementAt(stack.size() - 8);
+                Object e = (Object) stack.elementAt(stack.size() - 4);
+                variables.put(i, e);
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 5: {
+                Object f = (Object) stack.elementAt(stack.size() - 2);
+                Object e = (Object) stack.elementAt(stack.size() - 6);
+                RESULT = (int) e + (int) f;
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 6: {
+                Object f = (Object) stack.elementAt(stack.size() - 2);
+                Object e = (Object) stack.elementAt(stack.size() - 6);
+                RESULT = (int) e - (int) f;
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 7: {
+                Object f = (Object) stack.elementAt(stack.size() - 2);
+                RESULT = f;
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 8: {
+                Object f = (Object) stack.elementAt(stack.size() - 6);
+                Object t = (Object) stack.elementAt(stack.size() - 2);
+                RESULT = (int) f * (int) t;
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 9: {
+                Object f = (Object) stack.elementAt(stack.size() - 6);
+                Object t = (Object) stack.elementAt(stack.size() - 2);
+                RESULT = (int) f / (int) t;
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 10: {
+                Object t = (Object) stack.elementAt(stack.size() - 2);
+                RESULT = t;
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 11: {
+                Object e = (Object) stack.elementAt(stack.size() - 4);
+                RESULT = e;
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 12: {
+                Integer n = (Integer) stack.elementAt(stack.size() - 2);
+                RESULT = n;
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 13: {
+                String i = (String) stack.elementAt(stack.size() - 2);
+                RESULT = variables.get(i);
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 14: {
+                String s = (String) stack.elementAt(stack.size() - 2);
+                RESULT = s;
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;

@@ -220,20 +220,6 @@ public class LR1Parser {
             }
         }
 
-        this.symbolsTable._sdtObjects.clear();
-
-        String json = gson.toJson(this);
-
-        BufferedWriter out;
-        try {
-            out = new BufferedWriter(new FileWriter(gsonPath));
-            out.write(json);
-            out.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         String code = "{   String gsonLr1 = readFile().toString();\n" +
                 "    Stack stack = new Stack<>();\n" +
                 "    private Lexer scanner;\n" +
@@ -488,7 +474,23 @@ public class LR1Parser {
 
         code = code + doReduction;
 
+
+     /*   } catch (IOException e) {
+            e.printStackTrace();
+        } */
+
         try {
+
+            this.symbolsTable._sdtObjects.clear();
+
+            String json = gson.toJson(this);
+
+            BufferedWriter out;
+            //  try {
+            out = new BufferedWriter(new FileWriter(gsonPath));
+            out.write(json);
+            out.close();
+
             DynamicClassGenerator.createNewClass(path,code);
         } catch (IOException e) {
             e.printStackTrace();
