@@ -53,7 +53,7 @@ non terminal List<ExpressionNode> index_list;
     ;
 
     declaration_list ::= type:t ID:i SEMI declaration_list:li {: li.add(0, new IdDeclarationNode(i,(String)t)); RESULT = li;:}
-   // | {: RESULT = new ArrayList<StatementNode>();:}
+    | {: RESULT = new ArrayList<StatementNode>();:}
     ;
 
     type ::= INTEGER : i  {: RESULT = i; :}
@@ -65,7 +65,7 @@ non terminal List<ExpressionNode> index_list;
             ;
 
    statement_list ::= statement_list:xD statement:xP {:  xD.add(xP); RESULT = xD; :}
-                // | {: List<StatementNode> nodeList = new ArrayList<StatementNode>(); RESULT = nodeList; :}
+                 | {: List<StatementNode> nodeList = new ArrayList<StatementNode>(); RESULT = nodeList; :}
                   ;
    statement ::= PRINT expr:e SEMI {:  RESULT = new PrintNode(e); :}
                  | SCANF expr:e SEMI {: RESULT = new ScanNode(e); :}
@@ -118,6 +118,6 @@ non terminal List<ExpressionNode> index_list;
    id        ::= ID:i index_list:il {: RESULT = new IdNode(il, i);:};
 
    index_list ::= LBRACK expr:e RBRACK index_list:il {: il.add(0, e); RESULT = il;:}
-               /* |
-                 {: RESULT = new ArrayList<ExpressionNode>(); :} */
+                |
+                 {: RESULT = new ArrayList<ExpressionNode>(); :}
                 ;

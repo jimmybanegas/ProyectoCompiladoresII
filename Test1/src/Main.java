@@ -47,6 +47,7 @@ public class Main {
             taken.add('$');
             taken.add('|');
             taken.add(' ');
+            taken.add('~');
 
             int numberOfProduction = 1;
             for (StatementNode node : root) {
@@ -74,6 +75,8 @@ public class Main {
                                     ,nonTerminal,production.production);
                             //   if (sdt != null){
                             SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
+
+                            production.production = "";
 
                             pos++;
                             break;

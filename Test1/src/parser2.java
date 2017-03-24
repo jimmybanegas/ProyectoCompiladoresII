@@ -1,8 +1,9 @@
-import com.google.gson.Gson;
 import Automaton.Automaton.*;
 import Automaton.Parser.*;
-import tree.expression.*;
 import tree.statement.*;
+import tree.expression.*;
+import com.google.gson.Gson;
+import Automaton.Automaton.*;
 
 import java.util.Stack;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class parser2 {
             StringToEvaluate stringToEvaluate = new StringToEvaluate();
             stringToEvaluate.symbol += getLr1Parser().symbolsTable._charsForTerminals.get(sym.terminalNames[currentToken.sym]);
             stringToEvaluate.setLexerSymbol(currentToken);
-            System.out.println("THIS IS A : " + sym.terminalNames[currentToken.sym]);
+            // System.out.println("THIS IS A : " + sym.terminalNames[currentToken.sym]);
 
             stringsToEvaluate.add(stringToEvaluate);
 
@@ -101,7 +102,7 @@ public class parser2 {
                     }
                 }
 
-                System.out.println(new StringBuilder(cadenaPila).reverse().toString());
+                //   System.out.println(new StringBuilder(cadenaPila).reverse().toString());
 
                 if (actions.get(0).getAction().equals("D")) {
                     symbol = String.valueOf(buffer.charAt(++indexOfBuffer));
@@ -485,6 +486,23 @@ public class parser2 {
                 il.add(0, e);
                 RESULT = il;
 
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 35: {
+                RESULT = new ArrayList<ExpressionNode>();
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 36: {
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 37: {
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;

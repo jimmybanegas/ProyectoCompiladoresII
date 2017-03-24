@@ -67,20 +67,13 @@ public class Main {
                             fixedElementOfGrammar += "|";
                         }
 
-                       /* if(production.production.equals("")){
-                            fixedElementOfGrammar+= "~";
-                            pos++;
-                            break;
-                        }*/
-
-
                         if(production.production.equals("") || production.production.trim().equals("javaCode")){
                             fixedElementOfGrammar+= "~";
 
                             DirectedTranslationObject sdt = new DirectedTranslationObject(
                                     numberOfProduction,-1,production.javaCode.replace("{:","").replace(":}","")
                                     ,nonTerminal,production.production);
-                            //   if (sdt != null){
+
                             SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
 
                             pos++;
@@ -96,9 +89,8 @@ public class Main {
                                 DirectedTranslationObject sdt = new DirectedTranslationObject(
                                         numberOfProduction,positionOfElement,production.javaCode.replace("{:","").replace(":}","")
                                         ,nonTerminal,production.production);
-                                //   if (sdt != null){
+
                                 SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
-                                //   }
                             }
                         }
 
@@ -252,7 +244,7 @@ public class Main {
         List<String> records = new ArrayList<>();
         try
         {
-            try (BufferedReader br = new BufferedReader(new FileReader("./src/ycalc.cup"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader("./src/ycalc2.cup"))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                    records.add(line);

@@ -19,9 +19,9 @@ public class ParserMain {
            // parser2 parser =  new parser2(new FlexLexer(new FileReader("./src/test.txt")));
            parser2 parser =  new parser2(new Lexer(new FileReader("./src/test.txt")));
 
-            boolean accepted = parser.parse();
+            Tuple<Object, Object> accepted = parser.parse();
 
-            System.out.println(accepted ? "\nAceptado" : "\nNo aceptado");
+            System.out.println((boolean)accepted.x ? "\nAceptado" : "\nNo aceptado");
 
             Automaton automaton = parser.getLr1Parser().getAutomaton();
 

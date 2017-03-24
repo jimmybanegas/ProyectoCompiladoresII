@@ -229,7 +229,7 @@ public class LR1Parser {
                 "        this.setscanner(s);\n" +
                 "    }\n" +
                 "\n" +
-                "    public boolean parse() throws Exception {\n" +
+                "    public Tuple<Object, Object> parse() throws Exception {\n" +
                 "        currentToken = getScanner().yylex();\n" +
                 "\n" +
                 "        List<StringToEvaluate> stringsToEvaluate = new ArrayList<>();\n" +
@@ -256,7 +256,7 @@ public class LR1Parser {
                 "    }"+
                 "\n public LR1Parser getLr1Parser() {   Gson gson = new Gson(); \n String trimmedJson = gsonLr1.substring(1, gsonLr1.length() - 1);" +
                 " \n return gson.fromJson(trimmedJson,LR1Parser.class); }  " +
-                " private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {\n" +
+                " private Tuple<Object, Object> Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {\n" +
                 "        String buffer = stringToEvaluate + \"$\";\n" +
                 "        State state;\n" +
                 "        ElementOfStack elementOfStack;\n" +
@@ -342,14 +342,18 @@ public class LR1Parser {
                 "                                state.thereIsTransition(lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).getLeftSide())\n" +
                 "                                , stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol()));\n" +
                 "                    } else {\n" +
-                "                        return actions.get(0).getAction().equals(\"Aceptar\");\n" +
+                "                        boolean a = actions.get(0).getAction().equals(\"Aceptar\");\n" +
+                "                        Object b = stack.peek();\n" +
+                "\n" +
+                "                        return new Tuple(a,b);" +
                 "                    }\n" +
                 "                }\n" +
                 "            } else {\n" +
-                "                return false;\n" +
+                "                 Object b = stack.peek();\n" +
+                "                return new Tuple(false,b);" +
                 "            }\n" +
                 "        }\n" +
-                "        return false;\n" +
+                "       return new Tuple(false,false);" +
                 "    }"+
                 "    private void doPop(int eliminarPila) {\n" +
                 "        for (int i = 0; i < eliminarPila * 2 ; i++) {\n" +
