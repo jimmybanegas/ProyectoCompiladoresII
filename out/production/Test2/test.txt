@@ -1,2 +1,2 @@
-terminal  PLUS, MINUS, TIMES, DIVIDE, MOD;
+terminal PLUS, MINUS, TIMES, DIVIDE, MOD;
 

@@ -1,8 +1,8 @@
 import com.google.gson.Gson;
 import Automaton.Automaton.*;
 import Automaton.Parser.*;
-import tree.statement.*;
 import tree.expression.*;
+import tree.statement.*;
 import java.util.Stack;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -180,7 +180,7 @@ public class parser2 {
 
             return records;
         } catch (Exception e) {
-            System.err.format("Exception occurred trying to read '%s'.", "./Test1/src/gsonLr1.txt");
+            System.err.format("Exception occurred trying to read '%s'.", "./src/Automaton/Parser/gsonLr1.txt");
             e.printStackTrace();
             return null;
         }

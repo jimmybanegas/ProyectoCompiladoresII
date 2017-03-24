@@ -166,7 +166,7 @@ public class parser2 {
     private static List<String> readFile() {
         List<String> records = new ArrayList<>();
         try {
-            try (BufferedReader br = new BufferedReader(new FileReader("./src/Automaton/Parser/gsonLr1.txt"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader("./Test2/src/gsonLr1.txt"))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                     records.add(line);
@@ -197,9 +197,7 @@ public class parser2 {
                 return;
             }
             case 2: {
-                ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                String type = (String) stack.elementAt(stack.size() - 6);
-                RESULT = new SymbolDeclarationNode("NONTERMINAL", type, l);
+                RESULT = new Statements();
 
                 doPop(cantPop);
                 stack.push(RESULT);
@@ -217,7 +215,7 @@ public class parser2 {
             case 4: {
                 ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
                 String type = (String) stack.elementAt(stack.size() - 6);
-                RESULT = new SymbolDeclarationNode("TERMINAL", type, l);
+                RESULT = new SymbolDeclarationNode("NONTERMINAL", type, l);
 
                 doPop(cantPop);
                 stack.push(RESULT);
@@ -225,7 +223,8 @@ public class parser2 {
             }
             case 5: {
                 ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                RESULT = new SymbolDeclarationNode("NONTERMINAL", "Object", l);
+                String type = (String) stack.elementAt(stack.size() - 6);
+                RESULT = new SymbolDeclarationNode("TERMINAL", type, l);
 
                 doPop(cantPop);
                 stack.push(RESULT);
@@ -241,13 +240,21 @@ public class parser2 {
             }
             case 7: {
                 ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                RESULT = new SymbolDeclarationNode("TERMINAL", "Object", l);
+                RESULT = new SymbolDeclarationNode("NONTERMINAL", "Object", l);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 8: {
+                ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
+                RESULT = new SymbolDeclarationNode("TERMINAL", "Object", l);
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 9: {
                 String i = (String) stack.elementAt(stack.size() - 10);
                 ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 6);
                 ArrayList<String> le = (ArrayList<String>) stack.elementAt(stack.size() - 4);
@@ -260,20 +267,12 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 9: {
+            case 10: {
                 String i = (String) stack.elementAt(stack.size() - 2);
                 ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 6);
                 RESULT = new ArrayList<>();
-                ((ArrayList<String>) RESULT).addAll((Collection) li);
-                ((ArrayList<String>) RESULT).add(i);
-
-                doPop(cantPop);
-                stack.push(RESULT);
-                return;
-            }
-            case 10: {
-                String i = (String) stack.elementAt(stack.size() - 2);
-                RESULT = new ArrayList<>(Arrays.asList(i));
+                ((ArrayList<String>)RESULT).addAll((Collection) li);
+                ((ArrayList<String>)RESULT).add(i);
 
                 doPop(cantPop);
                 stack.push(RESULT);
@@ -281,75 +280,78 @@ public class parser2 {
             }
             case 11: {
                 String i = (String) stack.elementAt(stack.size() - 2);
-                RESULT = i;
+                RESULT = new ArrayList<>(Arrays.asList(i));
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 12: {
-                String e = (String) stack.elementAt(stack.size() - 2);
-                ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                RESULT = new ArrayList<>();
-                ((ArrayList<String>) RESULT).addAll(li);
-                ((ArrayList<String>) RESULT).add(e);
+                String i = (String) stack.elementAt(stack.size() - 2);
+                RESULT = i;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 13: {
-                String e = (String) stack.elementAt(stack.size() - 6);
-                String label = (String) stack.elementAt(stack.size() - 2);
-                ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 8);
+                String e = (String) stack.elementAt(stack.size() - 2);
+                ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 4);
                 RESULT = new ArrayList<>();
-                ((ArrayList<String>) RESULT).addAll(li);
-                ((ArrayList<String>) RESULT).add(e + ":" + label);
+                ((ArrayList<String>)RESULT).addAll(li);
+                ((ArrayList<String>)RESULT).add(e);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 14: {
-                String i = (String) stack.elementAt(stack.size() - 2);
+                String e = (String) stack.elementAt(stack.size() - 6);
+                String label = (String) stack.elementAt(stack.size() - 2);
+                ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 8);
                 RESULT = new ArrayList<>();
-                ((ArrayList<String>) RESULT).add(i);
+                ((ArrayList<String>)RESULT).addAll(li);
+                ((ArrayList<String>)RESULT).add(e + ":" + label);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 15: {
-                String i = (String) stack.elementAt(stack.size() - 6);
-                String label = (String) stack.elementAt(stack.size() - 2);
+                String i = (String) stack.elementAt(stack.size() - 2);
                 RESULT = new ArrayList<>();
-                ((ArrayList<String>) RESULT).add(i + ":" + label);
+                ((ArrayList<String>)RESULT).add(i);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 16: {
-                ArrayList<String> le = (ArrayList<String>) stack.elementAt(stack.size() - 2);
-                ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 6);
+                String i = (String) stack.elementAt(stack.size() - 6);
+                String label = (String) stack.elementAt(stack.size() - 2);
                 RESULT = new ArrayList<>();
-                if (li != null) {
-                    le.addAll(li);
-                }
-                ((ArrayList<String>) RESULT).addAll((Collection) le);
+                ((ArrayList<String>)RESULT).add(i + ":" + label);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 17: {
+                ArrayList<String> le = (ArrayList<String>) stack.elementAt(stack.size() - 2);
+                ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 6);
                 RESULT = new ArrayList<>();
+                if (li != null) {
+                    le.addAll(li);
+                }
+                ((ArrayList<String>)RESULT).addAll((Collection) le);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 18: {
+                RESULT = new ArrayList<>();
+
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;

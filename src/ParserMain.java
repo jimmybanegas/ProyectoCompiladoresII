@@ -16,7 +16,7 @@ public class ParserMain {
     /* Start the parser */
         try {
 
-            parser2 parser =  new parser2(new Lexer(new FileReader("./Test2/src/test.txt")));
+            parser2 parser =  new parser2(new Lexer(new FileReader("./src/test.txt")));
 
             Tuple<Object, Object> accepted = parser.parse();
 

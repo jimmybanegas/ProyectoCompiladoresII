@@ -14,14 +14,14 @@ section '.data' data readable writeable
 		@c@ dd 0
 		@d@ dd 0
 		@e@ dd 0
-		@x@ db 0
+		@f@ dd 0
 
 
 section '.code' code readable executable
 
   start: 
-		mov eax,1
-		add eax,3
+		mov eax,100
+		add eax,2
 		mov [temp1],eax
 		mov eax,[temp1]
 		mov [@e@],eax
@@ -33,6 +33,16 @@ section '.code' code readable executable
 		mov [@b@],eax
 		
 		push [@e@]
+		push @intprintstr
+		call [printf]
+		add esp,8
+		
+		push @f@
+		push @intscanstr
+		call [scanf]
+		add esp, 8
+		
+		push [@f@]
 		push @intprintstr
 		call [printf]
 		add esp,8

@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+
 public class Main {
 
   public static void main(String[] args) {
@@ -73,9 +74,8 @@ public class Main {
               DirectedTranslationObject sdt = new DirectedTranslationObject(
                       numberOfProduction,-1,production.javaCode.replace("{:","").replace(":}","")
                       ,nonTerminal,production.production);
-              //   if (sdt != null){
-              SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
 
+              SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
               production.production = production.production.trim();
               numberOfProduction++;
               pos++;
@@ -91,9 +91,8 @@ public class Main {
                 DirectedTranslationObject sdt = new DirectedTranslationObject(
                         numberOfProduction,positionOfElement,production.javaCode.replace("{:","").replace(":}","")
                         ,nonTerminal,production.production);
-                //   if (sdt != null){
+
                 SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
-                //   }
               }
             }
 
@@ -146,7 +145,6 @@ public class Main {
             numberOfProduction++;
           }
           stringList.add(fixedElementOfGrammar);
-          //numberOfProduction++;
         }
       }
       System.out.println("\n");
@@ -167,11 +165,7 @@ public class Main {
 
         List<State> states = lr1.getAutomaton().getStatesOfAutomaton();
 
-        printStatesOfAutomaton(states);
-
         lr1.getAutomaton().ConvertLr1ToLalr();
-
-        System.out.println("\nNEW STATES AFTER CONVERTION\n");
 
         printStatesOfAutomaton(lr1.getAutomaton().getStatesOfAutomaton());
 
@@ -208,7 +202,6 @@ public class Main {
 
         lr1.GenerateParserForCupEntryFile("./Test2/src/parser2.java","./Test2/src/gsonLr1.txt");
         lr1.GenerateSymbolsDefinitionFile("./Test2/src/sym.java");
-
       }
     } catch (Exception e) {
       e.printStackTrace();
