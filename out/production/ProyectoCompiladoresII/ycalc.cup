@@ -163,5 +163,6 @@ non terminal E,T;
                  |
                  ID:i
                  {: RESULT = i; :}
-                // | {: RESULT = 0; :}
+                 |
+                 {: System.out.println("VACIO"); :}
                  ;

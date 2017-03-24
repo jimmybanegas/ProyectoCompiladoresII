@@ -48,6 +48,7 @@ public class Main {
             taken.add('$');
             taken.add('|');
             taken.add(' ');
+            taken.add('~');
 
             int numberOfProduction = 1;
             for (StatementNode node : root) {
@@ -134,10 +135,6 @@ public class Main {
                             positionOfElement++;
 
                             if (labels.size()>0){
-
-                                if (numberOfProduction == 6){
-                                    System.out.println();
-                                }
                                 HashMap<Integer,DirectedTranslationObject> ne = SymbolsTable.getInstance()._sdtObjects;
                                 SymbolsTable.getInstance()._sdtObjects.get(numberOfProduction).setLabels(labels);
                                 SymbolsTable.getInstance()._sdtObjects.get(numberOfProduction).setMultimap(multimap);
@@ -147,7 +144,6 @@ public class Main {
                         numberOfProduction++;
                     }
                     stringList.add(fixedElementOfGrammar);
-                    //numberOfProduction++;
                 }
             }
             System.out.println("\n");
@@ -168,11 +164,7 @@ public class Main {
 
                 List<State> states = lr1.getAutomaton().getStatesOfAutomaton();
 
-                printStatesOfAutomaton(states);
-
                 lr1.getAutomaton().ConvertLr1ToLalr();
-
-                System.out.println("\nNEW STATES AFTER CONVERTION\n");
 
                 printStatesOfAutomaton(lr1.getAutomaton().getStatesOfAutomaton());
 
@@ -244,7 +236,7 @@ public class Main {
         List<String> records = new ArrayList<>();
         try
         {
-            try (BufferedReader br = new BufferedReader(new FileReader("./src/ycalc2.cup"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader("./src/ycalc.cup"))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                    records.add(line);
