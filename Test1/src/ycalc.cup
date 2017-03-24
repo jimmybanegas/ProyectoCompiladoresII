@@ -1,0 +1,93 @@
+import java.util.Hashtable;
+
+
+parser code {:
+    Hashtable<String,Integer > variables = new Hashtable<String, Integer>();
+
+    public void report_error(String message, Object info) {
+     
+        StringBuilder m = new StringBuilder("Error");
+   
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+   
+            if (s.left >= 0) {                
+                m.append(" in line "+(s.left+1));   
+                if (s.right >= 0)                    
+                    m.append(", column "+(s.right+1));
+            }
+        }
+   
+        m.append(" : "+message);
+   
+        System.err.println(m);
+    }
+   
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+:};
+   
+
+   
+terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN;
+terminal           ASSIGN,PRINT;
+terminal    NUMBER;
+terminal     ID;
+   
+non terminal      expr_list, expr_part;
+non terminal Integer    expr, factor, term;
+   
+
+
+
+   
+   
+   expr_list ::= expr_list expr_part
+                 |
+                 expr_part;
+   
+   
+   expr_part ::= ID:i ASSIGN expr:e SEMI
+                 {: parser.variables.put(i,e); :}
+                |PRINT expr:e SEMI
+                 {: System.out.println(e); :}
+                 ;
+   
+   
+   expr      ::= expr:e PLUS factor:f
+                 {: RESULT = e+f; :}
+                 |
+                 expr:e MINUS factor:f
+                 {: RESULT = e-f; :}
+                 |
+                 factor:f
+                 {: RESULT = f; :}
+                 ;
+   
+   
+   factor    ::= factor:f TIMES term:t
+                 {: RESULT = f*t; :}
+                 |
+                 factor:f DIVIDE term:t
+                 {: RESULT = f/t; :}
+                 |
+                 term:t
+                 {: RESULT = t; :}
+                 ;
+   
+
+
+   term      ::= LPAREN expr:e RPAREN {: RESULT = e; :}
+                 | NUMBER:n {: RESULT = n; :}
+                 | ID:i {:
+                       if(parser.variables.containsKey(i))
+                          RESULT = parser.variables.get(i);
+                       else
+                       {
+                          System.out.println("Variable "+i+" no existe!!!" );
+                          RESULT = 0;
+                       }
+                   :}
+                 ;

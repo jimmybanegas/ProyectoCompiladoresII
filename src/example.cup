@@ -27,15 +27,18 @@ parser code {:
     }
 :};
 
-terminal cero;
-terminal Integer uno;
+terminal Integer cero,uno;
 non terminal Temp D,S;
 
-S::= D S
-    | D;
+S::= D:d S:s {: /*S.valor = S.valor + D.valor* (int) Math.pow(2, S.profundidad);
+                S.profundidad = S.profundidad+1;*/ :}
 
-D::= cero:c {: System.out.println("Y acá tenemos un cero"); :}
-    | uno:u {: RESULT = new Temp(u,u); :} ;
+    | D:d {: int v = d.getValor();
+             int prof = 1;
+             RESULT = new Temp(v,prof); :};
+
+D::= cero:c {: RESULT = 0; :}
+    | uno:u {: RESULT = 1; :} ;
 
 
 /*:d {: int v = d;

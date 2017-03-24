@@ -1,0 +1,91 @@
+import java.util.*;
+import treenodes.*;
+
+parser code {:
+    Hashtable<String,Integer > variables = new Hashtable<String, Integer>();
+
+    public void report_error(String message, Object info) {
+     
+        StringBuilder m = new StringBuilder("Error");
+   
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+   
+            if (s.left >= 0) {                
+                m.append(" in line "+(s.left+1));   
+                if (s.right >= 0)                    
+                    m.append(", column "+(s.right+1));
+            }
+        }
+   
+        m.append(" : "+message);
+   
+        System.err.println(m);
+    }
+   
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+:};
+   
+
+   
+terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN;
+terminal           ASSIGN,PRINT;
+terminal Integer   NUMBER;
+terminal String    ID;
+   
+non terminal StatementNode     expr_part;
+non terminal List<StatementNode> expr_list;
+non terminal ExpresionNode    expr, factor, term;
+   
+
+   expr_list ::= expr_list:l expr_part:e
+                 {: l.add(e);
+                     RESULT = l;
+                  :}
+                 |
+                 expr_part:e
+                 {: List<StatementNode> list = new List<StatementNode>();
+                    list.add(e);
+                    RESULT= l;
+                  :};
+   
+   
+   expr_part ::= ID:i ASSIGN expr:e SEMI
+                 {: RESULT = new AssignmentNode(new IdNode(i),e); :}
+                |PRINT expr:e SEMI
+                 {: RESULT = new PrintNode(e); :}
+                 ;
+   
+   
+   expr      ::= expr:e PLUS factor:f
+                 {: RESULT = new  SumNode(e,f); :}
+                 |
+                 expr:e MINUS factor:f
+                 {: RESULT = new SubstractNode(e,f); :}
+                 |
+                 factor:f
+                 {: RESULT = f; :}
+                 ;
+   
+   
+   factor    ::= factor:f TIMES term:t
+                 {: RESULT = new MultiplyNode(f,t); :}
+                 |
+                 factor:f DIVIDE term:t
+                 {: RESULT =  new DivideNode(f,t); :}
+                 |
+                 term:t
+                 {: RESULT = t; :}
+                 ;
+   
+
+
+   term      ::= LPAREN expr:e RPAREN {: RESULT = e; :}
+                 | NUMBER:n {: RESULT = new NumberNode(n); :}
+                 | ID:i {:
+                      RESULT = new IdNode(i);
+                   :}
+                 ;

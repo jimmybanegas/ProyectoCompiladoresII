@@ -43,6 +43,20 @@ public class DynamicClassGenerator {
         writer.close();
     }
 
+    public static void createNewSymClass(String directoryAndClassName, String code) throws IOException {
+        File sourceFile = new File(directoryAndClassName);
+
+        // generate the source code, using the source filename as the class name
+        String classname = sourceFile.getName().split("\\.")[0];
+        String sourceCode = "package Automaton.Parser;" +
+                "\n public class " + classname + code;
+
+        // write the source code into the source file
+        FileWriter writer = new FileWriter(sourceFile);
+        writer.write(sourceCode);
+        writer.close();
+    }
+
     public static void createClassAndExecuteCode(String code) throws Exception {
         // create an empty source file
         File sourceFile = File.createTempFile("Hello", ".java");

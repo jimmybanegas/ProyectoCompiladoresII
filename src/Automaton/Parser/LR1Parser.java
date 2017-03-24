@@ -209,7 +209,7 @@ public class LR1Parser {
     }
 
     //Generates parser.java
-    public void GenerateParserForCupEntryFile(){
+    public void GenerateParserForCupEntryFile(String path,String gsonPath){
         Gson gson = new Gson();
 
         Automaton clone = this.getAutomaton();
@@ -218,18 +218,6 @@ public class LR1Parser {
             for (Transition transition : state.getTransitions() ) {
                 transition.setLink(null);
             }
-        }
-
-        String json = gson.toJson(this);
-
-        BufferedWriter out;
-        try {
-            out = new BufferedWriter(new FileWriter("./src/Automaton/Parser/gsonLr1.txt"));
-            out.write(json);
-            out.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         String code = "{   String gsonLr1 = readFile().toString();\n" +
@@ -415,10 +403,12 @@ public class LR1Parser {
                 String s = "\n\t\t\tcase " + (numberOfProduction) + ":\n\t\t\t{";
                 DirectedTranslationObject sdtObject = this.symbolsTable._sdtObjects.get(numberOfProduction);
 
+
                 if (sdtObject != null) {
                     List<String> reversedLabels = new ArrayList<>(sdtObject.getLabels().keySet());
-
+                    //List<String> reversedLabels2 = new ArrayList<>(sdtObject.getMultimap().asMap());
                     Collections.reverse(reversedLabels);
+                    //Collections.reverse(reversedLabels2);
 
                     String original = sdtObject.getOriginalProduction();
 
@@ -434,17 +424,39 @@ public class LR1Parser {
                     for (String label : reversedLabels ) {
                         String returnTypeOfLabel = this.symbolsTable.GetSymbol(label);
                         String labelId = sdtObject.getLabels().get(label);
+
+                        List<String> labelIds = sdtObject.getMultimap().get(label);
+
                         int labelPositon = 0;
-                        for (String element : splittedBySpace ) {
-                            if(!Objects.equals(element, "")){
-                                if (element.equals(label+":"+labelId))
-                                 break;
-                                labelPositon++;
+
+                        if (sdtObject.getLabels().size() != sdtObject.getMultimap().size() && labelIds.size() > 1){
+                            for (String element : splittedBySpace ) {
+                                if(!Objects.equals(element, "")){
+                                   // labelPositon = 0;
+                                    for (String labelIdFromList : labelIds){
+                                        if (element.equals(label+":"+labelIdFromList)){
+                                            s = s + "\n"+ returnTypeOfLabel + " " + labelIdFromList
+                                                    + " = " + "(" + returnTypeOfLabel + ") stack.elementAt(stack.size() - "+ 2 * (cant - labelPositon/2) +") ;";
+                                            labelPositon++;
+                                            break;
+                                        }
+                                        labelPositon++;
+                                    }
+                                }
                             }
                         }
+                        else{
+                            for (String element : splittedBySpace ) {
+                                if(!Objects.equals(element, "")){
+                                    if (element.equals(label+":"+labelId))
+                                        break;
+                                    labelPositon++;
+                                }
+                            }
 
-                        s = s + "\n"+ returnTypeOfLabel + " " + labelId
-                                + " = " + "(" + returnTypeOfLabel + ") stack.elementAt(stack.size() - "+ 2 * (cant - labelPositon) +") ;";
+                            s = s + "\n"+ returnTypeOfLabel + " " + labelId
+                                    + " = " + "(" + returnTypeOfLabel + ") stack.elementAt(stack.size() - "+ 2 * (cant - labelPositon) +") ;";
+                        }
                     }
                     doReduction = doReduction + s;
                     doReduction = doReduction + "\n"+sdtObject.getJavaCode()+"\n";
@@ -462,15 +474,31 @@ public class LR1Parser {
 
         code = code + doReduction;
 
+
+     /*   } catch (IOException e) {
+            e.printStackTrace();
+        } */
+
         try {
-            DynamicClassGenerator.createNewClass("./src/Automaton/Parser/parser2.java",code);
+
+            this.symbolsTable._sdtObjects.clear();
+
+            String json = gson.toJson(this);
+
+            BufferedWriter out;
+            //  try {
+            out = new BufferedWriter(new FileWriter(gsonPath));
+            out.write(json);
+            out.close();
+
+            DynamicClassGenerator.createNewClass(path,code);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     //Generates sym.java
-    public void GenerateSymbolsDefinitionFile(){
+    public void GenerateSymbolsDefinitionFile(String path){
         String code = "{    public static final int EOF = 0; " +
                 " public static final int error = 1;  " +
                 " public static final int $ = 2; ";
@@ -497,7 +525,7 @@ public class LR1Parser {
         code+= " }";
 
         try {
-            DynamicClassGenerator.createNewClass("./src/Automaton/Parser/sym.java",code);
+            DynamicClassGenerator.createNewSymClass(path,code);
         } catch (IOException e) {
             e.printStackTrace();
         }
