@@ -109,7 +109,7 @@ non terminal String symbol_type;
                                RESULT.addAll((Collection)le);
                              :}
                               |
-                              {:RESULT = new ArrayList<>(); :}
+                              {: RESULT = new ArrayList<>(); :}
                               ;
 
 

@@ -1,10 +1,8 @@
+import com.google.gson.Gson;
 import Automaton.Automaton.*;
 import Automaton.Parser.*;
 import tree.statement.*;
 import tree.expression.*;
-import com.google.gson.Gson;
-import Automaton.Automaton.*;
-
 import java.util.Stack;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -23,7 +21,7 @@ public class parser2 {
         this.setscanner(s);
     }
 
-    public boolean parse() throws Exception {
+    public Tuple<Object, Object> parse() throws Exception {
         currentToken = getScanner().yylex();
 
         List<StringToEvaluate> stringsToEvaluate = new ArrayList<>();
@@ -55,7 +53,7 @@ public class parser2 {
         return gson.fromJson(trimmedJson, LR1Parser.class);
     }
 
-    private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {
+    private Tuple<Object, Object> Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {
         String buffer = stringToEvaluate + "$";
         State state;
         ElementOfStack elementOfStack;
@@ -141,14 +139,17 @@ public class parser2 {
                                 state.thereIsTransition(lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).getLeftSide())
                                 , stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol()));
                     } else {
-                        return actions.get(0).getAction().equals("Aceptar");
+                        boolean a = actions.get(0).getAction().equals("Aceptar");
+                        Object b = stack.elementAt(stack.size() - 2);
+                        return new Tuple(a, b);
                     }
                 }
             } else {
-                return false;
+                Object b = stack.elementAt(stack.size() - 2);
+                return new Tuple(false, b);
             }
         }
-        return false;
+        return new Tuple(false, null);
     }
 
     private void doPop(int eliminarPila) {
@@ -168,7 +169,7 @@ public class parser2 {
     private static List<String> readFile() {
         List<String> records = new ArrayList<>();
         try {
-            try (BufferedReader br = new BufferedReader(new FileReader("./src/Automaton/Parser/gsonLr1.txt"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader("./Test1/src/gsonLr1.txt"))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                     records.add(line);
@@ -179,7 +180,7 @@ public class parser2 {
 
             return records;
         } catch (Exception e) {
-            System.err.format("Exception occurred trying to read '%s'.", "./src/Automaton/Parser/gsonLr1.txt");
+            System.err.format("Exception occurred trying to read '%s'.", "./Test1/src/gsonLr1.txt");
             e.printStackTrace();
             return null;
         }
@@ -212,6 +213,13 @@ public class parser2 {
                 return;
             }
             case 3: {
+                RESULT = new ArrayList<StatementNode>();
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 4: {
                 Object i = (Object) stack.elementAt(stack.size() - 2);
                 RESULT = i;
 
@@ -219,7 +227,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 4: {
+            case 5: {
                 Object f = (Object) stack.elementAt(stack.size() - 2);
                 RESULT = f;
 
@@ -227,7 +235,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 5: {
+            case 6: {
                 Object c = (Object) stack.elementAt(stack.size() - 2);
                 RESULT = c;
 
@@ -235,7 +243,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 6: {
+            case 7: {
                 Object b = (Object) stack.elementAt(stack.size() - 2);
                 RESULT = b;
 
@@ -243,7 +251,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 7: {
+            case 8: {
                 Object s = (Object) stack.elementAt(stack.size() - 2);
                 RESULT = s;
 
@@ -251,7 +259,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 8: {
+            case 9: {
                 Object a = (Object) stack.elementAt(stack.size() - 2);
                 RESULT = a;
 
@@ -259,7 +267,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 9: {
+            case 10: {
                 List<StatementNode> xD = (List<StatementNode>) stack.elementAt(stack.size() - 4);
                 StatementNode xP = (StatementNode) stack.elementAt(stack.size() - 2);
                 xD.add(xP);
@@ -269,7 +277,15 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 10: {
+            case 11: {
+                List<StatementNode> nodeList = new ArrayList<StatementNode>();
+                RESULT = nodeList;
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 12: {
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 4);
                 RESULT = new PrintNode(e);
 
@@ -277,7 +293,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 11: {
+            case 13: {
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 4);
                 RESULT = new ScanNode(e);
 
@@ -285,7 +301,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 12: {
+            case 14: {
                 IdNode i = (IdNode) stack.elementAt(stack.size() - 8);
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 4);
                 RESULT = new AssignNode(e, i);
@@ -294,7 +310,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 13: {
+            case 15: {
                 List<StatementNode> s = (List<StatementNode>) stack.elementAt(stack.size() - 4);
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 10);
                 RESULT = new IfNode(e, s, null);
@@ -303,7 +319,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 14: {
+            case 16: {
                 List<StatementNode> s = (List<StatementNode>) stack.elementAt(stack.size() - 12);
                 List<StatementNode> s2 = (List<StatementNode>) stack.elementAt(stack.size() - 4);
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 18);
@@ -313,7 +329,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 15: {
+            case 17: {
                 List<StatementNode> s = (List<StatementNode>) stack.elementAt(stack.size() - 4);
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 10);
                 RESULT = new WhileNode(e, s);
@@ -322,7 +338,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 16: {
+            case 18: {
                 List<StatementNode> s = (List<StatementNode>) stack.elementAt(stack.size() - 4);
                 IdNode i = (IdNode) stack.elementAt(stack.size() - 18);
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 14);
@@ -333,7 +349,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 17: {
+            case 19: {
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = new GreaterThanNode(f, e);
@@ -342,7 +358,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 18: {
+            case 20: {
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = new LessThanNode(f, e);
@@ -351,7 +367,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 19: {
+            case 21: {
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = new GreaterOrEqualsThanNode(f, e);
@@ -360,7 +376,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 20: {
+            case 22: {
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = new LessOrEqualsThanNode(f, e);
@@ -369,7 +385,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 21: {
+            case 23: {
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = new EqualsNode(f, e);
@@ -378,7 +394,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 22: {
+            case 24: {
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = new NotEqualsNode(f, e);
@@ -387,7 +403,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 23: {
+            case 25: {
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = f;
 
@@ -395,7 +411,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 24: {
+            case 26: {
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 RESULT = new SumNode(f, e);
@@ -404,7 +420,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 25: {
+            case 27: {
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 RESULT = new SubNode(f, e);
@@ -413,7 +429,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 26: {
+            case 28: {
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = f;
 
@@ -421,7 +437,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 27: {
+            case 29: {
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 ExpressionNode t = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = new MultNode(t, f);
@@ -430,7 +446,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 28: {
+            case 30: {
                 ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 ExpressionNode t = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = new DivNode(t, f);
@@ -439,7 +455,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 29: {
+            case 31: {
                 ExpressionNode t = (ExpressionNode) stack.elementAt(stack.size() - 2);
                 RESULT = t;
 
@@ -447,7 +463,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 30: {
+            case 32: {
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 4);
                 RESULT = e;
 
@@ -455,7 +471,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 31: {
+            case 33: {
                 Integer n = (Integer) stack.elementAt(stack.size() - 2);
                 RESULT = new NumberNode(n);
 
@@ -463,7 +479,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 32: {
+            case 34: {
                 IdNode i = (IdNode) stack.elementAt(stack.size() - 2);
                 RESULT = i;
 
@@ -471,7 +487,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 33: {
+            case 35: {
                 List<ExpressionNode> il = (List<ExpressionNode>) stack.elementAt(stack.size() - 2);
                 String i = (String) stack.elementAt(stack.size() - 4);
                 RESULT = new IdNode(il, i);
@@ -480,7 +496,7 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 34: {
+            case 36: {
                 List<ExpressionNode> il = (List<ExpressionNode>) stack.elementAt(stack.size() - 2);
                 ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
                 il.add(0, e);
@@ -490,19 +506,9 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 35: {
+            case 37: {
                 RESULT = new ArrayList<ExpressionNode>();
 
-                doPop(cantPop);
-                stack.push(RESULT);
-                return;
-            }
-            case 36: {
-                doPop(cantPop);
-                stack.push(RESULT);
-                return;
-            }
-            case 37: {
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;

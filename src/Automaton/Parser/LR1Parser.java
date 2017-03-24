@@ -343,17 +343,17 @@ public class LR1Parser {
                 "                                , stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol()));\n" +
                 "                    } else {\n" +
                 "                        boolean a = actions.get(0).getAction().equals(\"Aceptar\");\n" +
-                "                        Object b = stack.peek();\n" +
+                "                        Object b = stack.elementAt(stack.size()-2);" +
                 "\n" +
                 "                        return new Tuple(a,b);" +
                 "                    }\n" +
                 "                }\n" +
                 "            } else {\n" +
-                "                 Object b = stack.peek();\n" +
+                "                Object b = stack.elementAt(stack.size()-2);\n" +
                 "                return new Tuple(false,b);" +
                 "            }\n" +
                 "        }\n" +
-                "       return new Tuple(false,false);" +
+                "       return new Tuple(false,null);" +
                 "    }"+
                 "    private void doPop(int eliminarPila) {\n" +
                 "        for (int i = 0; i < eliminarPila * 2 ; i++) {\n" +
@@ -406,6 +406,10 @@ public class LR1Parser {
             if (numberOfProduction > 0){
                 String s = "\n\t\t\tcase " + (numberOfProduction) + ":\n\t\t\t{";
                 DirectedTranslationObject sdtObject = this.symbolsTable._sdtObjects.get(numberOfProduction);
+
+                if (numberOfProduction == 3){
+                    System.out.println();
+                }
 
 
                 if (sdtObject != null) {

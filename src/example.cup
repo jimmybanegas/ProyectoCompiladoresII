@@ -27,20 +27,18 @@ parser code {:
     }
 :};
 
-terminal Integer cero,uno;
+
+terminal Object cero,uno;
 non terminal Temp D,S;
 
-S::= D:d S:s {: /*S.valor = S.valor + D.valor* (int) Math.pow(2, S.profundidad);
-                S.profundidad = S.profundidad+1;*/ :}
+S::= D:d S:s {: s.setValor (s.getValor() + d.getValor() * (int) Math.pow(2, s.getProfundidad()) );
+                s.setProfundidad (s.getProfundidad()+1);
+                  RESULT = new Temp(s.getValor(),s.getProfundidad() ); :}
 
     | D:d {: int v = d.getValor();
              int prof = 1;
              RESULT = new Temp(v,prof); :};
 
-D::= cero:c {: RESULT = 0; :}
-    | uno:u {: RESULT = 1; :} ;
+D::= cero:c {: RESULT = new Temp(0,0); :}
+    | uno:u {: RESULT = new Temp(1,0); :} ;
 
-
-/*:d {: int v = d;
-               int prof = 1;
-               RESULT = new Temp(v,prof); :}*/

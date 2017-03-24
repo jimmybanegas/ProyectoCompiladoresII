@@ -77,6 +77,8 @@ public class Main {
 
                             SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
 
+                            production.production = production.production.trim();
+                            numberOfProduction++;
                             pos++;
                             break;
                         }

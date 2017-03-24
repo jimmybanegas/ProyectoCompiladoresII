@@ -2,7 +2,6 @@ import com.google.gson.Gson;
 import Automaton.Automaton.*;
 import Automaton.Parser.*;
 import Tree.*;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.io.BufferedReader;
@@ -138,17 +137,16 @@ public class parser2 {
                                 , stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol()));
                     } else {
                         boolean a = actions.get(0).getAction().equals("Aceptar");
-                        Object b = stack.peek();
-
+                        Object b = stack.elementAt(stack.size() - 2);
                         return new Tuple(a, b);
                     }
                 }
             } else {
-                Object b = stack.peek();
+                Object b = stack.elementAt(stack.size() - 2);
                 return new Tuple(false, b);
             }
         }
-        return new Tuple(false, false);
+        return new Tuple(false, null);
     }
 
     private void doPop(int eliminarPila) {
@@ -263,13 +261,11 @@ public class parser2 {
                 return;
             }
             case 9: {
-
                 String i = (String) stack.elementAt(stack.size() - 2);
                 ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 6);
                 RESULT = new ArrayList<>();
-
-                RESULT.addAll((Collection) li);
-                RESULT.add(i);
+                ((ArrayList<String>) RESULT).addAll((Collection) li);
+                ((ArrayList<String>) RESULT).add(i);
 
                 doPop(cantPop);
                 stack.push(RESULT);
@@ -295,8 +291,8 @@ public class parser2 {
                 String e = (String) stack.elementAt(stack.size() - 2);
                 ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 4);
                 RESULT = new ArrayList<>();
-                RESULT.addAll(li);
-                RESULT.add(e);
+                ((ArrayList<String>) RESULT).addAll(li);
+                ((ArrayList<String>) RESULT).add(e);
 
                 doPop(cantPop);
                 stack.push(RESULT);
@@ -307,8 +303,8 @@ public class parser2 {
                 String label = (String) stack.elementAt(stack.size() - 2);
                 ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 8);
                 RESULT = new ArrayList<>();
-                RESULT.addAll(li);
-                RESULT.add(e + ":" + label);
+                ((ArrayList<String>) RESULT).addAll(li);
+                ((ArrayList<String>) RESULT).add(e + ":" + label);
 
                 doPop(cantPop);
                 stack.push(RESULT);
@@ -317,7 +313,7 @@ public class parser2 {
             case 14: {
                 String i = (String) stack.elementAt(stack.size() - 2);
                 RESULT = new ArrayList<>();
-                RESULT.add(i);
+                ((ArrayList<String>) RESULT).add(i);
 
                 doPop(cantPop);
                 stack.push(RESULT);
@@ -327,7 +323,7 @@ public class parser2 {
                 String i = (String) stack.elementAt(stack.size() - 6);
                 String label = (String) stack.elementAt(stack.size() - 2);
                 RESULT = new ArrayList<>();
-                RESULT.add(i + ":" + label);
+                ((ArrayList<String>) RESULT).add(i + ":" + label);
 
                 doPop(cantPop);
                 stack.push(RESULT);
@@ -340,7 +336,7 @@ public class parser2 {
                 if (li != null) {
                     le.addAll(li);
                 }
-                RESULT.addAll((Collection) le);
+                ((ArrayList<String>) RESULT).addAll((Collection) le);
 
                 doPop(cantPop);
                 stack.push(RESULT);
