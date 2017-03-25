@@ -1,2 +1,8 @@
-terminal PLUS, MINUS, TIMES, DIVIDE, MOD;
+var A := 100;
+var B := 666;
 
+read A;
+
+print A;
+
+success:

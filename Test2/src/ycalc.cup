@@ -1,0 +1,83 @@
+import tree.expression.*;
+import tree.statement.*;
+import java.util.*;
+parser code {:
+    
+    public void report_error(String message, Object info) {
+   
+        StringBuilder m = new StringBuilder("Error");
+   
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+   
+            if (s.left >= 0) {                
+                m.append(" in line "+(s.left+1));   
+                if (s.right >= 0)                    
+                    m.append(", column "+(s.right+1));
+            }
+        }
+   
+        m.append(" : "+message);
+   
+        System.err.println(m);
+    }
+   
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+
+
+    public HashMap<String,Integer> vars = new HashMap<String,Integer>();
+:};   
+terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, EQUALS, PRINT, IF, SCANF;
+terminal           VAR, GOTO, COLON;
+terminal Integer   NUMBER;
+terminal String   ID;
+terminal GREATERTHAN, LESSTHAN, LESSOREQUALTHAN, GREATEROREQUALTHAN, EQUALSEQUALS, NOTEQUALS;
+
+non terminal List<StatementNode>    program, statement_list;
+non terminal StatementNode statement;
+non terminal ExpressionNode expr, term, rel_term;
+non terminal IdNode id;
+
+
+    program ::= statement_list:sl {: RESULT = sl;  :}
+    ;
+
+   statement_list ::= statement_list:sl statement:sp {:  sl.add(sp); RESULT = sl; :}
+                 | {: List<StatementNode> nodeList = new ArrayList<StatementNode>(); RESULT = nodeList; :}
+                  ;
+   statement ::= PRINT expr:e SEMI {:  RESULT = new PrintNode(e); :}
+                 | SCANF expr:e SEMI {: RESULT = new ScanNode(e); :}
+                 | VAR id:i EQUALS expr:e SEMI {: RESULT = new AssignNode(e, i, true); :}
+                 | id:i EQUALS expr:e SEMI {: RESULT = new AssignNode(e, i, false); :}
+                 | IF  rel_term:e GOTO id:i {: RESULT = new IfNode(e, i); :}
+                 | id:i COLON {: RESULT = new LabelDeclarationNode(i); :}
+                 | GOTO id:i SEMI{: RESULT = new GoToLabelNode(i); :}
+                 ;
+
+   expr      ::= rel_term:f {: RESULT = f; :}
+                | term:e PLUS term:f {: RESULT = new SumNode(f,e); :}
+                | term:e MINUS term:f {: RESULT = new SubNode(f,e); :}
+                | term:e TIMES term:f {: RESULT = new MultNode(f,e); :}
+                | term:e DIVIDE term:f {: RESULT = new DivNode(f,e); :}
+                | term:f {: RESULT = f; :}
+                ;
+
+   rel_term ::= term:e GREATERTHAN term:f {: RESULT = new GreaterThanNode(f,e); :}
+            | term:e LESSTHAN term:f {: RESULT = new LessThanNode(f,e); :}
+            | term:e GREATEROREQUALTHAN term:f {: RESULT = new GreaterOrEqualsThanNode(f,e); :}
+            | term:e LESSOREQUALTHAN term:f {: RESULT = new LessOrEqualsThanNode(f,e); :}
+            | term:e EQUALSEQUALS term:f {: RESULT = new EqualsNode(f,e); :}
+            | term:e NOTEQUALS term:f {: RESULT = new NotEqualsNode(f,e); :}
+            ;
+
+   term      ::= NUMBER:n
+                 {: RESULT = new NumberNode(n); :}
+                 |
+                 id:i
+                 {: RESULT = i; :}
+                 ;
+
+   id        ::= ID:i {: RESULT = new IdNode(i);:};

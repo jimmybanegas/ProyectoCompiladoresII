@@ -1,9 +1,7 @@
 JAVA=java
 JAVAC=javac
 JFLEX=../../bin/jflex
-CUPJAR=../../lib/java-cup-11a.jar
-CUP=$(JAVA) -jar $(CUPJAR) <
-CP=.:$(CUPJAR)
+CUP=$(JAVA) java_cup.Main <
 
 all: test
 
@@ -11,12 +9,12 @@ test: output.txt
 	@(diff output.txt output.good && echo "Test OK!") || echo "Test failed!"
 
 output.txt: Main.class test.txt
-	$(JAVA) -cp $(CP) Main test.txt > output.txt
+	$(JAVA) Main test.txt > output.txt
 
 Main.class: Main.java Lexer.java parser.java
 
 %.class: %.java
-	$(JAVAC) -cp $(CP) $^
+	$(JAVAC) $^
 
 Lexer.java: lcalc.flex
 	$(JFLEX) lcalc.flex

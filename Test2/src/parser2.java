@@ -1,9 +1,12 @@
 import com.google.gson.Gson;
 import Automaton.Automaton.*;
 import Automaton.Parser.*;
-import Tree.*;
-import java.util.*;
+import tree.expression.*;
+import tree.statement.*;
+import java.util.Stack;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -97,7 +100,7 @@ public class parser2 {
                     }
                 }
 
-                //   System.out.println(new StringBuilder(cadenaPila).reverse().toString());
+                  // System.out.println(new StringBuilder(cadenaPila).reverse().toString());
 
                 if (actions.get(0).getAction().equals("D")) {
                     symbol = String.valueOf(buffer.charAt(++indexOfBuffer));
@@ -134,7 +137,7 @@ public class parser2 {
                         stack.push(new ElementOfStack(lr1Parser.grammar.getProductions()
                                 .get(actions.get(0).getToState()).getLeftSide(),
                                 state.thereIsTransition(lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).getLeftSide())
-                                , stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol()));
+                                , null));
                     } else {
                         boolean a = actions.get(0).getAction().equals("Aceptar");
                         Object b = stack.elementAt(stack.size() - 2);
@@ -187,170 +190,215 @@ public class parser2 {
         Object RESULT = null;
         switch (r) {
             case 1: {
-                Statements es = (Statements) stack.elementAt(stack.size() - 4);
-                StatementNode e = (StatementNode) stack.elementAt(stack.size() - 2);
-                es.Statements.add(e);
-                RESULT = es;
+                List<StatementNode> sl = (List<StatementNode>) stack.elementAt(stack.size() - 2);
+                RESULT = sl;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 2: {
-                RESULT = new Statements();
+                List<StatementNode> sl = (List<StatementNode>) stack.elementAt(stack.size() - 4);
+                StatementNode sp = (StatementNode) stack.elementAt(stack.size() - 2);
+                sl.add(sp);
+                RESULT = sl;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 3: {
-                ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                String type = (String) stack.elementAt(stack.size() - 6);
-                RESULT = new SymbolDeclarationNode("NONTERMINAL", type, l);
+                List<StatementNode> nodeList = new ArrayList<StatementNode>();
+                RESULT = nodeList;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 4: {
-                ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                String type = (String) stack.elementAt(stack.size() - 6);
-                RESULT = new SymbolDeclarationNode("NONTERMINAL", type, l);
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 4);
+                RESULT = new PrintNode(e);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 5: {
-                ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                String type = (String) stack.elementAt(stack.size() - 6);
-                RESULT = new SymbolDeclarationNode("TERMINAL", type, l);
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 4);
+                RESULT = new ScanNode(e);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 6: {
-                ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                RESULT = new SymbolDeclarationNode("NONTERMINAL", "Object", l);
+                IdNode i = (IdNode) stack.elementAt(stack.size() - 8);
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 4);
+                RESULT = new AssignNode(e, i, true);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 7: {
-                ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                RESULT = new SymbolDeclarationNode("NONTERMINAL", "Object", l);
+                IdNode i = (IdNode) stack.elementAt(stack.size() - 8);
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 4);
+                RESULT = new AssignNode(e, i, false);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 8: {
-                ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                RESULT = new SymbolDeclarationNode("TERMINAL", "Object", l);
+                IdNode i = (IdNode) stack.elementAt(stack.size() - 2);
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                RESULT = new IfNode(e, i);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 9: {
-                String i = (String) stack.elementAt(stack.size() - 10);
-                ArrayList<String> l = (ArrayList<String>) stack.elementAt(stack.size() - 6);
-                ArrayList<String> le = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                ArrayList<ArrayList<String>> productions = new ArrayList<>();
-                productions.add(l);
-                productions.add(le);
-                RESULT = new ProductionNode(i, productions);
+                IdNode i = (IdNode) stack.elementAt(stack.size() - 4);
+                RESULT = new LabelDeclarationNode(i);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 10: {
-                String i = (String) stack.elementAt(stack.size() - 2);
-                ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 6);
-                RESULT = new ArrayList<>();
-                ((ArrayList<String>)RESULT).addAll((Collection) li);
-                ((ArrayList<String>)RESULT).add(i);
+                IdNode i = (IdNode) stack.elementAt(stack.size() - 4);
+                RESULT = new GoToLabelNode(i);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 11: {
-                String i = (String) stack.elementAt(stack.size() - 2);
-                RESULT = new ArrayList<>(Arrays.asList(i));
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = f;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 12: {
-                String i = (String) stack.elementAt(stack.size() - 2);
-                RESULT = i;
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = new SumNode(f, e);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 13: {
-                String e = (String) stack.elementAt(stack.size() - 2);
-                ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 4);
-                RESULT = new ArrayList<>();
-                ((ArrayList<String>)RESULT).addAll(li);
-                ((ArrayList<String>)RESULT).add(e);
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = new SubNode(f, e);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 14: {
-                String e = (String) stack.elementAt(stack.size() - 6);
-                String label = (String) stack.elementAt(stack.size() - 2);
-                ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 8);
-                RESULT = new ArrayList<>();
-                ((ArrayList<String>)RESULT).addAll(li);
-                ((ArrayList<String>)RESULT).add(e + ":" + label);
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = new MultNode(f, e);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 15: {
-                String i = (String) stack.elementAt(stack.size() - 2);
-                RESULT = new ArrayList<>();
-                ((ArrayList<String>)RESULT).add(i);
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = new DivNode(f, e);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 16: {
-                String i = (String) stack.elementAt(stack.size() - 6);
-                String label = (String) stack.elementAt(stack.size() - 2);
-                RESULT = new ArrayList<>();
-                ((ArrayList<String>)RESULT).add(i + ":" + label);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = f;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 17: {
-                ArrayList<String> le = (ArrayList<String>) stack.elementAt(stack.size() - 2);
-                ArrayList<String> li = (ArrayList<String>) stack.elementAt(stack.size() - 6);
-                RESULT = new ArrayList<>();
-                if (li != null) {
-                    le.addAll(li);
-                }
-                ((ArrayList<String>)RESULT).addAll((Collection) le);
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = new GreaterThanNode(f, e);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 18: {
-                RESULT = new ArrayList<>();
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = new LessThanNode(f, e);
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 19: {
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = new GreaterOrEqualsThanNode(f, e);
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 20: {
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = new LessOrEqualsThanNode(f, e);
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 21: {
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = new EqualsNode(f, e);
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 22: {
+                ExpressionNode e = (ExpressionNode) stack.elementAt(stack.size() - 6);
+                ExpressionNode f = (ExpressionNode) stack.elementAt(stack.size() - 2);
+                RESULT = new NotEqualsNode(f, e);
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 23: {
+                Integer n = (Integer) stack.elementAt(stack.size() - 2);
+                RESULT = new NumberNode(n);
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 24: {
+                IdNode i = (IdNode) stack.elementAt(stack.size() - 2);
+                RESULT = i;
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
+            case 25: {
+                String i = (String) stack.elementAt(stack.size() - 2);
+                RESULT = new IdNode(i);
 
                 doPop(cantPop);
                 stack.push(RESULT);

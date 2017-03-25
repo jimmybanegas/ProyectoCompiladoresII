@@ -1,16 +1,3 @@
-public class sym {
-    public static final int EOF = 0;
-    public static final int error = 1;
-    public static final int $ = 2;
-    public static final int ASSIGNATION = 3;
-    public static final int COMMA = 4;
-    public static final int TERMINAL = 5;
-    public static final int NONTERMINAL = 6;
-    public static final int SEMI = 7;
-    public static final int COLON = 8;
-    public static final int PIPE = 9;
-    public static final int ID = 10;
-    public static final int NON = 11;
-    public static final String[] terminalNames = new String[]{
-            "EOF", "error", "$", "ASSIGNATION", "COMMA", "TERMINAL", "NONTERMINAL", "SEMI", "COLON", "PIPE", "ID", "NON",};
-}
+package Automaton.Parser;
+ public class sym{    public static final int EOF = 0;  public static final int error = 1;   public static final int $ = 2;  public static final int PRINT=3; public static final int GOTO=4; public static final int NUMBER=5; public static final int TIMES=6; public static final int EQUALS=7; public static final int EQUALSEQUALS=8; public static final int LESSOREQUALTHAN=9; public static final int VAR=10; public static final int SEMI=11; public static final int COLON=12; public static final int MINUS=13; public static final int DIVIDE=14; public static final int NOTEQUALS=15; public static final int SCANF=16; public static final int LESSTHAN=17; public static final int GREATEROREQUALTHAN=18; public static final int ID=19; public static final int IF=20; public static final int GREATERTHAN=21; public static final int PLUS=22;public static final String[] terminalNames = new String[] { 
+   "EOF",  "error", "$", "PRINT","GOTO","NUMBER","TIMES","EQUALS","EQUALSEQUALS","LESSOREQUALTHAN","VAR","SEMI","COLON","MINUS","DIVIDE","NOTEQUALS","SCANF","LESSTHAN","GREATEROREQUALTHAN","ID","IF","GREATERTHAN","PLUS", }; }
