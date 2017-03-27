@@ -1,4 +1,4 @@
-var A := 100;
+var A := 100 + 10;
 var B := 666;
 
 read A;
@@ -6,3 +6,5 @@ read A;
 print A;
 
 success:
+
+

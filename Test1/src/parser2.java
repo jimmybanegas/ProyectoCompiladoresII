@@ -137,7 +137,7 @@ public class parser2 {
                         stack.push(new ElementOfStack(lr1Parser.grammar.getProductions()
                                 .get(actions.get(0).getToState()).getLeftSide(),
                                 state.thereIsTransition(lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).getLeftSide())
-                                , stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol()));
+                                , null));
                     } else {
                         boolean a = actions.get(0).getAction().equals("Aceptar");
                         Object b = stack.elementAt(stack.size() - 2);
