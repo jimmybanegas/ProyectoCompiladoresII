@@ -1,19 +1,5 @@
-int a;
-int b;
-int c;
-int d;
-int e;
-int f;
+for ( a = 1 to 5 ){
 
-e = 100+2;
-
-a = 0;
-b = 5;
-
-purinto e;
-
-scanf f;
-
-purinto f;
+}
 
 
