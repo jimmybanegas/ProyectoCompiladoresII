@@ -1,0 +1,124 @@
+import tree.expression.*;
+import tree.statement.*;
+import java.util.*;
+parser code {:
+
+    public void report_error(String message, Object info) {
+
+        StringBuilder m = new StringBuilder("Error");
+
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+
+            if (s.left >= 0) {
+                m.append(" in line "+(s.left+1));
+                if (s.right >= 0)
+                    m.append(", column "+(s.right+1));
+            }
+        }
+
+        m.append(" : "+message);
+
+        System.err.println(m);
+    }
+
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+
+
+    public HashMap<String,Integer> vars = new HashMap<String,Integer>();
+:};
+terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, EQUALS, PRINT, IF, LCURLY, RCURLY, ELSE, WHILE, LBRACK, RBRACK, OF,SCANF;
+terminal            FOR,TO,INTEGER,FLOAT,CHAR,BOOLEAN,STRING, ARRAY;
+terminal Integer   NUMBER;
+terminal String   ID;
+terminal GREATERTHAN, LESSTHAN, LESSOREQUALTHAN, GREATEROREQUALTHAN, EQUALSEQUALS, NOTEQUALS;
+
+//non terminal Object declaration_list,type;
+non terminal Object type;
+non terminal List<StatementNode> declaration_list;
+non terminal List<StatementNode>    program, statement_list;
+non terminal StatementNode statement;
+non terminal ExpressionNode    expr, factor, term, sumfactor;
+non terminal IdNode id;
+non terminal List<ExpressionNode> index_list;
+
+
+    program ::= declaration_list:d statement_list:sl {:   ArrayList<StatementNode> ds = new ArrayList<>();
+                                                                             ds.addAll(d);
+                                                                             ds.addAll(sl);
+                                                                             RESULT = ds;  :}
+    ;
+
+    declaration_list ::= type:t ID:i SEMI declaration_list:li {: li.add(0, new IdDeclarationNode(i,(String)t)); RESULT = li;:}
+    |
+    {: RESULT = new ArrayList<StatementNode>(); :}
+    ;
+
+    type ::= INTEGER : i  {: RESULT = i; :}
+            | FLOAT : f  {: RESULT = f; :}
+            | CHAR : c {: RESULT = c; :}
+            | BOOLEAN : b {: RESULT = b; :}
+            | STRING : s  {: RESULT = s; :}
+            | ARRAY LBRACK NUMBER RBRACK OF type:a  {: RESULT = a; :}
+            ;
+
+   statement_list ::= statement_list:xD statement:xP {:  xD.add(xP); RESULT = xD; :}
+                 | {: List<StatementNode> nodeList = new ArrayList<StatementNode>(); RESULT = nodeList; :}
+                  ;
+   statement ::= PRINT expr:e SEMI {:  RESULT = new PrintNode(e); :}
+                 | SCANF expr:e SEMI {: RESULT = new ScanNode(e); :}
+                 | id:i EQUALS expr:e SEMI {: RESULT = new AssignNode(e, i); :}
+                 | IF LPAREN expr:e RPAREN LCURLY statement_list:s RCURLY {: RESULT = new IfNode(e,s,null); :}
+                 | IF LPAREN expr:e RPAREN LCURLY statement_list:s RCURLY ELSE LCURLY statement_list:s2 RCURLY {: RESULT = new IfNode(e,s,s2); :}
+                 | WHILE LPAREN expr:e RPAREN LCURLY statement_list:s RCURLY {: RESULT = new WhileNode(e,s); :}
+                 | FOR LPAREN id:i EQUALS expr:e TO expr:e2 RPAREN LCURLY statement_list:s RCURLY {: RESULT = new ForNode(i,e,e2,s); :}
+                 ;
+
+
+   expr      ::= expr:e GREATERTHAN sumfactor:f {: RESULT = new GreaterThanNode(f,e); :}
+                | expr:e LESSTHAN sumfactor:f {: RESULT = new LessThanNode(f,e); :}
+                | expr:e GREATEROREQUALTHAN sumfactor:f {: RESULT = new GreaterOrEqualsThanNode(f,e); :}
+                | expr:e LESSOREQUALTHAN sumfactor:f {: RESULT = new LessOrEqualsThanNode(f,e); :}
+                | expr:e EQUALSEQUALS sumfactor:f {: RESULT = new EqualsNode(f,e); :}
+                | expr:e NOTEQUALS sumfactor:f {: RESULT = new NotEqualsNode(f,e); :}
+                | sumfactor:f {: RESULT = f; :}
+                ;
+
+   sumfactor ::= sumfactor:e PLUS factor:f
+                 {: RESULT = new SumNode(f,e); :}
+                 |sumfactor:e MINUS factor:f
+                 {: RESULT = new SubNode(f,e); :}
+                 |
+                 factor:f
+                 {: RESULT = f; :}
+                 ;
+
+   factor    ::= factor:f TIMES term:t
+                 {: RESULT = new MultNode(t,f); :}
+                 |
+                 factor:f DIVIDE term:t
+                 {: RESULT = new DivNode(t,f); :}
+                 |
+                 term:t
+                 {: RESULT = t; :}
+                 ;
+
+   term      ::= LPAREN expr:e RPAREN
+                 {: RESULT = e; :}
+                 |
+                 NUMBER:n
+                 {: RESULT = new NumberNode(n); :}
+                 |
+                 id:i
+                 {: RESULT = i; :}
+                 ;
+
+   id        ::= ID:i index_list:il {: RESULT = new IdNode(il, i);:};
+
+   index_list ::= LBRACK expr:e RBRACK index_list:il {: il.add(0, e); RESULT = il;:}
+                 |
+                 {: RESULT = new ArrayList<ExpressionNode>(); :}
+                ;

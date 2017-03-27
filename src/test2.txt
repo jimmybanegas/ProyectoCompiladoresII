@@ -1,0 +1,9 @@
+a = 60;
+b = 2;
+c = a + 85;
+
+d = "w";
+
+print d;
+
+print c;

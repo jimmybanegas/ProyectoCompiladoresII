@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -47,6 +48,7 @@ public class Main {
             taken.add('$');
             taken.add('|');
             taken.add(' ');
+            taken.add('~');
 
             int numberOfProduction = 1;
             for (StatementNode node : root) {
@@ -66,14 +68,18 @@ public class Main {
                             fixedElementOfGrammar += "|";
                         }
 
-                        if(production.production.equals("")){
+                        if(production.production.equals("") || production.production.trim().equals("javaCode")){
                             fixedElementOfGrammar+= "~";
+
+                            DirectedTranslationObject sdt = new DirectedTranslationObject(
+                                    numberOfProduction,-1,production.javaCode.replace("{:","").replace(":}","")
+                                    ,nonTerminal,production.production);
+
+                            SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
+                            production.production = production.production.trim();
+                            numberOfProduction++;
                             pos++;
                             break;
-                        }
-
-                        if (numberOfProduction==6){
-                            System.out.println();
                         }
 
                         int positionOfElement = -1;
@@ -85,9 +91,8 @@ public class Main {
                                 DirectedTranslationObject sdt = new DirectedTranslationObject(
                                         numberOfProduction,positionOfElement,production.javaCode.replace("{:","").replace(":}","")
                                         ,nonTerminal,production.production);
-                                //   if (sdt != null){
+
                                 SymbolsTable.getInstance()._sdtObjects.put(numberOfProduction,sdt);
-                                //   }
                             }
                         }
 
@@ -115,7 +120,7 @@ public class Main {
                                         if (symbol.length() > 1){
                                             c = symbol.toLowerCase().charAt(0);
                                             while (taken.contains(c)){
-                                                    c = randomSeriesForThreeCharacter();
+                                                c = randomSeriesForThreeCharacter();
                                             }
                                             taken.add(c);
                                         }
@@ -131,10 +136,6 @@ public class Main {
                             positionOfElement++;
 
                             if (labels.size()>0){
-
-                                if (numberOfProduction == 6){
-                                    System.out.println();
-                                }
                                 HashMap<Integer,DirectedTranslationObject> ne = SymbolsTable.getInstance()._sdtObjects;
                                 SymbolsTable.getInstance()._sdtObjects.get(numberOfProduction).setLabels(labels);
                                 SymbolsTable.getInstance()._sdtObjects.get(numberOfProduction).setMultimap(multimap);
@@ -144,7 +145,6 @@ public class Main {
                         numberOfProduction++;
                     }
                     stringList.add(fixedElementOfGrammar);
-                    //numberOfProduction++;
                 }
             }
             System.out.println("\n");
@@ -165,11 +165,7 @@ public class Main {
 
                 List<State> states = lr1.getAutomaton().getStatesOfAutomaton();
 
-                printStatesOfAutomaton(states);
-
                 lr1.getAutomaton().ConvertLr1ToLalr();
-
-                System.out.println("\nNEW STATES AFTER CONVERTION\n");
 
                 printStatesOfAutomaton(lr1.getAutomaton().getStatesOfAutomaton());
 
@@ -206,7 +202,6 @@ public class Main {
 
                 lr1.GenerateParserForCupEntryFile("./Test1/src/parser2.java","./Test1/src/gsonLr1.txt");
                 lr1.GenerateSymbolsDefinitionFile("./Test1/src/sym.java");
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -242,10 +237,10 @@ public class Main {
         List<String> records = new ArrayList<>();
         try
         {
-            try (BufferedReader br = new BufferedReader(new FileReader("./Test1/src/ycalcConArbol.cup"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader("./Test1/src/asm.cup"))) {
                 String line;
                 while ((line = br.readLine()) != null) {
-                   records.add(line);
+                    records.add(line);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

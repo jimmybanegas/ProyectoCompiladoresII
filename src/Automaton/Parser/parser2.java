@@ -3,7 +3,6 @@ package Automaton.Parser;
 import com.google.gson.Gson;
 import Automaton.Automaton.*;
 
-import java.util.Hashtable;
 import java.util.Stack;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -18,15 +17,11 @@ public class parser2 {
     private Lexer scanner;
     private Symbol currentToken;
 
-
-    public Hashtable<String, Object> variables
-            = new Hashtable<String, Object>();
-
     public parser2(Lexer s) {
         this.setscanner(s);
     }
 
-    public boolean parse() throws Exception {
+    public Tuple<Object, Object> parse() throws Exception {
         currentToken = getScanner().yylex();
 
         List<StringToEvaluate> stringsToEvaluate = new ArrayList<>();
@@ -58,7 +53,7 @@ public class parser2 {
         return gson.fromJson(trimmedJson, LR1Parser.class);
     }
 
-    private boolean Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {
+    private Tuple<Object, Object> Evaluate(String stringToEvaluate, List<StringToEvaluate> stringsToEvaluate) {
         String buffer = stringToEvaluate + "$";
         State state;
         ElementOfStack elementOfStack;
@@ -144,14 +139,17 @@ public class parser2 {
                                 state.thereIsTransition(lr1Parser.grammar.getProductions().get(actions.get(0).getToState()).getLeftSide())
                                 , stringsToEvaluate.get(indexOfBuffer - 1).getLexerSymbol()));
                     } else {
-                        return actions.get(0).getAction().equals("Aceptar");
+                        boolean a = actions.get(0).getAction().equals("Aceptar");
+                        Object b = stack.elementAt(stack.size() - 2);
+                        return new Tuple(a, b);
                     }
                 }
             } else {
-                return false;
+                Object b = stack.elementAt(stack.size() - 2);
+                return new Tuple(false, b);
             }
         }
-        return false;
+        return new Tuple(false, null);
     }
 
     private void doPop(int eliminarPila) {
@@ -202,83 +200,74 @@ public class parser2 {
                 return;
             }
             case 3: {
-                Object e = (Object) stack.elementAt(stack.size() - 4);
-                System.out.println(e);
+                Integer e = (Integer) stack.elementAt(stack.size() - 4);
+                System.out.println("\nRespuesta: " + e);
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 4: {
-                String i = (String) stack.elementAt(stack.size() - 8);
-                Object e = (Object) stack.elementAt(stack.size() - 4);
-                variables.put(i, e);
+                Integer f = (Integer) stack.elementAt(stack.size() - 2);
+                Integer e = (Integer) stack.elementAt(stack.size() - 6);
+                RESULT = e + f;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 5: {
-                Object f = (Object) stack.elementAt(stack.size() - 2);
-                Object e = (Object) stack.elementAt(stack.size() - 6);
-                RESULT = (int) e + (int) f;
+                Integer f = (Integer) stack.elementAt(stack.size() - 2);
+                Integer e = (Integer) stack.elementAt(stack.size() - 6);
+                RESULT = e - f;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 6: {
-                Object f = (Object) stack.elementAt(stack.size() - 2);
-                Object e = (Object) stack.elementAt(stack.size() - 6);
-                RESULT = (int) e - (int) f;
-
-                doPop(cantPop);
-                stack.push(RESULT);
-                return;
-            }
-            case 7: {
-                Object f = (Object) stack.elementAt(stack.size() - 2);
+                Integer f = (Integer) stack.elementAt(stack.size() - 2);
                 RESULT = f;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
+            case 7: {
+                Integer f = (Integer) stack.elementAt(stack.size() - 6);
+                Integer t = (Integer) stack.elementAt(stack.size() - 2);
+                RESULT = f * t;
+
+                doPop(cantPop);
+                stack.push(RESULT);
+                return;
+            }
             case 8: {
-                Object f = (Object) stack.elementAt(stack.size() - 6);
-                Object t = (Object) stack.elementAt(stack.size() - 2);
-                RESULT = (int) f * (int) t;
+                Integer f = (Integer) stack.elementAt(stack.size() - 6);
+                Integer t = (Integer) stack.elementAt(stack.size() - 2);
+                RESULT = f / t;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
             case 9: {
-                Object f = (Object) stack.elementAt(stack.size() - 6);
-                Object t = (Object) stack.elementAt(stack.size() - 2);
-                RESULT = (int) f / (int) t;
-
-                doPop(cantPop);
-                stack.push(RESULT);
-                return;
-            }
-            case 10: {
-                Object t = (Object) stack.elementAt(stack.size() - 2);
+                Integer t = (Integer) stack.elementAt(stack.size() - 2);
                 RESULT = t;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
-            case 11: {
-                Object e = (Object) stack.elementAt(stack.size() - 4);
+            case 10: {
+                Integer e = (Integer) stack.elementAt(stack.size() - 4);
                 RESULT = e;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
-            case 12: {
+            case 11: {
                 Integer n = (Integer) stack.elementAt(stack.size() - 2);
                 RESULT = n;
 
@@ -286,17 +275,16 @@ public class parser2 {
                 stack.push(RESULT);
                 return;
             }
-            case 13: {
-                String i = (String) stack.elementAt(stack.size() - 2);
-                RESULT = variables.get(i);
+            case 12: {
+                Integer i = (Integer) stack.elementAt(stack.size() - 2);
+                RESULT = i;
 
                 doPop(cantPop);
                 stack.push(RESULT);
                 return;
             }
-            case 14: {
-                String s = (String) stack.elementAt(stack.size() - 2);
-                RESULT = s;
+            case 13: {
+                System.out.println("VACIO");
 
                 doPop(cantPop);
                 stack.push(RESULT);

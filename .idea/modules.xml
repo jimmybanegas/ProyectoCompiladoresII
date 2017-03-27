@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ProyectoCompiladoresII.iml" filepath="$PROJECT_DIR$/ProyectoCompiladoresII.iml" />
       <module fileurl="file://$PROJECT_DIR$/Test1/Test1.iml" filepath="$PROJECT_DIR$/Test1/Test1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Test2/Test2.iml" filepath="$PROJECT_DIR$/Test2/Test2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Test3/Test3.iml" filepath="$PROJECT_DIR$/Test3/Test3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Test4/Test4.iml" filepath="$PROJECT_DIR$/Test4/Test4.iml" />
     </modules>
   </component>
 </project>
